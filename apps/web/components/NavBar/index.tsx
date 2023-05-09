@@ -1,76 +1,81 @@
 import React from "react";
-import * as Styles from "./styles";
+import { Container, MButton, Links, Logo, LogoImg, LogoText, Navigation, SectionsTitle } from "./styles";
 
 import logo from "../../assets/personspace-logo.svg";
 
 import { AiFillBulb } from "react-icons/ai";
 import { IoCalendar } from "react-icons/io5";
+import { TfiMenuAlt } from "react-icons/tfi";
 import { MdViewAgenda, MdHelpCenter } from "react-icons/md";
 import { RiEdit2Fill, RiContactsBook2Fill, RiHome3Fill } from "react-icons/ri";
 
 function NavBar() {
   return (
-    <Styles.Container>
-      <Styles.Logo>
-        <Styles.LogoImg src={logo.src} />
+    <Container>
+      <MButton>
+        <TfiMenuAlt fontSize={25}/>
+      </MButton>
 
-        <Styles.LogoText>Personspace</Styles.LogoText>
-      </Styles.Logo>
+      <Logo>
+        <LogoImg src={logo.src} />
 
-      <Styles.SectionsTitle>PAGES</Styles.SectionsTitle>
+        <LogoText>Personspace</LogoText>
+      </Logo>
 
-      <Styles.Navigation>
-        <Styles.Links>
+      <SectionsTitle>PAGES</SectionsTitle>
+
+      <Navigation>
+        <Links>
           <RiHome3Fill fontSize={18} />
 
           <a href="#">Home</a>
-        </Styles.Links>
+        </Links>
 
-        <Styles.Links>
+        <Links>
           <AiFillBulb fontSize={18} />
 
           <a href="#">About</a>
-        </Styles.Links>
-      </Styles.Navigation>
+        </Links>
+      </Navigation>
 
-      <Styles.SectionsTitle>PERSONAL</Styles.SectionsTitle>
+      <SectionsTitle>PERSONAL</SectionsTitle>
 
-      <Styles.Navigation>
-        <Styles.Links>
+      <Navigation>
+        <Links>
           <RiEdit2Fill fontSize={18} />
 
           <a href="#">Annotation</a>
-        </Styles.Links>
+        </Links>
 
-        <Styles.Links>
+        <Links>
           <IoCalendar fontSize={18} />
 
           <a href="#">Calendar</a>
-        </Styles.Links>
+        </Links>
 
-        <Styles.Links>
+        <Links>
           <RiContactsBook2Fill fontSize={18} />
 
           <a href="#">Contacts</a>
-        </Styles.Links>
+        </Links>
 
-        <Styles.Links>
+        <Links>
           <MdViewAgenda fontSize={18} />
 
           <a href="#">Schedule</a>
-        </Styles.Links>
-      </Styles.Navigation>
+        </Links>
+      </Navigation>
 
-      <Styles.SectionsTitle>CENTRAL</Styles.SectionsTitle>
+      <SectionsTitle>CENTRAL</SectionsTitle>
 
-      <Styles.Navigation>
-        <Styles.Links>
+      <Navigation>
+        <Links>
           <MdHelpCenter fontSize={19} />
 
           <a href="#">Help me</a>
-        </Styles.Links>
-      </Styles.Navigation>
-    </Styles.Container>
+        </Links>
+      </Navigation>
+    </Container>
   );
 }
 

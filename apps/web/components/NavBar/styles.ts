@@ -7,6 +7,17 @@ export const Container = styled.nav`
   
   border-radius: 0 10px 10px 0;
   background-color: ${({ theme }) => theme.COLORS.PRIMARY};
+`
+
+export const MButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 10px;
+  padding: 15px;
+  border-radius: 50%;
+  background-color: rgba(142, 181, 240, 0.1);
 `;
 
 export const Logo = styled.div`
