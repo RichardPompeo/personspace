@@ -14,8 +14,9 @@ export const MButton = styled.button`
   align-items: center;
   justify-content: center;
 
-  margin: 10px;
+  cursor: pointer;
   padding: 15px;
+  margin: 10px 20px;
   border-radius: 50%;
   background-color: rgba(142, 181, 240, 0.1);
 `;
