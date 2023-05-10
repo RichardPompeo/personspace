@@ -9,7 +9,6 @@ export const Container = styled.main`
   justify-content: center;
 `;
 
-
 export const HeaderContent = styled.div`
   display: grid;
   align-items: center;

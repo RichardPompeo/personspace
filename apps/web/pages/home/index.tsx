@@ -1,7 +1,8 @@
 import React from 'react';
-import { Container, HeaderContent, Header, Title, Button, SubTitle, Img } from './styles';
 
 import abstract from "../../assets/abstract.svg";
+import { Container, HeaderContent, Header, Title, Button, SubTitle, Img } from './styles';
+
 
 function Home() {
   return (

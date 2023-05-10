@@ -2,7 +2,7 @@ import React from "react";
 import NavBar from "../components/NavBar";
 import GlobalStyle from "../styles/global";
 
-import Home from "../pages/home/home";
+import Home from "../pages/home";
 
 function Layout() {
   return (
