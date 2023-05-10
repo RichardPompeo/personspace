@@ -4,10 +4,10 @@ export const Container = styled.nav`
   width: 20rem;
   height: 100vh;
   position: fixed;
-  
+
   border-radius: 0 10px 10px 0;
   background-color: ${({ theme }) => theme.COLORS.PRIMARY};
-`
+`;
 
 export const MButton = styled.button`
   display: flex;
@@ -66,18 +66,17 @@ export const ListRoutes = styled.li`
   display: flex;
   flex-direction: row;
   align-items: center;
-  
+
   gap: 15px;
   margin: 0 2em;
   padding: 0.8em 1.5em;
   list-style: none;
   border-radius: 10px;
 
-
   &:hover {
     cursor: pointer;
     background-color: ${({ theme }) => theme.COLORS.DEFAULT};
-    
+
     & {
       color: ${({ theme }) => theme.COLORS.DEFAULT_TWO};
     }

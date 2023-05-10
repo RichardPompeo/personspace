@@ -2,7 +2,16 @@ import React from "react";
 import Link from "next/link";
 
 import logo from "../../assets/personspace-logo.svg";
-import { Container, MButton, ListRoutes, Logo, LogoImg, LogoText, Navigation, SectionsTitle } from "./styles";
+import {
+  Container,
+  MButton,
+  ListRoutes,
+  Logo,
+  LogoImg,
+  LogoText,
+  Navigation,
+  SectionsTitle,
+} from "./styles";
 
 import { AiFillBulb } from "react-icons/ai";
 import { IoCalendar } from "react-icons/io5";
@@ -14,35 +23,28 @@ function NavBar() {
   return (
     <Container>
       <MButton>
-        <TfiMenuAlt fontSize={25}/>
+        <TfiMenuAlt fontSize={25} />
       </MButton>
-
       <Logo>
         <LogoImg src={logo.src} />
-
         <LogoText>Personspace</LogoText>
       </Logo>
-
       <SectionsTitle>PAGES</SectionsTitle>
-
       <Navigation>
         <Link href="#">
           <ListRoutes>
-            <RiHome3Fill fontSize={18} /> 
+            <RiHome3Fill fontSize={18} />
             Home
           </ListRoutes>
         </Link>
-        
         <Link href="#">
           <ListRoutes>
-            <AiFillBulb fontSize={18} /> 
+            <AiFillBulb fontSize={18} />
             About
           </ListRoutes>
         </Link>
       </Navigation>
-
       <SectionsTitle>PERSONAL</SectionsTitle>
-
       <Navigation>
         <Link href="#">
           <ListRoutes>
@@ -50,21 +52,18 @@ function NavBar() {
             Annotation
           </ListRoutes>
         </Link>
-        
         <Link href="#">
           <ListRoutes>
             <IoCalendar fontSize={18} />
             Calendar
           </ListRoutes>
         </Link>
-
         <Link href="#">
           <ListRoutes>
             <RiContactsBook2Fill fontSize={18} />
             Contacts
           </ListRoutes>
         </Link>
-
         <Link href="#">
           <ListRoutes>
             <MdViewAgenda fontSize={18} />
@@ -72,9 +71,7 @@ function NavBar() {
           </ListRoutes>
         </Link>
       </Navigation>
-
       <SectionsTitle>CENTRAL</SectionsTitle>
-
       <Navigation>
         <Link href="#">
           <ListRoutes>
