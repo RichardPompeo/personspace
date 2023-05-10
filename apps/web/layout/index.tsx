@@ -9,7 +9,6 @@ function Layout() {
     <div>
       <GlobalStyle />
       <NavBar />
-     
       <Home />
     </div>
   );
