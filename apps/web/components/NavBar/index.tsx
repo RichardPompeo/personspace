@@ -1,7 +1,8 @@
 import React from "react";
-import { Container, MButton, Links, Logo, LogoImg, LogoText, Navigation, SectionsTitle } from "./styles";
+import Link from "next/link";
 
 import logo from "../../assets/personspace-logo.svg";
+import { Container, MButton, ListRoutes, Logo, LogoImg, LogoText, Navigation, SectionsTitle } from "./styles";
 
 import { AiFillBulb } from "react-icons/ai";
 import { IoCalendar } from "react-icons/io5";
@@ -25,55 +26,62 @@ function NavBar() {
       <SectionsTitle>PAGES</SectionsTitle>
 
       <Navigation>
-        <Links>
-          <RiHome3Fill fontSize={18} />
-
-          <a href="#">Home</a>
-        </Links>
-
-        <Links>
-          <AiFillBulb fontSize={18} />
-
-          <a href="#">About</a>
-        </Links>
+        <Link href="#">
+          <ListRoutes>
+            <RiHome3Fill fontSize={18} /> 
+            Home
+          </ListRoutes>
+        </Link>
+        
+        <Link href="#">
+          <ListRoutes>
+            <AiFillBulb fontSize={18} /> 
+            About
+          </ListRoutes>
+        </Link>
       </Navigation>
 
       <SectionsTitle>PERSONAL</SectionsTitle>
 
       <Navigation>
-        <Links>
-          <RiEdit2Fill fontSize={18} />
+        <Link href="#">
+          <ListRoutes>
+            <RiEdit2Fill fontSize={18} />
+            Annotation
+          </ListRoutes>
+        </Link>
+        
+        <Link href="#">
+          <ListRoutes>
+            <IoCalendar fontSize={18} />
+            Calendar
+          </ListRoutes>
+        </Link>
 
-          <a href="#">Annotation</a>
-        </Links>
+        <Link href="#">
+          <ListRoutes>
+            <RiContactsBook2Fill fontSize={18} />
+            Contacts
+          </ListRoutes>
+        </Link>
 
-        <Links>
-          <IoCalendar fontSize={18} />
-
-          <a href="#">Calendar</a>
-        </Links>
-
-        <Links>
-          <RiContactsBook2Fill fontSize={18} />
-
-          <a href="#">Contacts</a>
-        </Links>
-
-        <Links>
-          <MdViewAgenda fontSize={18} />
-
-          <a href="#">Schedule</a>
-        </Links>
+        <Link href="#">
+          <ListRoutes>
+            <MdViewAgenda fontSize={18} />
+            Schedule
+          </ListRoutes>
+        </Link>
       </Navigation>
 
       <SectionsTitle>CENTRAL</SectionsTitle>
 
       <Navigation>
-        <Links>
-          <MdHelpCenter fontSize={19} />
-
-          <a href="#">Help me</a>
-        </Links>
+        <Link href="#">
+          <ListRoutes>
+            <MdHelpCenter fontSize={19} />
+            Help me
+          </ListRoutes>
+        </Link>
       </Navigation>
     </Container>
   );

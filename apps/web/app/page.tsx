@@ -1,17 +1,16 @@
 'use client';
 
-import dark from "../styles/themes/dark";
-import NavBar from "../components/NavBar";
+import Layout from "../layout";
 
-import GlobalStyle from "../styles/global";
+import dark from "../styles/themes/dark";
 import { ThemeProvider } from "styled-components";
+
 
 export default function Page() {
   return (
     <>
       <ThemeProvider theme={dark}>
-        <GlobalStyle />
-        <NavBar />
+        <Layout />
       </ThemeProvider>      
     </>
   );

@@ -44,7 +44,13 @@ export const Navigation = styled.ul`
   display: flex;
   flex-direction: column;
 
-  li + li {
+  a {
+    font-size: 13pt;
+    color: #e0e2db;
+    text-decoration: none;
+  }
+
+  a + a {
     margin-top: 1em;
   }
 `;
@@ -56,7 +62,7 @@ export const SectionsTitle = styled.h3`
   margin: 2.2em 1.5em;
 `;
 
-export const Links = styled.li`
+export const ListRoutes = styled.li`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -67,17 +73,12 @@ export const Links = styled.li`
   list-style: none;
   border-radius: 10px;
 
-  a {
-    font-size: 13pt;
-    color: #e0e2db;
-    text-decoration: none;
-  }
 
   &:hover {
     cursor: pointer;
     background-color: ${({ theme }) => theme.COLORS.DEFAULT};
     
-    a {
+    & {
       color: ${({ theme }) => theme.COLORS.DEFAULT_TWO};
     }
 
