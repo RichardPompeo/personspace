@@ -9,9 +9,7 @@ import { ThemeProvider } from "styled-components";
 export default function Page() {
   return (
       <ThemeProvider theme={dark}>
-        <Layout>
-
-        </Layout>
+        <Layout />
       </ThemeProvider>      
   );
 }
