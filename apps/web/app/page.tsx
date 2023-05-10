@@ -1,10 +1,15 @@
-import { Button, Header } from "ui";
+"use client";
+
+import { ThemeProvider } from "styled-components";
+
+import Layout from "../layout";
+
+import dark from "../styles/themes/dark";
 
 export default function Page() {
   return (
-    <>
-      <Header text="Web" />
-      <Button />
-    </>
+    <ThemeProvider theme={dark}>
+      <Layout />
+    </ThemeProvider>
   );
 }

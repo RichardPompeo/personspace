@@ -9,9 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "antd": "^5.4.7",
+    "components": "^0.1.0",
     "next": "^13.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.8.0",
+    "styled-components": "^6.0.0-rc.1",
     "ui": "*"
   },
   "devDependencies": {
@@ -19,6 +23,8 @@
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
     "eslint-config-custom": "*",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
     "tsconfig": "*",
     "typescript": "^4.5.3"
   }
