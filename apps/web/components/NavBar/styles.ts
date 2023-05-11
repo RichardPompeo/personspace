@@ -92,12 +92,6 @@ export const ListRoutes = styled.li`
 
     svg {
       fill: ${({ theme }) => theme.COLORS.DEFAULT_TWO};
-<<<<<<< HEAD
     };
   };
 `;
-=======
-    }
-  }
-`;
->>>>>>> 2196dde0a00067b4df4d4acac13d7941bafbb369
