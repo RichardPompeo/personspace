@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 
+
 export const Container = styled.nav`
   width: 20rem;
   height: 100vh;
@@ -7,7 +8,7 @@ export const Container = styled.nav`
   
   border-radius: 0 10px 10px 0;
   background-color: ${({ theme }) => theme.COLORS.PRIMARY};
-`
+`;
 
 export const MButton = styled.button`
   display: flex;
@@ -19,6 +20,14 @@ export const MButton = styled.button`
   margin: 10px 20px;
   border-radius: 50%;
   background-color: rgba(142, 181, 240, 0.1);
+
+  &:hover {
+    background-color: ${({ theme }) => theme.COLORS.DEFAULT};
+
+    svg {
+      fill: ${({ theme }) => theme.COLORS.DEFAULT_TWO};
+    }
+  }
 `;
 
 export const Logo = styled.div`
@@ -73,17 +82,16 @@ export const ListRoutes = styled.li`
   list-style: none;
   border-radius: 10px;
 
-
   &:hover {
     cursor: pointer;
     background-color: ${({ theme }) => theme.COLORS.DEFAULT};
     
     & {
       color: ${({ theme }) => theme.COLORS.DEFAULT_TWO};
-    }
+    };
 
     svg {
       fill: ${({ theme }) => theme.COLORS.DEFAULT_TWO};
-    }
-  }
+    };
+  };
 `;

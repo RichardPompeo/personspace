@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 
 import logo from "../../assets/personspace-logo.svg";
@@ -11,79 +11,98 @@ import { MdViewAgenda, MdHelpCenter } from "react-icons/md";
 import { RiEdit2Fill, RiContactsBook2Fill, RiHome3Fill } from "react-icons/ri";
 
 function NavBar() {
+  const [menu, setMenu] = useState<Boolean>(true);
+
+  function handleMenuVisibility() {
+    switch (menu) {
+      case true:
+        return setMenu(false);
+      default:
+        return setMenu(true);
+    };
+  };
+
   return (
-    <Container>
-      <MButton>
-        <TfiMenuAlt fontSize={25}/>
-      </MButton>
+    <>
+      {menu ? (
+        <Container>
+          <MButton onClick={handleMenuVisibility}>
+            <TfiMenuAlt fontSize={25} />
+          </MButton>
 
-      <Logo>
-        <LogoImg src={logo.src} />
+          <Logo>
+            <LogoImg src={logo.src} />
 
-        <LogoText>Personspace</LogoText>
-      </Logo>
+            <LogoText>Personspace</LogoText>
+          </Logo>
 
-      <SectionsTitle>PAGES</SectionsTitle>
+          <SectionsTitle>PAGES</SectionsTitle>
 
-      <Navigation>
-        <Link href="#">
-          <ListRoutes>
-            <RiHome3Fill fontSize={18} /> 
-            Home
-          </ListRoutes>
-        </Link>
-        
-        <Link href="#">
-          <ListRoutes>
-            <AiFillBulb fontSize={18} /> 
-            About
-          </ListRoutes>
-        </Link>
-      </Navigation>
+          <Navigation>
+            <Link href="#">
+              <ListRoutes>
+                <RiHome3Fill fontSize={18} />
+                Home
+              </ListRoutes>
+            </Link>
 
-      <SectionsTitle>PERSONAL</SectionsTitle>
+            <Link href="#">
+              <ListRoutes>
+                <AiFillBulb fontSize={18} />
+                About
+              </ListRoutes>
+            </Link>
+          </Navigation>
 
-      <Navigation>
-        <Link href="#">
-          <ListRoutes>
-            <RiEdit2Fill fontSize={18} />
-            Annotation
-          </ListRoutes>
-        </Link>
-        
-        <Link href="#">
-          <ListRoutes>
-            <IoCalendar fontSize={18} />
-            Calendar
-          </ListRoutes>
-        </Link>
+          <SectionsTitle>PERSONAL</SectionsTitle>
 
-        <Link href="#">
-          <ListRoutes>
-            <RiContactsBook2Fill fontSize={18} />
-            Contacts
-          </ListRoutes>
-        </Link>
+          <Navigation>
+            <Link href="#">
+              <ListRoutes>
+                <RiEdit2Fill fontSize={18} />
+                Annotation
+              </ListRoutes>
+            </Link>
 
-        <Link href="#">
-          <ListRoutes>
-            <MdViewAgenda fontSize={18} />
-            Schedule
-          </ListRoutes>
-        </Link>
-      </Navigation>
+            <Link href="#">
+              <ListRoutes>
+                <IoCalendar fontSize={18} />
+                Calendar
+              </ListRoutes>
+            </Link>
 
-      <SectionsTitle>CENTRAL</SectionsTitle>
+            <Link href="#">
+              <ListRoutes>
+                <RiContactsBook2Fill fontSize={18} />
+                Contacts
+              </ListRoutes>
+            </Link>
 
-      <Navigation>
-        <Link href="#">
-          <ListRoutes>
-            <MdHelpCenter fontSize={19} />
-            Help me
-          </ListRoutes>
-        </Link>
-      </Navigation>
-    </Container>
+            <Link href="#">
+              <ListRoutes>
+                <MdViewAgenda fontSize={18} />
+                Schedule
+              </ListRoutes>
+            </Link>
+          </Navigation>
+
+          <SectionsTitle>CENTRAL</SectionsTitle>
+
+          <Navigation>
+            <Link href="#">
+              <ListRoutes>
+                <MdHelpCenter fontSize={19} />
+                Help me
+              </ListRoutes>
+            </Link>
+          </Navigation>
+        </Container>
+      ) : (
+        <MButton onClick={handleMenuVisibility}>
+          <TfiMenuAlt fontSize={25} />
+        </MButton>
+      )}
+    </>
   );
 }
 
