@@ -5,7 +5,7 @@ export const Container = styled.nav`
   width: 20rem;
   height: 100vh;
   position: fixed;
-  
+
   border-radius: 0 10px 10px 0;
   background-color: ${({ theme }) => theme.COLORS.PRIMARY};
 `;
@@ -75,7 +75,7 @@ export const ListRoutes = styled.li`
   display: flex;
   flex-direction: row;
   align-items: center;
-  
+
   gap: 15px;
   margin: 0 2em;
   padding: 0.8em 1.5em;
@@ -85,13 +85,19 @@ export const ListRoutes = styled.li`
   &:hover {
     cursor: pointer;
     background-color: ${({ theme }) => theme.COLORS.DEFAULT};
-    
+
     & {
       color: ${({ theme }) => theme.COLORS.DEFAULT_TWO};
     };
 
     svg {
       fill: ${({ theme }) => theme.COLORS.DEFAULT_TWO};
+<<<<<<< HEAD
     };
   };
 `;
+=======
+    }
+  }
+`;
+>>>>>>> 2196dde0a00067b4df4d4acac13d7941bafbb369

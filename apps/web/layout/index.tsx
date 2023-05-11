@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import NavBar from '../components/NavBar';
+import NavBar from "../components/NavBar";
 import GlobalStyle from "../styles/global";
 
 function Layout() {
@@ -9,7 +9,7 @@ function Layout() {
       <GlobalStyle />
       <NavBar />
     </div>
-  )
+  );
 }
 
 export default Layout;
