@@ -1,12 +1,11 @@
 import React from "react";
 
 import NavBar from "../components/Navbar";
+import Home from "../pages/home";
 
 import GlobalStyle from "../styles/global";
 
-import Home from "../pages/home";
-
-function Layout() {
+export default function Layout() {
   return (
     <div>
       <GlobalStyle />
@@ -15,5 +14,3 @@ function Layout() {
     </div>
   );
 }
-
-export default Layout;

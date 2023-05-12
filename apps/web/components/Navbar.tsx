@@ -19,9 +19,9 @@ import {
   LogoText,
   Navigation,
   SectionsTitle,
-} from "ui";
+} from "../styles/components/NavbarStyles";
 
-function NavBar() {
+export default function NavBar() {
   const [menu, setMenu] = useState<Boolean>(true);
 
   const { t } = useTranslation();
@@ -101,5 +101,3 @@ function NavBar() {
     </>
   );
 }
-
-export default NavBar;
