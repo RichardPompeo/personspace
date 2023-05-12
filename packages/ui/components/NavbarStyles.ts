@@ -4,21 +4,28 @@ export const Container = styled.nav`
   width: 20rem;
   height: 100vh;
   position: fixed;
-
   border-radius: 0 10px 10px 0;
   background-color: ${({ theme }) => theme.COLORS.PRIMARY};
+  overflow-y: scroll;
 `;
 
 export const MButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-
   cursor: pointer;
   padding: 15px;
   margin: 10px 20px;
   border-radius: 50%;
   background-color: rgba(142, 181, 240, 0.1);
+
+  &:hover {
+    background-color: ${({ theme }) => theme.COLORS.DEFAULT};
+
+    svg {
+      fill: ${({ theme }) => theme.COLORS.DEFAULT_TWO};
+    }
+  }
 `;
 
 export const Logo = styled.div`
@@ -26,7 +33,6 @@ export const Logo = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-
   margin: 40px 50px 0 0;
 `;
 
@@ -60,13 +66,13 @@ export const SectionsTitle = styled.h3`
   font-size: 14pt;
   font-weight: 500;
   margin: 2.2em 1.5em;
+  text-transform: uppercase;
 `;
 
 export const ListRoutes = styled.li`
   display: flex;
   flex-direction: row;
   align-items: center;
-
   gap: 15px;
   margin: 0 2em;
   padding: 0.8em 1.5em;
