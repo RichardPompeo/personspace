@@ -1,0 +1,19 @@
+{
+  "pt": {
+    "translation": {
+      "navbar": {
+        "personspace": "Personspace",
+        "pages": "Páginas",
+        "home": "Início",
+        "about": "Sobre",
+        "personal": "Pessoal",
+        "annotation": "Anotações",
+        "calendar": "Calendário",
+        "contacts": "Contatos",
+        "schedule": "Agenda",
+        "central": "Central",
+        "helpMe": "Ajuda"
+      }
+    }
+  }
+}

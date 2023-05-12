@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import Link from "next/link";
-
-import logo from "../../assets/personspace-logo.svg";
-import { Container, MButton, ListRoutes, Logo, LogoImg, LogoText, Navigation, SectionsTitle } from "./styles";
+import { useTranslation } from "react-i18next";
 
 import { AiFillBulb } from "react-icons/ai";
 import { IoCalendar } from "react-icons/io5";
@@ -10,16 +7,27 @@ import { TfiMenuAlt } from "react-icons/tfi";
 import { MdViewAgenda, MdHelpCenter } from "react-icons/md";
 import { RiEdit2Fill, RiContactsBook2Fill, RiHome3Fill } from "react-icons/ri";
 
+import Link from "next/link";
+
+import logo from "../assets/personspace-logo.svg";
+import {
+  Container,
+  MButton,
+  ListRoutes,
+  Logo,
+  LogoImg,
+  LogoText,
+  Navigation,
+  SectionsTitle,
+} from "ui";
+
 function NavBar() {
   const [menu, setMenu] = useState<Boolean>(true);
 
-  function handleMenuVisibility() {
-    switch (menu) {
-      case true:
-        return setMenu(false);
-      default:
-        return setMenu(true);
-    };
+  const { t } = useTranslation();
+
+  const handleMenuVisibility = () => {
+    return menu ? setMenu(false) : setMenu(true);
   };
 
   return (
@@ -29,70 +37,58 @@ function NavBar() {
           <MButton onClick={handleMenuVisibility}>
             <TfiMenuAlt fontSize={25} />
           </MButton>
-
           <Logo>
             <LogoImg src={logo.src} />
-
-            <LogoText>Personspace</LogoText>
+            <LogoText>{t("navbar.personspace")}</LogoText>
           </Logo>
-
-          <SectionsTitle>PAGES</SectionsTitle>
-
+          <SectionsTitle>{t("navbar.pages")}</SectionsTitle>
           <Navigation>
             <Link href="#">
               <ListRoutes>
                 <RiHome3Fill fontSize={18} />
-                Home
+                {t("navbar.home")}
               </ListRoutes>
             </Link>
-
             <Link href="#">
               <ListRoutes>
                 <AiFillBulb fontSize={18} />
-                About
+                {t("navbar.about")}
               </ListRoutes>
             </Link>
           </Navigation>
-
-          <SectionsTitle>PERSONAL</SectionsTitle>
-
+          <SectionsTitle>{t("navbar.personal")}</SectionsTitle>
           <Navigation>
             <Link href="#">
               <ListRoutes>
                 <RiEdit2Fill fontSize={18} />
-                Annotation
+                {t("navbar.annotation")}
               </ListRoutes>
             </Link>
-
             <Link href="#">
               <ListRoutes>
                 <IoCalendar fontSize={18} />
-                Calendar
+                {t("navbar.calendar")}
               </ListRoutes>
             </Link>
-
             <Link href="#">
               <ListRoutes>
                 <RiContactsBook2Fill fontSize={18} />
-                Contacts
+                {t("navbar.contacts")}
               </ListRoutes>
             </Link>
-
             <Link href="#">
               <ListRoutes>
                 <MdViewAgenda fontSize={18} />
-                Schedule
+                {t("navbar.schedule")}
               </ListRoutes>
             </Link>
           </Navigation>
-
-          <SectionsTitle>CENTRAL</SectionsTitle>
-
+          <SectionsTitle>{t("navbar.central")}</SectionsTitle>
           <Navigation>
             <Link href="#">
               <ListRoutes>
                 <MdHelpCenter fontSize={19} />
-                Help me
+                {t("navbar.helpMe")}
               </ListRoutes>
             </Link>
           </Navigation>

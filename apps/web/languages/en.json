@@ -1,0 +1,19 @@
+{
+  "en": {
+    "translation": {
+      "navbar": {
+        "personspace": "Personspace",
+        "pages": "Pages",
+        "home": "Home",
+        "about": "About",
+        "personal": "Personal",
+        "annotation": "Annotation",
+        "calendar": "Calendar",
+        "contacts": "Contacts",
+        "schedule": "Schedule",
+        "central": "Central",
+        "helpMe": "Help me"
+      }
+    }
+  }
+}
