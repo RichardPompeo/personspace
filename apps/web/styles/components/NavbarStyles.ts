@@ -6,7 +6,7 @@ export const Container = styled.nav`
   position: fixed;
   border-radius: 0 10px 10px 0;
   background-color: ${({ theme }) => theme.COLORS.PRIMARY};
-  overflow-y: hidden;
+  overflow-y: auto;
 `;
 
 export const MButton = styled.button`
