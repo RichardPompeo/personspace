@@ -5,19 +5,19 @@ export const Container = styled.main`
   width: 100vw;
   height: 100vh;
   align-items: center;
+  flex-direction: row;
   justify-content: center;
 `;
 
 export const HeaderContent = styled.div`
   display: flex;
-  align-items: center;
-  gap: 10em;
+  gap: 10vw;
   margin-left: 21em;
+  align-items: center;
+  justify-content: center;
 
   @media (max-width: 900px) {
-    gap: 10vh;
     margin-left: 0;
-    flex-direction: column;
   }
 `;
 
@@ -37,6 +37,8 @@ export const Title = styled.h1`
 `;
 
 export const Header = styled.div`
+  width: 30vw;
+
   h1 + h2 {
     margin: 30px 0 60px 0;
   }
@@ -71,9 +73,12 @@ export const Button = styled.button`
   background-color: ${({ theme }) => theme.COLORS.DEFAULT};
 
   @media (max-width: 1600px) {
-    width: clamp(100px, 8vw, 170px);
-    height: clamp(30px, 5.5vh, 70px);
     font-size: clamp(8pt, 0.5vw, 10pt);
+  }
+
+  @media (max-width: 1200px) {
+    padding: 1em 1em;
+    box-shadow: 2px 3px;
   }
 `;
 

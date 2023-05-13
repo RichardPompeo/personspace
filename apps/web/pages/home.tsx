@@ -1,5 +1,5 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 import abstract from "../assets/abstract.svg";
 import {
@@ -19,7 +19,9 @@ export default function Home() {
     <Container>
       <HeaderContent>
         <Header>
-          <Title>{t("home.title")}</Title>
+          <Title>
+            <Trans i18nKey="home.title" components={[<strong key={0} />]}>{t("home.title")}</Trans>
+          </Title>
           <SubTitle>{t("home.subtitle")}</SubTitle>
           <Button>{t("home.aboutTheSiteButton")}</Button>
         </Header>
