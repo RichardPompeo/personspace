@@ -35,7 +35,7 @@ export default function NavBar() {
       {menu ? (
         <Container>
           <MButton onClick={handleMenuVisibility}>
-            <TfiMenuAlt fontSize={25} />
+            <TfiMenuAlt fontSize={23} />
           </MButton>
           <Logo>
             <LogoImg src={logo.src} />
@@ -95,7 +95,7 @@ export default function NavBar() {
         </Container>
       ) : (
         <MButton onClick={handleMenuVisibility}>
-          <TfiMenuAlt fontSize={25} />
+          <TfiMenuAlt fontSize={23} />
         </MButton>
       )}
     </>

@@ -6,15 +6,16 @@ export const Container = styled.nav`
   position: fixed;
   border-radius: 0 10px 10px 0;
   background-color: ${({ theme }) => theme.COLORS.PRIMARY};
-  overflow-y: scroll;
+  overflow-y: hidden;
 `;
 
 export const MButton = styled.button`
+  position: absolute; 
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  padding: 15px;
+  padding: 12px;
   margin: 10px 20px;
   border-radius: 50%;
   background-color: rgba(142, 181, 240, 0.1);
@@ -33,7 +34,7 @@ export const Logo = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 40px 50px 0 0;
+  margin: 90px 50px 0 0;
 `;
 
 export const LogoImg = styled.img`

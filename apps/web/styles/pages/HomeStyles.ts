@@ -11,7 +11,7 @@ export const Container = styled.main`
 export const HeaderContent = styled.div`
   display: flex;
   align-items: center;
-  gap: 10vw;
+  gap: 10em;
   margin-left: 21em;
 
   @media (max-width: 900px) {
@@ -59,17 +59,16 @@ export const SubTitle = styled.h2`
 `;
 
 export const Button = styled.button`
-  width: clamp(100px, 10vw, 170px);
-  height: clamp(30px, 7vh, 70px);
-  //padding: 1.3em 2em;
-  color: #000000;
+  padding: 1.3em 2em; 
+
+  color: ${({ theme }) => theme.COLORS.DEFAULT_TWO};
   cursor: pointer;
   font-size: clamp(10pt, 1vw, 12pt);
   font-weight: 600;
-  border: 2px solid #000000;
+  border: 2px solid ${({ theme }) => theme.COLORS.DEFAULT_TWO};
   box-shadow: 4px 5px;
   border-radius: 10px;
-  background-color: #eeeeeeff;
+  background-color: ${({ theme }) => theme.COLORS.DEFAULT};
 
   @media (max-width: 1600px) {
     width: clamp(100px, 8vw, 170px);
@@ -101,5 +100,9 @@ export const Img = styled.img`
   @media (max-width: 1280px) {
     width: 360px;
     height: 360px;
+  }
+
+  @media (max-width: 900px) {
+    display: none;
   }
 `;
