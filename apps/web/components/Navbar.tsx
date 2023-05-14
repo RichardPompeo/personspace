@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 import { AiFillBulb } from "react-icons/ai";
@@ -7,9 +8,8 @@ import { TfiMenuAlt } from "react-icons/tfi";
 import { MdViewAgenda, MdHelpCenter } from "react-icons/md";
 import { RiEdit2Fill, RiContactsBook2Fill, RiHome3Fill } from "react-icons/ri";
 
-import Link from "next/link";
-
 import logo from "../assets/personspace-logo.svg";
+import { LayoutContext } from "../context/LayoutProvider";
 import {
   Container,
   MButton,
@@ -22,13 +22,9 @@ import {
 } from "../styles/components/NavbarStyles";
 
 export default function NavBar() {
-  const [menu, setMenu] = useState<Boolean>(true);
-
   const { t } = useTranslation();
 
-  const handleMenuVisibility = () => {
-    return menu ? setMenu(false) : setMenu(true);
-  };
+  const { menu, handleMenuVisibility } = useContext(LayoutContext);
 
   return (
     <>

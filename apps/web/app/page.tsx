@@ -5,6 +5,7 @@ import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 import { ThemeProvider } from "styled-components";
+import { LayoutProvider } from "../context/LayoutProvider";
 
 import Layout from "../layout";
 
@@ -27,7 +28,9 @@ i18n
 export default function Page() {
   return (
     <ThemeProvider theme={dark}>
-      <Layout />
+      <LayoutProvider>
+        <Layout />
+      </LayoutProvider>
     </ThemeProvider>
   );
 }

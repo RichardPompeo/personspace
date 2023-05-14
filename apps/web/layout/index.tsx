@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Row, Col } from "antd";
 
 import NavBar from "../components/Navbar";
 import Home from "../pages/home";
 
 import GlobalStyle from "../styles/global";
+import { LayoutContext } from "../context/LayoutProvider";
+import { Container } from "../styles/components/LayoutStyles";
 
 export default function Layout() {
+  const { menu } = useContext(LayoutContext);
+
   return (
-    <div>
+    <Container>
       <GlobalStyle />
-      <NavBar />
-      <Home />
-    </div>
+      <Row>
+        <Col span={ menu ? 4 : 2}>
+          <NavBar />
+        </Col>
+        <Col span={ menu ? 8 : 10}>
+          <Home />
+        </Col>
+      </Row>
+    </Container>
   );
-}
+};
