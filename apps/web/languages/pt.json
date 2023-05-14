@@ -13,6 +13,11 @@
         "schedule": "Agenda",
         "central": "Central",
         "helpMe": "Ajuda"
+      },
+      "home": {
+        "title": "Tenha seu próprio <0>espaço pessoal</0> e use-o como quiser.",
+        "subtitle": "Crie sua conta para salvar e armazenar tudo que você fizer.",
+        "aboutTheSiteButton": "Sobre esse site"
       }
     }
   }

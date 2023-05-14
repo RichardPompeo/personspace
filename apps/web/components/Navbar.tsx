@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 import { AiFillBulb } from "react-icons/ai";
@@ -7,9 +8,8 @@ import { TfiMenuAlt } from "react-icons/tfi";
 import { MdViewAgenda, MdHelpCenter } from "react-icons/md";
 import { RiEdit2Fill, RiContactsBook2Fill, RiHome3Fill } from "react-icons/ri";
 
-import Link from "next/link";
-
 import logo from "../assets/personspace-logo.svg";
+import { LayoutContext } from "../context/LayoutProvider";
 import {
   Container,
   MButton,
@@ -19,23 +19,19 @@ import {
   LogoText,
   Navigation,
   SectionsTitle,
-} from "ui";
+} from "../styles/components/NavbarStyles";
 
-function NavBar() {
-  const [menu, setMenu] = useState<Boolean>(true);
-
+export default function NavBar() {
   const { t } = useTranslation();
 
-  const handleMenuVisibility = () => {
-    return menu ? setMenu(false) : setMenu(true);
-  };
+  const { menu, handleMenuVisibility } = useContext(LayoutContext);
 
   return (
     <>
       {menu ? (
         <Container>
           <MButton onClick={handleMenuVisibility}>
-            <TfiMenuAlt fontSize={25} />
+            <TfiMenuAlt fontSize={23} />
           </MButton>
           <Logo>
             <LogoImg src={logo.src} />
@@ -95,11 +91,9 @@ function NavBar() {
         </Container>
       ) : (
         <MButton onClick={handleMenuVisibility}>
-          <TfiMenuAlt fontSize={25} />
+          <TfiMenuAlt fontSize={23} />
         </MButton>
       )}
     </>
   );
 }
-
-export default NavBar;

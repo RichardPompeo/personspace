@@ -13,6 +13,11 @@
         "schedule": "Schedule",
         "central": "Central",
         "helpMe": "Help me"
+      },
+      "home": {
+        "title": "Have your own <0>person space</0>, and use it however your want.",
+        "subtitle": "Create an account to save and store everything you do on the site.",
+        "aboutTheSiteButton": "About the site"
       }
     }
   }

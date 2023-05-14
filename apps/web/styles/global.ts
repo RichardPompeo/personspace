@@ -7,10 +7,10 @@ export default createGlobalStyle`
     padding: 0;
     color: #fff;
     box-sizing: border-box;
-  }
+  };
 
   body {
-    background-color: ${({ theme }) => theme.COLORS.BACKGROUND};
     font-family: 'Supreme', sans-serif;
-  }
+    background-color: ${({ theme }) => theme.COLORS.BACKGROUND};
+  };
 `;
