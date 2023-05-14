@@ -3,10 +3,11 @@ import { styled } from "styled-components";
 export const Container = styled.nav`
   width: 20rem;
   height: 100vh;
+  z-index: 1;
   position: fixed;
+  overflow-y: auto;
   border-radius: 0 10px 10px 0;
   background-color: ${({ theme }) => theme.COLORS.PRIMARY};
-  overflow-y: auto;
 `;
 
 export const MButton = styled.button`
@@ -14,6 +15,7 @@ export const MButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1;
   cursor: pointer;
   padding: 12px;
   margin: 10px 20px;
@@ -42,9 +44,9 @@ export const LogoImg = styled.img`
   height: 50px;
 `;
 export const LogoText = styled.h2`
-  margin-left: 15px;
   color: #8eb5f0;
   font-size: 18pt;
+  margin-left: 15px;
 `;
 
 export const Navigation = styled.ul`
