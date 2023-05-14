@@ -20,7 +20,7 @@ export default function Home() {
       <HeaderContent>
         <Header>
           <Title>
-            <Trans i18nKey="home.title" components={[<strong key={0} />]}>{t("home.title")}</Trans>
+            <Trans i18nKey="home.title" components={[<strong key={0} />]}>{t("home.title")}</Trans>
           </Title>
           <SubTitle>{t("home.subtitle")}</SubTitle>
           <Button>{t("home.aboutTheSiteButton")}</Button>
@@ -29,4 +29,4 @@ export default function Home() {
       </HeaderContent>
     </Container>
   );
-}
+};
