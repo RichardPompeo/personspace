@@ -3,6 +3,7 @@ import { Row, Col } from "antd";
 
 import NavBar from "../components/Navbar";
 import Home from "../pages/home";
+import UtilityContent from "../components/UtilityContent";
 
 import GlobalStyle from "../styles/global";
 import { LayoutContext } from "../context/LayoutProvider";
@@ -19,6 +20,7 @@ export default function Layout() {
           <NavBar />
         </Col>
         <Col span={ menu ? 8 : 10}>
+          <UtilityContent />
           <Home />
         </Col>
       </Row>
