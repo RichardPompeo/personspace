@@ -44,6 +44,10 @@ export const ButtonSU = styled.button`
   border-radius: 10px;
   box-shadow: 4px 5px black;
   background-color: rgba(142, 181, 240);
+
+  @media (max-width: 1200px) {
+    box-shadow: 2px 3px;
+  }
 `;
 
 export const ButtonSI = styled(ButtonSU)`
