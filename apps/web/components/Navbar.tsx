@@ -41,13 +41,13 @@ export default function NavBar() {
           <Navigation>
             <Link href="#">
               <ListRoutes>
-                <RiHome3Fill fontSize={18} />
+                <RiHome3Fill fontSize={16} />
                 {t("navbar.home")}
               </ListRoutes>
             </Link>
             <Link href="#">
               <ListRoutes>
-                <AiFillBulb fontSize={18} />
+                <AiFillBulb fontSize={16} />
                 {t("navbar.about")}
               </ListRoutes>
             </Link>
@@ -56,25 +56,25 @@ export default function NavBar() {
           <Navigation>
             <Link href="#">
               <ListRoutes>
-                <RiEdit2Fill fontSize={18} />
+                <RiEdit2Fill fontSize={16} />
                 {t("navbar.annotation")}
               </ListRoutes>
             </Link>
             <Link href="#">
               <ListRoutes>
-                <IoCalendar fontSize={18} />
+                <IoCalendar fontSize={16} />
                 {t("navbar.calendar")}
               </ListRoutes>
             </Link>
             <Link href="#">
               <ListRoutes>
-                <RiContactsBook2Fill fontSize={18} />
+                <RiContactsBook2Fill fontSize={16} />
                 {t("navbar.contacts")}
               </ListRoutes>
             </Link>
             <Link href="#">
               <ListRoutes>
-                <MdViewAgenda fontSize={18} />
+                <MdViewAgenda fontSize={16} />
                 {t("navbar.schedule")}
               </ListRoutes>
             </Link>
@@ -83,7 +83,7 @@ export default function NavBar() {
           <Navigation>
             <Link href="#">
               <ListRoutes>
-                <MdHelpCenter fontSize={19} />
+                <MdHelpCenter fontSize={17} />
                 {t("navbar.helpMe")}
               </ListRoutes>
             </Link>
