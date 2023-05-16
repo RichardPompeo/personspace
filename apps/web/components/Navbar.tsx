@@ -8,11 +8,11 @@ import { TfiMenuAlt } from "react-icons/tfi";
 import { MdViewAgenda, MdHelpCenter } from "react-icons/md";
 import { RiEdit2Fill, RiContactsBook2Fill, RiHome3Fill } from "react-icons/ri";
 
+import { UIButton } from "ui";
 import logo from "../assets/personspace-logo.svg";
 import { LayoutContext } from "../context/LayoutProvider";
 import {
   Container,
-  MButton,
   ListRoutes,
   Logo,
   LogoImg,
@@ -30,9 +30,9 @@ export default function NavBar() {
     <>
       {menu ? (
         <Container>
-          <MButton onClick={handleMenuVisibility}>
+          <UIButton setIndex="1" setPosition="absolute" onClick={handleMenuVisibility}>
             <TfiMenuAlt fontSize={23} />
-          </MButton>
+          </UIButton>
           <Logo>
             <LogoImg src={logo.src} />
             <LogoText>{t("navbar.personspace")}</LogoText>
@@ -90,9 +90,9 @@ export default function NavBar() {
           </Navigation>
         </Container>
       ) : (
-        <MButton onClick={handleMenuVisibility}>
+        <UIButton setIndex="1" setPosition="absolute" onClick={handleMenuVisibility}>
           <TfiMenuAlt fontSize={23} />
-        </MButton>
+        </UIButton>
       )}
     </>
   );

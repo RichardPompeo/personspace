@@ -6,27 +6,8 @@ export const Container = styled.div`
   position: fixed;
   top: 0;
   right: 0;
-  padding: 0.2em 1.6em;
+  padding: 0.1em 1.7em;
   border-radius: 10px;
-`;
-
-export const GlobeButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  padding: 12px;
-  margin: 10px 20px;
-  border-radius: 50%;
-  background-color: rgba(142, 181, 240, 0.1);
-
-  &:hover {
-    background-color: ${({ theme }) => theme.COLORS.DEFAULT};
-
-    svg {
-      fill: ${({ theme }) => theme.COLORS.DEFAULT_TWO};
-    }
-  }
 `;
 
 export const ContentRegistration = styled.div`
@@ -46,6 +27,7 @@ export const ButtonSU = styled.button`
   background-color: rgba(142, 181, 240);
 
   @media (max-width: 1200px) {
+    padding: 0.6em 1.6em;
     box-shadow: 2px 3px;
   }
 `;

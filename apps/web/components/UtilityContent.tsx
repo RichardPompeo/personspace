@@ -1,4 +1,5 @@
 import React from "react";
+import { UIButton } from "ui";
 
 import { RiGlobeFill } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
@@ -6,7 +7,6 @@ import {
   Container,
   ButtonSU,
   ButtonSI,
-  GlobeButton,
   ContentRegistration
 } from "../styles/components/UtilityStyles";
 
@@ -15,9 +15,9 @@ export default function UtilityContent() {
 
   return (
     <Container>
-      <GlobeButton>
-        <RiGlobeFill fontSize={22} />
-      </GlobeButton>
+      <UIButton setIndex="none" setPosition="none">
+        <RiGlobeFill fontSize={23} />
+      </UIButton>
       <ContentRegistration>
         <ButtonSI>{t("utility.buttonsi")}</ButtonSI>
         <ButtonSU>{t("utility.buttonsu")}</ButtonSU>
