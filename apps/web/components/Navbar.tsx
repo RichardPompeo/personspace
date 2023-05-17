@@ -83,7 +83,7 @@ export default function NavBar() {
           <Navigation>
             <Link href="#">
               <ListRoutes>
-                <MdHelpCenter fontSize={17} />
+                <MdHelpCenter fontSize={16} />
                 {t("navbar.helpMe")}
               </ListRoutes>
             </Link>
