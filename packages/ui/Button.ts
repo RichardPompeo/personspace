@@ -10,7 +10,7 @@ export const UIButton = styled.button<ButtonProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index:  ${(props) => props.setIndex};
+  z-index: ${(props) => props.setIndex};
   cursor: pointer;
   padding: 12px;
   margin: 10px 20px;

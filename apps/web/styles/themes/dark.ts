@@ -1,4 +1,4 @@
-export default  {
+export const darkTheme = {
   nameTheme: "dark",
 
   COLORS: {
@@ -8,10 +8,6 @@ export default  {
     DEFAULT_TWO: "#000000",
 
     PRIMARY: "#26262c",
-    SECONDARY: "#8eb5f0",
-  },
-
-  FONTS: {
-    
+    SECONDARY: "#8eb5f0"
   }
 };

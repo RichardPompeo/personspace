@@ -12,7 +12,7 @@ import Layout from "../layout";
 import en from "../languages/en.json";
 import pt from "../languages/pt.json";
 
-import dark from "../styles/themes/dark";
+import { darkTheme } from "../styles/themes/dark";
 
 i18n
   .use(initReactI18next)
@@ -27,7 +27,7 @@ i18n
 
 export default function Page() {
   return (
-    <ThemeProvider theme={dark}>
+    <ThemeProvider theme={darkTheme}>
       <LayoutProvider>
         <Layout />
       </LayoutProvider>
