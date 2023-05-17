@@ -6,7 +6,6 @@ import { Row, Col } from "antd";
 import NavBar from "../components/Navbar";
 import UtilityContent from "../components/UtilityContent";
 
-
 import abstract from "../assets/abstract.svg";
 
 import { LayoutContext } from "../context/LayoutProvider";
@@ -33,6 +32,7 @@ export default function Layout() {
           <NavBar />
         </Col>
         <Col span={menu ? 8 : 10}>
+          <UtilityContent />
           <Container>
             <HeaderContent>
               <Header>
