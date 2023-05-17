@@ -8,7 +8,7 @@ import { TfiMenuAlt } from "react-icons/tfi";
 import { MdViewAgenda, MdHelpCenter } from "react-icons/md";
 import { RiEdit2Fill, RiContactsBook2Fill, RiHome3Fill } from "react-icons/ri";
 
-import { UIButton } from "ui";
+import { OverlayButton } from "ui";
 import logo from "../assets/personspace-logo.svg";
 import { LayoutContext } from "../context/LayoutProvider";
 import {
@@ -30,9 +30,9 @@ export default function NavBar() {
     <>
       {menu ? (
         <Container>
-          <UIButton setIndex="1" setPosition="absolute" onClick={handleMenuVisibility}>
+          <OverlayButton setIndex="1" setPosition="absolute" onClick={handleMenuVisibility}>
             <TfiMenuAlt fontSize={23} />
-          </UIButton>
+          </OverlayButton>
           <Logo>
             <LogoImg src={logo.src} />
             <LogoText>{t("navbar.personspace")}</LogoText>
@@ -90,9 +90,9 @@ export default function NavBar() {
           </Navigation>
         </Container>
       ) : (
-        <UIButton setIndex="1" setPosition="absolute" onClick={handleMenuVisibility}>
+        <OverlayButton setIndex="1" setPosition="absolute" onClick={handleMenuVisibility}>
           <TfiMenuAlt fontSize={23} />
-        </UIButton>
+        </OverlayButton>
       )}
     </>
   );

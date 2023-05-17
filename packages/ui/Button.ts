@@ -5,7 +5,7 @@ interface ButtonProps {
   setIndex: string;
 };
 
-export const UIButton = styled.button<ButtonProps>`
+export const OverlayButton = styled.button<ButtonProps>`
   position: ${(props) => props.setPosition}; 
   display: flex;
   align-items: center;

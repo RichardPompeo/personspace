@@ -20,8 +20,8 @@
         "aboutTheSiteButton": "About the site"
       },
       "utility": {
-        "buttonsi": "Sign in",
-        "buttonsu": "Sign up"
+        "signInButton": "Sign in",
+        "signUpButton": "Sign up"
       }
     }
   }

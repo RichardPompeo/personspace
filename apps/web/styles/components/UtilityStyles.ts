@@ -17,7 +17,7 @@ export const ContentRegistration = styled.div`
   border-left: 1px solid ${({ theme }) => theme.COLORS.DEFAULT};
 `;
 
-export const ButtonSU = styled.button`
+export const RegisterButton = styled.button`
   cursor: pointer;
   padding: 0.9em 2em;
   color: ${({ theme }) => theme.COLORS.DEFAULT_TWO};
@@ -29,10 +29,10 @@ export const ButtonSU = styled.button`
   @media (max-width: 1200px) {
     padding: 0.6em 1.6em;
     box-shadow: 2px 3px;
-  }
+  };
 `;
 
-export const ButtonSI = styled(ButtonSU)`
+export const LoginButton = styled(RegisterButton)`
   color: ${({ theme }) => theme.COLORS.DEFAULT};
   border: 2px solid ${({ theme }) => theme.COLORS.PRIMARY};
   box-shadow: none;

@@ -1,12 +1,12 @@
 import React from "react";
-import { UIButton } from "ui";
+import { OverlayButton } from "ui";
 
 import { RiGlobeFill } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
 import {
   Container,
-  ButtonSU,
-  ButtonSI,
+  RegisterButton,
+  LoginButton,
   ContentRegistration
 } from "../styles/components/UtilityStyles";
 
@@ -15,12 +15,12 @@ export default function UtilityContent() {
 
   return (
     <Container>
-      <UIButton setIndex="none" setPosition="none">
+      <OverlayButton setIndex="none" setPosition="none">
         <RiGlobeFill fontSize={23} />
-      </UIButton>
+      </OverlayButton>
       <ContentRegistration>
-        <ButtonSI>{t("utility.buttonsi")}</ButtonSI>
-        <ButtonSU>{t("utility.buttonsu")}</ButtonSU>
+        <LoginButton>{t("utility.signInButton")}</LoginButton>
+        <RegisterButton>{t("utility.signUpButton")}</RegisterButton>
       </ContentRegistration>
     </Container>
   );

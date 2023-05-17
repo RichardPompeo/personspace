@@ -20,8 +20,8 @@
         "aboutTheSiteButton": "Sobre esse site"
       },
       "utility": {
-        "buttonsi": "Entrar",
-        "buttonsu": "Inscrever-se"
+        "signInButton": "Entrar",
+        "signUpButton": "Inscrever-se"
       }
     }
   }
