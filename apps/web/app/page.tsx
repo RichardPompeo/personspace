@@ -1,12 +1,14 @@
 "use client";
 
-import i18n from "i18next";
+import React from "react";
 import { initReactI18next } from "react-i18next";
+import i18n from "i18next";
+
 import LanguageDetector from "i18next-browser-languagedetector";
 
 import { ThemeProvider } from "styled-components";
+import GlobalStyle from "../styles/global";
 import { LayoutProvider } from "../context/LayoutProvider";
-
 import Layout from "../layout";
 
 import en from "../languages/en.json";
@@ -29,6 +31,7 @@ export default function Page() {
   return (
     <ThemeProvider theme={darkTheme}>
       <LayoutProvider>
+        <GlobalStyle />
         <Layout />
       </LayoutProvider>
     </ThemeProvider>
