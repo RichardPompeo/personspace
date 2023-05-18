@@ -21,7 +21,8 @@
       },
       "utility": {
         "signInButton": "Entrar",
-        "signUpButton": "Inscrever-se"
+        "signUpButton": "Inscrever-se",
+        "popoverTitle": "Configurações"
       }
     }
   }

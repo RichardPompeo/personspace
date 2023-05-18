@@ -30,7 +30,7 @@ export default function NavBar() {
     <>
       {menu ? (
         <Container>
-          <OverlayButton setIndex="1" setPosition="absolute" onClick={handleMenuVisibility}>
+          <OverlayButton setIndex="1" setPosition="absolute" setMarginSize="10px 20px" onClick={handleMenuVisibility}>
             <TfiMenuAlt fontSize={23} />
           </OverlayButton>
           <Logo>
@@ -90,7 +90,7 @@ export default function NavBar() {
           </Navigation>
         </Container>
       ) : (
-        <OverlayButton setIndex="1" setPosition="absolute" onClick={handleMenuVisibility}>
+        <OverlayButton setIndex="1" setPosition="absolute" setMarginSize="10px 20px" onClick={handleMenuVisibility}>
           <TfiMenuAlt fontSize={23} />
         </OverlayButton>
       )}

@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 interface ButtonProps {
   setPosition: string;
   setIndex: string;
+  setMarginSize: string;
 };
 
 export const OverlayButton = styled.button<ButtonProps>`
@@ -13,7 +14,7 @@ export const OverlayButton = styled.button<ButtonProps>`
   z-index: ${(props) => props.setIndex};
   cursor: pointer;
   padding: 12px;
-  margin: 10px 20px;
+  margin: ${(props) => props.setMarginSize};
   border-radius: 50%;
   background-color: rgba(142, 181, 240, 0.1);
 
