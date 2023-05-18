@@ -1,12 +1,18 @@
 import { styled } from "styled-components";
 
-interface ButtonProps {
+interface OverlayButtonProps {
   setPosition: string;
   setIndex: string;
   setMarginSize: string;
 };
 
-export const OverlayButton = styled.button<ButtonProps>`
+interface CustomButtonProps {
+  setPadding: string;
+  setBackgroundColor: string;
+  setFontSize: string;
+};
+
+export const OverlayButton = styled.button<OverlayButtonProps>`
   position: ${(props) => props.setPosition}; 
   display: flex;
   align-items: center;
@@ -40,4 +46,15 @@ export const OverlayButton = styled.button<ButtonProps>`
       font-size: 18px;
     }
   }
+`;
+
+export const CustomDefaultButton = styled.button<CustomButtonProps>`
+  cursor: pointer;
+  padding: ${(props) => props.setPadding}; 
+  color: ${({ theme }) => theme.COLORS.DEFAULT_TWO};
+  font-size: ${(props) => props.setFontSize};
+  border: 2px solid ${({ theme }) => theme.COLORS.DEFAULT_TWO};
+  box-shadow: 4px 5px;
+  border-radius: 10px;
+  background-color: ${(props) => props.setBackgroundColor};
 `;

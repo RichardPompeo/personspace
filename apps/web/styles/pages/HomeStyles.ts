@@ -75,11 +75,11 @@ export const Button = styled.button`
   background-color: ${({ theme }) => theme.COLORS.DEFAULT};
 
   @media (max-width: 1600px) {
-    font-size: clamp(8pt, 0.5vw, 10pt);
+    font-size: clamp(9pt, 0.5vw, 10pt);
   }
 
   @media (max-width: 1200px) {
-    padding: 1em 1em;
+    padding: 0.9em 1em;
     box-shadow: 2px 3px;
   }
 
