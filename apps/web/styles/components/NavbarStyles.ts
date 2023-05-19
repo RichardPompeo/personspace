@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 
 export const Container = styled.nav`
-  width: 20rem;
+  width: 18rem;
   height: 100vh;
   z-index: 1;
   position: fixed;
@@ -15,12 +15,12 @@ export const Logo = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 90px 50px 0 0;
+  margin: 90px 27px 45px 0;
 `;
 
 export const LogoImg = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
 `;
 export const LogoText = styled.h2`
   color: #8eb5f0;
@@ -45,9 +45,10 @@ export const Navigation = styled.ul`
 
 export const SectionsTitle = styled.h3`
   display: flex;
-  font-size: 14pt;
+  opacity: 0.7;
+  font-size: 18px;
   font-weight: 500;
-  margin: 2.2em 1.5em;
+  margin: 1.5em 1.5em;
   text-transform: uppercase;
 `;
 
@@ -56,7 +57,7 @@ export const ListRoutes = styled.li`
   flex-direction: row;
   align-items: center;
   gap: 15px;
-  margin: 0 2em;
+  margin: 0 1.2em;
   padding: 0.8em 1.5em;
   list-style: none;
   border-radius: 10px;
