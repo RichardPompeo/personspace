@@ -17,7 +17,6 @@ export default function UtilityContent() {
   const { t } = useTranslation();
 
   const overlayStyle = {
-    background: "#23232fff",
     width: "250px",
     borderRadius: "10px",
   };

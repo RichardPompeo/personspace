@@ -42,7 +42,7 @@ export default function Layout() {
                   </Trans>
                 </Title>
                 <SubTitle>{t("home.subtitle")}</SubTitle>
-                <PrimaryButton>{t("home.aboutTheSiteButton")}</PrimaryButton>
+                <PrimaryButton size="large">{t("home.aboutTheSiteButton")}</PrimaryButton>
               </Header>
               <Img src={abstract.src} />
             </HeaderContent>

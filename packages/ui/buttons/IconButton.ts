@@ -13,7 +13,7 @@ export const IconButton = styled.button<IconButtonProps>`
   z-index: ${(props) => props.zIndex};
   cursor: pointer;
   padding: 12px;
-  margin: 10px 20px;
+  margin: 20px;
   border-radius: 50%;
   background-color: rgba(142, 181, 240, 0.1);
 
@@ -26,17 +26,17 @@ export const IconButton = styled.button<IconButtonProps>`
   }
 
   @media (max-width: 1200px) {
-    padding: 10px;
+    padding: 13px;
 
     svg {
-      font-size: 19px;
+      font-size: 25px;
     }
   }
   @media (max-width: 700px) {
-    padding: 9px;
+    padding: 13px;
 
     svg {
-      font-size: 18px;
+      font-size: 25px;
     }
   }
 `;
