@@ -11,8 +11,8 @@ export const Container = styled.div`
   border-radius: 10px;
 
   @media (max-width: 900px) {
-    display: none;
-  } 
+    padding: 0;
+  }  
 `;
 
 export const ContentRegistration = styled.div`
@@ -20,6 +20,10 @@ export const ContentRegistration = styled.div`
   gap: 1em;
   padding-left: 30px;
   border-left: 1px solid ${({ theme }) => theme.COLORS.DEFAULT};
+
+  @media (max-width: 900px) {
+    display: none;
+  } 
 `;
 
 export const ContainerPopover = styled.div`
@@ -39,32 +43,8 @@ export const ContentPopover = styled.div`
 
 export const UtilityResponsiveButton = styled(OverlayButton)`
   display: none;
-  top: 0;
-  right: 0;
 
   @media (max-width: 900px) {
     display: flex;
   }  
-`;
-
-export const RegisterButton = styled.button`
-  cursor: pointer;
-  padding: 0.9em 2em;
-  color: ${({ theme }) => theme.COLORS.DEFAULT_TWO};
-  border: 2px solid ${({ theme }) => theme.COLORS.DEFAULT_TWO};
-  border-radius: 10px;
-  box-shadow: 4px 5px black;
-  background-color: rgba(142, 181, 240);
-
-  @media (max-width: 1200px) {
-    padding: 0.6em 1.6em;
-    box-shadow: 2px 3px;
-  };
-`;
-
-export const LoginButton = styled(RegisterButton)`
-  color: ${({ theme }) => theme.COLORS.DEFAULT};
-  border: 2px solid ${({ theme }) => theme.COLORS.PRIMARY};
-  box-shadow: none;
-  background-color: ${({ theme }) => theme.COLORS.PRIMARY};
 `;

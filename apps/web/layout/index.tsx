@@ -10,12 +10,12 @@ import abstract from "../assets/abstract.svg";
 
 import { LayoutContext } from "../context/LayoutProvider";
 import { Container as LayoutContainer } from "../styles/components/LayoutStyles";
+import { CustomPrimaryButton } from "ui";
 import {
   Container,
   HeaderContent,
   Header,
   Title,
-  Button,
   SubTitle,
   Img,
 } from "../styles/pages/HomeStyles";
@@ -42,7 +42,17 @@ export default function Layout() {
                   </Trans>
                 </Title>
                 <SubTitle>{t("home.subtitle")}</SubTitle>
-                <Button>{t("home.aboutTheSiteButton")}</Button>
+                <CustomPrimaryButton
+                  setPadding="1.3em 2em"
+                  setFontSize="clamp(10pt, 1vw, 12pt)"
+                  setFontWeight="600"
+                  setBackgroundColor="#ffffff"
+                  setResFontSize="clamp(9pt, 0.5vw, 10pt)"
+                  setResPadding="0.9em 1em"
+                  setWidth="100%"
+                >
+                  {t("home.aboutTheSiteButton")}
+                </CustomPrimaryButton>
               </Header>
               <Img src={abstract.src} />
             </HeaderContent>

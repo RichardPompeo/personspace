@@ -1,14 +1,12 @@
 import React from "react";
 import { Popover } from "antd";
 
-import { OverlayButton } from "ui";
+import { OverlayButton, CustomPrimaryButton, CustomSecondaryButton } from "ui";
 import { BsGearFill } from "react-icons/bs";
 import { RiGlobeFill } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
 import {
   Container,
-  RegisterButton,
-  LoginButton,
   ContentRegistration,
   ContainerPopover,
   ContentPopover,
@@ -27,12 +25,22 @@ export default function UtilityContent() {
   const content = (
     <ContainerPopover>
       <ContentPopover>
-        <LoginButton>{t("utility.signInButton")}</LoginButton>
-        <RegisterButton>{t("utility.signUpButton")}</RegisterButton>
+        <CustomSecondaryButton
+          setColor="#ffffff"
+          setColorBorder="#26262c"
+          setBoxShadow="none"
+          setBackgroundColor="#26262c"
+        >
+          {t("utility.signInButton")}
+        </CustomSecondaryButton>
+        <CustomPrimaryButton
+          setPadding="0.9em 2em"
+          setBackgroundColor="#8EB5F0"
+          setResPadding="0.6em 1.6em"
+        >
+          {t("utility.signUpButton")}
+        </CustomPrimaryButton>
       </ContentPopover>
-      <OverlayButton setIndex="none" setPosition="none" setMarginSize="none">
-        <RiGlobeFill fontSize={23} />
-      </OverlayButton>
     </ContainerPopover>
   );
 
@@ -46,28 +54,40 @@ export default function UtilityContent() {
         >
           <RiGlobeFill fontSize={23} />
         </OverlayButton>
+        <Popover
+          overlayStyle={overlayStyle}
+          trigger={"click"}
+          content={content}
+          placement="bottomLeft"
+          color="#212126ff"
+          title={<h3>{t("utility.popoverTitle")}</h3>}
+        >
+          <UtilityResponsiveButton
+            setIndex="none"
+            setPosition="none"
+            setMarginSize="0 20px 0 0"
+          >
+            <BsGearFill fontSize={23} />
+          </UtilityResponsiveButton>
+        </Popover>
         <ContentRegistration>
-          <LoginButton>{t("utility.signInButton")}</LoginButton>
-          <RegisterButton>{t("utility.signUpButton")}</RegisterButton>
+          <CustomSecondaryButton
+            setColor="#ffffff"
+            setColorBorder="#26262c"
+            setBoxShadow="none"
+            setBackgroundColor="#26262c"
+          >
+            {t("utility.signInButton")}
+          </CustomSecondaryButton>
+          <CustomPrimaryButton
+            setPadding="0.9em 2em"
+            setBackgroundColor="#8EB5F0"
+            setResPadding="0.6em 1.6em"
+          >
+            {t("utility.signUpButton")}
+          </CustomPrimaryButton>
         </ContentRegistration>
       </Container>
-
-      <Popover
-        overlayStyle={overlayStyle}
-        trigger={"click"}
-        content={content}
-        placement="bottomLeft"
-        color="#212126ff"
-        title={<h3>{t("utility.popoverTitle")}</h3>}
-      >
-        <UtilityResponsiveButton
-          setIndex="none"
-          setPosition="fixed"
-          setMarginSize="10px 20px"
-        >
-          <BsGearFill fontSize={23} />
-        </UtilityResponsiveButton>
-      </Popover>
     </>
   );
 }
