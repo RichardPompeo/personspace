@@ -1,3 +1,5 @@
 import * as React from "react";
 
-export * from "./Button";
+export * from "./buttons/PrimaryButton";
+export * from "./buttons/SecondaryButton";
+export * from "./buttons/IconButton";

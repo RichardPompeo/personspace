@@ -21,10 +21,10 @@
       },
       "utility": {
         "signInButton": "Entrar",
-        "signUpButton": "Inscrever-se"
-      },
-      "popover": {
-        "title": "Configurações"
+        "signUpButton": "Inscrever-se",
+        "popover": {
+          "title": "Configurações"
+        }
       }
     }
   }

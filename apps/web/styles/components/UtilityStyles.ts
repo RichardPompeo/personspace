@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
-import { OverlayButton } from "ui";
+
+import { IconButton } from "ui";
 
 export const Container = styled.div`
   display: flex;
@@ -12,7 +13,7 @@ export const Container = styled.div`
 
   @media (max-width: 900px) {
     padding: 0;
-  }  
+  }
 `;
 
 export const ContentRegistration = styled.div`
@@ -23,7 +24,7 @@ export const ContentRegistration = styled.div`
 
   @media (max-width: 900px) {
     display: none;
-  } 
+  }
 `;
 
 export const ContainerPopover = styled.div`
@@ -41,10 +42,11 @@ export const ContentPopover = styled.div`
   flex-direction: column;
 `;
 
-export const UtilityResponsiveButton = styled(OverlayButton)`
+export const UtilityResponsiveButton = styled(IconButton)`
   display: none;
+  margin-left: 0px;
 
   @media (max-width: 900px) {
     display: flex;
-  }  
+  }
 `;

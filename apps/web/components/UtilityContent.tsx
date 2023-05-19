@@ -1,7 +1,7 @@
 import React from "react";
 import { Popover } from "antd";
 
-import { OverlayButton, CustomPrimaryButton, CustomSecondaryButton } from "ui";
+import { IconButton, PrimaryButton, SecondaryButton } from "ui";
 import { BsGearFill } from "react-icons/bs";
 import { RiGlobeFill } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
@@ -25,21 +25,12 @@ export default function UtilityContent() {
   const content = (
     <ContainerPopover>
       <ContentPopover>
-        <CustomSecondaryButton
-          setColor="#ffffff"
-          setColorBorder="#26262c"
-          setBoxShadow="none"
-          setBackgroundColor="#26262c"
-        >
+        <SecondaryButton color="#26262c">
           {t("utility.signInButton")}
-        </CustomSecondaryButton>
-        <CustomPrimaryButton
-          setPadding="0.9em 2em"
-          setBackgroundColor="#8EB5F0"
-          setResPadding="0.6em 1.6em"
-        >
+        </SecondaryButton>
+        <PrimaryButton color="#8EB5F0">
           {t("utility.signUpButton")}
-        </CustomPrimaryButton>
+        </PrimaryButton>
       </ContentPopover>
     </ContainerPopover>
   );
@@ -47,45 +38,28 @@ export default function UtilityContent() {
   return (
     <>
       <Container>
-        <OverlayButton
-          setIndex="none"
-          setPosition="none"
-          setMarginSize="10px 20px"
-        >
+        <IconButton>
           <RiGlobeFill fontSize={23} />
-        </OverlayButton>
+        </IconButton>
         <Popover
           overlayStyle={overlayStyle}
           trigger={"click"}
           content={content}
           placement="bottomLeft"
           color="#212126ff"
-          title={<h3>{t("popover.title")}</h3>}
+          title={<h3>{t("utility.popover.title")}</h3>}
         >
-          <UtilityResponsiveButton
-            setIndex="none"
-            setPosition="none"
-            setMarginSize="0 20px 0 0"
-          >
+          <UtilityResponsiveButton>
             <BsGearFill fontSize={23} />
           </UtilityResponsiveButton>
         </Popover>
         <ContentRegistration>
-          <CustomSecondaryButton
-            setColor="#ffffff"
-            setColorBorder="#26262c"
-            setBoxShadow="none"
-            setBackgroundColor="#26262c"
-          >
+          <SecondaryButton color="#26262C">
             {t("utility.signInButton")}
-          </CustomSecondaryButton>
-          <CustomPrimaryButton
-            setPadding="0.9em 2em"
-            setBackgroundColor="#8EB5F0"
-            setResPadding="0.6em 1.6em"
-          >
+          </SecondaryButton>
+          <PrimaryButton color="#8EB5F0">
             {t("utility.signUpButton")}
-          </CustomPrimaryButton>
+          </PrimaryButton>
         </ContentRegistration>
       </Container>
     </>
