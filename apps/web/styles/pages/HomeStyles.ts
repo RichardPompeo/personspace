@@ -63,31 +63,6 @@ export const SubTitle = styled.h2`
   }
 `;
 
-export const Button = styled.button`
-  padding: 1.3em 2em; 
-  color: ${({ theme }) => theme.COLORS.DEFAULT_TWO};
-  cursor: pointer;
-  font-size: clamp(10pt, 1vw, 12pt);
-  font-weight: 600;
-  border: 2px solid ${({ theme }) => theme.COLORS.DEFAULT_TWO};
-  box-shadow: 4px 5px;
-  border-radius: 10px;
-  background-color: ${({ theme }) => theme.COLORS.DEFAULT};
-
-  @media (max-width: 1600px) {
-    font-size: clamp(9pt, 2vw, 10pt);
-  }
-
-  @media (max-width: 1200px) {
-    padding: 1em 1em;
-    box-shadow: 2px 3px;
-  }
-
-  @media (max-width: 800px) {
-    width: 100%;
-  }
-`;
-
 export const Img = styled.img`
   display: flex;
   width: 700px;

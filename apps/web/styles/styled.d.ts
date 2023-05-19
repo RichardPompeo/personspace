@@ -13,9 +13,5 @@ declare module "styled-components" {
       PRIMARY: string;
       SECONDARY: string;
     };
-
-    FONTS: {
-      
-    };
   }
 }

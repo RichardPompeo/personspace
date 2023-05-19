@@ -10,27 +10,6 @@ export const Container = styled.nav`
   background-color: ${({ theme }) => theme.COLORS.PRIMARY};
 `;
 
-export const MButton = styled.button`
-  position: absolute; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  cursor: pointer;
-  padding: 12px;
-  margin: 10px 20px;
-  border-radius: 50%;
-  background-color: rgba(142, 181, 240, 0.1);
-
-  &:hover {
-    background-color: ${({ theme }) => theme.COLORS.DEFAULT};
-
-    svg {
-      fill: ${({ theme }) => theme.COLORS.DEFAULT_TWO};
-    }
-  }
-`;
-
 export const Logo = styled.div`
   display: flex;
   flex-direction: row;
