@@ -60,7 +60,7 @@ export default function UtilityContent() {
           content={content}
           placement="bottomLeft"
           color="#212126ff"
-          title={<h3>{t("utility.popoverTitle")}</h3>}
+          title={<h3>{t("popover.title")}</h3>}
         >
           <UtilityResponsiveButton
             setIndex="none"

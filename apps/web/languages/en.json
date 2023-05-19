@@ -21,8 +21,10 @@
       },
       "utility": {
         "signInButton": "Sign in",
-        "signUpButton": "Sign up",
-        "popoverTitle": "Settings"
+        "signUpButton": "Sign up"
+      },
+      "popover": {
+        "title": "Settings"
       }
     }
   }
