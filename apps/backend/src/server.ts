@@ -6,13 +6,13 @@ import path from "node:path";
 
 import { buildSchema } from "type-graphql";
 
-import { UserResolver } from "./resolvers/UserResolver";
+import { AuthenticationResolver } from "./resolvers/AuthenticationResolver";
 
 import "./helpers/firebase";
 
 const bootstrap = async () => {
   const schema = await buildSchema({
-    resolvers: [UserResolver],
+    resolvers: [AuthenticationResolver],
     validate: { forbidUnknownValues: false },
     emitSchemaFile: path.resolve(__dirname, "../schema.gql"),
   });

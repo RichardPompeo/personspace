@@ -23,6 +23,7 @@ type SignUpResponseModel {
 }
 
 input SignUpWithEmailAndPasswordInput {
+  displayName: String!
   email: String!
   password: String!
 }

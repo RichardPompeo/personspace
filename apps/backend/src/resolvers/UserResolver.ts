@@ -1,48 +1,26 @@
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Resolver } from "type-graphql";
 
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { randomUUID } from "node:crypto";
 
-import { SignUpWithEmailAndPasswordInput } from "../dtos/inputs/SignUpWithEmailAndPasswordInput";
-import { SignUpResponseModel } from "../dtos/models/SignUpModel";
+import { prisma } from "../helpers/prisma";
+
+import { CreateUserInput } from "../dtos/inputs/CreateUserInput";
 
 @Resolver()
 export class UserResolver {
-  @Query(() => String)
-  async helloWorld() {
-    return "Hello World!";
-  }
+  static async createUser(@Arg("input") input: CreateUserInput) {
+    const user = {
+      id: randomUUID(),
+      firebaseId: input.firebaseId,
+      displayName: input.displayName,
+    };
 
-  @Mutation(() => SignUpResponseModel)
-  signUpWithEmailAndPassword(
-    @Arg("input") input: SignUpWithEmailAndPasswordInput
-  ) {
-    const auth = getAuth();
-
-    const response = new Promise((resolve) => {
-      createUserWithEmailAndPassword(auth, input.email, input.password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-
-          resolve({
-            success: true,
-            user: {
-              uid: user.uid,
-              email: user.email,
-              idToken: user.getIdToken(),
-            },
-          });
-        })
-        .catch((error) => {
-          const code = error.code;
-          const message = error.message;
-
-          resolve({
-            success: false,
-            error: { code, message },
-          });
-        });
+    await prisma.users.create({ data: user }).catch((err) => {
+      if (err.code === "P2002") {
+        throw Error(`Duplicated field '${err.meta?.target[0]}'`);
+      }
     });
 
-    return response;
+    return user;
   }
 }
