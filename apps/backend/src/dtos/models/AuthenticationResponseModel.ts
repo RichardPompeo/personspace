@@ -4,7 +4,7 @@ import { ErrorModel } from "./ErrorModel";
 import { UserModel } from "./UserModel";
 
 @ObjectType()
-export class SignUpResponseModel {
+export class AuthenticationResponseModel {
   @Field()
   success: boolean;
 
