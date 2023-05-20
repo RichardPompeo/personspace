@@ -3,23 +3,29 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type AuthenticationResponseModel {
+  error: ErrorModel
+  success: Boolean!
+  user: UserModel
+}
+
 type ErrorModel {
   code: String!
   message: String!
 }
 
 type Mutation {
-  signUpWithEmailAndPassword(input: SignUpWithEmailAndPasswordInput!): SignUpResponseModel!
+  signInWithEmailAndPassword(input: SignInWithEmailAndPasswordInput!): AuthenticationResponseModel!
+  signUpWithEmailAndPassword(input: SignUpWithEmailAndPasswordInput!): AuthenticationResponseModel!
 }
 
 type Query {
   helloWorld: String!
 }
 
-type SignUpResponseModel {
-  error: ErrorModel
-  success: Boolean!
-  user: UserModel
+input SignInWithEmailAndPasswordInput {
+  email: String!
+  password: String!
 }
 
 input SignUpWithEmailAndPasswordInput {
