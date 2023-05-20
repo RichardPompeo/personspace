@@ -1,15 +1,17 @@
 {
   "name": "backend",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "0.1.0",
+  "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "dev": "tsnd --respawn --transpile-only src/index.ts"
+    "dev": "tsnd --respawn --transpile-only src/server.ts"
   },
   "dependencies": {
-    "@apollo/server": "^4.7.1",
+    "apollo-server": "^3.10.1",
     "class-validator": "^0.14.0",
-    "graphql": "15.3.0",
+    "dotenv": "^16.0.3",
+    "firebase": "^9.22.0",
+    "graphql": "^15.8.0",
     "reflect-metadata": "^0.1.13",
     "tsconfig": "*",
     "type-graphql": "^1.1.1"

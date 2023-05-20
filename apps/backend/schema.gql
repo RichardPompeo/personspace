@@ -3,6 +3,32 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type ErrorModel {
+  code: String!
+  message: String!
+}
+
+type Mutation {
+  signUpWithEmailAndPassword(input: SignUpWithEmailAndPasswordInput!): SignUpResponseModel!
+}
+
 type Query {
   helloWorld: String!
+}
+
+type SignUpResponseModel {
+  error: ErrorModel
+  success: Boolean!
+  user: UserModel
+}
+
+input SignUpWithEmailAndPasswordInput {
+  email: String!
+  password: String!
+}
+
+type UserModel {
+  email: String
+  idToken: String
+  uid: String!
 }
