@@ -1,7 +1,6 @@
 import React from "react";
-import { Popover } from "antd";
 
-import { IconButton, PrimaryButton, SecondaryButton } from "ui";
+import { IconButton, PopoverModal, overlayStyle, PrimaryButton, SecondaryButton } from "ui";
 import { BsGearFill } from "react-icons/bs";
 import { RiGlobeFill } from "react-icons/ri";
 import { useTranslation } from "react-i18next";
@@ -15,12 +14,6 @@ import {
 
 export default function UtilityContent() {
   const { t } = useTranslation();
-
-  const overlayStyle = {
-    background: "#23232fff",
-    width: "250px",
-    borderRadius: "10px",
-  };
 
   const content = (
     <ContainerPopover>
@@ -41,7 +34,7 @@ export default function UtilityContent() {
         <IconButton>
           <RiGlobeFill fontSize={23} />
         </IconButton>
-        <Popover
+        <PopoverModal
           overlayStyle={overlayStyle}
           trigger={"click"}
           content={content}
@@ -52,7 +45,7 @@ export default function UtilityContent() {
           <UtilityResponsiveButton>
             <BsGearFill fontSize={23} />
           </UtilityResponsiveButton>
-        </Popover>
+        </PopoverModal>
         <ContentRegistration>
           <SecondaryButton color="#26262C">
             {t("utility.signInButton")}
