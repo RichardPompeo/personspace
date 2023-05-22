@@ -19,6 +19,7 @@ import {
   SubTitle,
   Img,
 } from "../styles/pages/HomeStyles";
+import RegisterModal from "../components/RegisterModal";
 
 export default function Layout() {
   const { menu } = useContext(LayoutContext);
@@ -27,6 +28,7 @@ export default function Layout() {
 
   return (
     <LayoutContainer>
+      <RegisterModal />
       <Row>
         <Col span={menu ? 4 : 2}>
           <NavBar />
