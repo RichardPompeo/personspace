@@ -1,9 +1,28 @@
 {
   "compilerOptions": {
+    // From Doc.
     "target": "es2018",
-    "module": "CommonJS",
-    "lib": ["es2018", "ESNext.AsyncIterable"],
+    "module": "commonjs",
+    "lib": ["ES2018", "ESNext.AsyncIterable"],
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "allowSyntheticDefaultImports": true,
+    // ???
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "resolveJsonModule": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false
   }
 }

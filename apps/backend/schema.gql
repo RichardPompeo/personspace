@@ -3,6 +3,39 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type AuthenticationResponseModel {
+  error: ErrorModel
+  success: Boolean!
+  user: UserModel
+}
+
+type ErrorModel {
+  code: String!
+  message: String!
+}
+
+type Mutation {
+  signInWithEmailAndPassword(input: SignInWithEmailAndPasswordInput!): AuthenticationResponseModel!
+  signUpWithEmailAndPassword(input: SignUpWithEmailAndPasswordInput!): AuthenticationResponseModel!
+}
+
 type Query {
   helloWorld: String!
+}
+
+input SignInWithEmailAndPasswordInput {
+  email: String!
+  password: String!
+}
+
+input SignUpWithEmailAndPasswordInput {
+  displayName: String!
+  email: String!
+  password: String!
+}
+
+type UserModel {
+  email: String
+  idToken: String
+  uid: String!
 }

@@ -29,7 +29,7 @@ export const ContentRegistration = styled.div`
 
 export const ContainerPopover = styled.div`
   display: flex;
-  margin-top: 2.5em;
+  margin-top: 1.5em;
   gap: 2em;
   align-items: flex-end;
   flex-direction: column;
@@ -44,7 +44,12 @@ export const ContentPopover = styled.div`
 
 export const UtilityResponsiveButton = styled(IconButton)`
   display: none;
+  padding: 13px;
   margin-left: 0px;
+
+  svg {
+    font-size: 25px;
+  }
 
   @media (max-width: 900px) {
     display: flex;

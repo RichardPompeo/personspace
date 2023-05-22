@@ -24,12 +24,12 @@ export const Header = styled.div`
   width: 30vw;
 
   h1 + h2 {
-    margin: 30px 0 60px 0;
+    margin: 30px 0 40px 0;
   }
 
   @media (max-width: 1500px) {
     h1 + h2 {
-      margin: 30px 0 40px 0;
+      margin: 30px 0 30px 0;
     }
   }
 
