@@ -25,6 +25,16 @@
         "popover": {
           "title": "Settings"
         }
+      },
+      "modal": {
+        "title": "Sign up",
+        "subTitle": "By registering, will be able to store your data.",
+        "formSignUp": {
+          "placeholderName": "Name",
+          "placeholderEmail": "Email",
+          "placeholderPassword": "Password",
+          "createButton": "Create account"
+        }
       }
     }
   }

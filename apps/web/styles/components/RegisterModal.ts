@@ -9,15 +9,10 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   backdrop-filter: blur(3px);
-
-  svg {
-    position: absolute;
-    margin-bottom: 13.5em;
-    margin-left: 11em;
-  }
 `;
 
 export const ContentModal = styled.div`
+  position: relative;
   background-color: #212126ff;
   width: 25em;
   height: 30em;
@@ -26,6 +21,15 @@ export const ContentModal = styled.div`
   flex-direction: column;
   border-radius: 10px;
   justify-content: space-evenly;
+`;
+
+export const CloseButton = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 2em 2.5em;
+  cursor: pointer;
+  background-color: transparent;
 `;
 
 export const TitleContent = styled.div`
@@ -38,10 +42,11 @@ export const TitleContent = styled.div`
 
 export const Title = styled.h1`
   font-weight: 800;
+  color: #8eb5f0;
 `;
 
 export const SubTitle = styled.p`
+  opacity: 0.8;
   font-size: 13pt;
   margin-top: 0.7em;
-  opacity: 0.8;
 `;

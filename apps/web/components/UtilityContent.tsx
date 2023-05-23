@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { IconButton, PopoverModal, overlayStyle, PrimaryButton, SecondaryButton } from "ui";
 import { BsGearFill } from "react-icons/bs";
@@ -11,9 +11,12 @@ import {
   ContentPopover,
   UtilityResponsiveButton,
 } from "../styles/components/UtilityStyles";
+import { ModalContext } from "../context/ModalProvider";
 
 export default function UtilityContent() {
   const { t } = useTranslation();
+
+  const { handleModalVisibility } = useContext(ModalContext);
 
   const content = (
     <ContainerPopover>
@@ -50,7 +53,7 @@ export default function UtilityContent() {
           <SecondaryButton color="#26262C">
             {t("utility.signInButton")}
           </SecondaryButton>
-          <PrimaryButton color="#8EB5F0">
+          <PrimaryButton onClick={handleModalVisibility} color="#8EB5F0">
             {t("utility.signUpButton")}
           </PrimaryButton>
         </ContentRegistration>

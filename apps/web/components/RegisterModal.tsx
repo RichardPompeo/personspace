@@ -1,28 +1,42 @@
-import FormSignUp from "./FormSignUp";
+import { useContext } from "react";
+import { useTranslation } from "react-i18next";
+import { IoIosCloseCircle } from "react-icons/io";
 
-import { IoIosCloseCircle } from "react-icons/io"
+import FormSignUp from "./FormSignUp";
 import {
   Container,
   ContentModal,
   TitleContent,
   Title,
   SubTitle,
+  CloseButton,
 } from "../styles/components/RegisterModal";
+import { ModalContext } from "../context/ModalProvider";
 
 export default function RegisterModal() {
-  return (
-    <Container>
-      <ContentModal>
-        <IoIosCloseCircle fontSize={30}/>
-        <TitleContent>
-          <Title>Sign up</Title>
-          <SubTitle>
-            By registering, will be able to store your data.
-          </SubTitle>
-        </TitleContent>
+  const { t } = useTranslation();
+  
+  const { modal, handleModalVisibility } = useContext(ModalContext);
 
-        <FormSignUp />
-      </ContentModal>
-    </Container>
+  return (
+    <>
+      {modal ? (
+        <Container>
+          <ContentModal>
+            <TitleContent>
+              <CloseButton onClick={handleModalVisibility}>
+                <IoIosCloseCircle fontSize={25} />
+              </CloseButton>
+              <Title>{t("modal.title")}</Title>
+              <SubTitle>{t("modal.subTitle")}</SubTitle>
+            </TitleContent>
+
+            <FormSignUp />
+          </ContentModal>
+        </Container>
+      ) : (
+        ""
+      )}
+    </>
   );
 }

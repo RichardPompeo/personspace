@@ -15,6 +15,7 @@ import en from "../languages/en.json";
 import pt from "../languages/pt.json";
 
 import { darkTheme } from "../styles/themes/dark";
+import { ModalProvider } from "../context/ModalProvider";
 
 i18n
   .use(initReactI18next)
@@ -31,8 +32,10 @@ export default function Page() {
   return (
     <ThemeProvider theme={darkTheme}>
       <LayoutProvider>
-        <GlobalStyle />
-        <Layout />
+        <ModalProvider>
+          <GlobalStyle />
+          <Layout />
+        </ModalProvider>
       </LayoutProvider>
     </ThemeProvider>
   );
