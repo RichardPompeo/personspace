@@ -27,13 +27,21 @@
         }
       },
       "modal": {
-        "title": "Sign up",
-        "subTitle": "By registering, will be able to store your data.",
+        "titleRegister": "Sign up",
+        "subTitleRegister": "By registering, will be able to store your data.",
         "formSignUp": {
           "placeholderName": "Name",
           "placeholderEmail": "Email",
           "placeholderPassword": "Password",
           "createButton": "Create account"
+        },
+
+        "titleLogin": "Sign in",
+        "subTitleLogin": "Keep logging into your account.",
+        "formSignIn": {
+          "placeholderEmail": "Email",
+          "placeholderPassword": "Password",
+          "createButton": "Continue"
         }
       }
     }

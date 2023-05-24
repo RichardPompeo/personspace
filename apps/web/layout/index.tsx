@@ -20,6 +20,7 @@ import {
   Img,
 } from "../styles/pages/HomeStyles";
 import RegisterModal from "../components/RegisterModal";
+import LoginModal from "../components/LoginModal";
 
 export default function Layout() {
   const { menu } = useContext(LayoutContext);
@@ -29,6 +30,7 @@ export default function Layout() {
   return (
     <LayoutContainer>
       <RegisterModal />
+      <LoginModal />
       <Row>
         <Col span={menu ? 4 : 2}>
           <NavBar />

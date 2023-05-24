@@ -4,12 +4,11 @@ import { useTranslation } from "react-i18next";
 import { PrimaryButton } from "ui";
 import { Form } from "../styles/components/FormStyles";
 
-export default function FormSignUp() {
+export default function FormSignIn() {
   const { t } = useTranslation();
 
   return (
     <Form>
-      <Input type="text" placeholder={t("modal.formSignUp.placeholderName")} />
       <Input
         type="email"
         placeholder={t("modal.formSignUp.placeholderEmail")}
@@ -17,7 +16,7 @@ export default function FormSignUp() {
       <Input.Password placeholder={t("modal.formSignUp.placeholderPassword")} />
 
       <PrimaryButton color="#8EB5F0">
-        {t("modal.formSignUp.createButton")}
+        {t("modal.formSignIn.createButton")}
       </PrimaryButton>
     </Form>
   );

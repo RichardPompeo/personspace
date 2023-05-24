@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { IoIosCloseCircle } from "react-icons/io";
 
-import FormSignUp from "./FormSignUp";
+import FormSignIn from "./FormSignIn";
 import {
   Container,
   ContentModal,
@@ -13,25 +13,25 @@ import {
 } from "../styles/components/ModalStyles";
 import { ModalContext } from "../context/ModalProvider";
 
-export default function RegisterModal() {
+export default function LoginModal() {
   const { t } = useTranslation();
 
-  const { signUpModal, handleSignUpModalVisibility } = useContext(ModalContext);
+  const { signInModal, handleSignInModalVisibility } = useContext(ModalContext);
 
   return (
     <>
-      {signUpModal ? (
+      {signInModal ? (
         <Container>
           <ContentModal>
             <TitleContent>
-              <CloseButton onClick={handleSignUpModalVisibility}>
+              <CloseButton onClick={handleSignInModalVisibility}>
                 <IoIosCloseCircle fontSize={25} />
               </CloseButton>
-              <Title>{t("modal.titleRegister")}</Title>
-              <SubTitle>{t("modal.subTitleRegister")}</SubTitle>
+              <Title>{t("modal.titleLogin")}</Title>
+              <SubTitle>{t("modal.subTitleLogin")}</SubTitle>
             </TitleContent>
 
-            <FormSignUp />
+            <FormSignIn />
           </ContentModal>
         </Container>
       ) : (
