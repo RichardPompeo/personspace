@@ -35,7 +35,7 @@
           "placeholderPassword": "Senha",
           "createButton": "Criar conta"
         },
-        "titleLogin": "Sign in",
+        "titleLogin": "Entrar",
         "subTitleLogin": "Continue acessando sua conta.",
         "formSignIn": {
           "placeholderEmail": "Email",
