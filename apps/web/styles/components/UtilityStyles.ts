@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 
+import { Popover } from "antd";
 import { IconButton } from "ui";
 
 export const Container = styled.div`
@@ -26,6 +27,12 @@ export const ContentRegistration = styled.div`
     display: none;
   }
 `;
+
+export const overlayStyle = {
+  background: "#23232fff",
+  width: "250px",
+  borderRadius: "10px",
+};
 
 export const ContainerPopover = styled.div`
   display: flex;

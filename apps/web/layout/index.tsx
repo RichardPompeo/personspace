@@ -19,8 +19,8 @@ import {
   SubTitle,
   Img,
 } from "../styles/pages/HomeStyles";
-import RegisterModal from "../components/RegisterModal";
-import LoginModal from "../components/LoginModal";
+import RegisterModal from "../components/SignUpModal";
+import LoginModal from "../components/SignInModal";
 
 export default function Layout() {
   const { menu } = useContext(LayoutContext);

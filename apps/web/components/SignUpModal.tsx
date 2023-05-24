@@ -2,7 +2,8 @@ import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { IoIosCloseCircle } from "react-icons/io";
 
-import FormSignUp from "./FormSignUp";
+import { Input } from "antd";
+import { PrimaryButton } from "ui";
 import {
   Container,
   ContentModal,
@@ -10,6 +11,7 @@ import {
   Title,
   SubTitle,
   CloseButton,
+  DataField,
 } from "../styles/components/ModalStyles";
 import { ModalContext } from "../context/ModalProvider";
 
@@ -31,7 +33,15 @@ export default function RegisterModal() {
               <SubTitle>{t("modal.subTitleRegister")}</SubTitle>
             </TitleContent>
 
-            <FormSignUp />
+            <DataField>
+              <Input type="text" placeholder={t("SignUp.placeholderName")} />
+              <Input type="email" placeholder={t("SignUp.placeholderEmail")} />
+              <Input.Password placeholder={t("SignUp.placeholderPassword")} />
+
+              <PrimaryButton color="#8EB5F0">
+                {t("SignUp.createButton")}
+              </PrimaryButton>
+            </DataField>
           </ContentModal>
         </Container>
       ) : (
