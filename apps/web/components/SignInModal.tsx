@@ -1,7 +1,8 @@
-import { useContext } from "react";
+import { Input } from "antd";
 import { useTranslation } from "react-i18next";
 import { IoIosCloseCircle } from "react-icons/io";
 
+import { PrimaryButton } from "ui";
 import {
   Container,
   ContentModal,
@@ -11,14 +12,14 @@ import {
   DataField,
   CloseButton,
 } from "../styles/components/ModalStyles";
-import { ModalContext } from "../context/ModalProvider";
-import { Input } from "antd";
-import { PrimaryButton } from "ui";
 
-export default function LoginModal() {
+interface ModalProps {
+  signInModal: Boolean;
+  handleSignInModalVisibility: () => void;
+}
+
+export default function SignInModal({ signInModal, handleSignInModalVisibility }: ModalProps) {
   const { t } = useTranslation();
-
-  const { signInModal, handleSignInModalVisibility } = useContext(ModalContext);
 
   return (
     <>

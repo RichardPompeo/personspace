@@ -1,6 +1,5 @@
 import { styled } from "styled-components";
 
-import { Popover } from "antd";
 import { IconButton } from "ui";
 
 export const Container = styled.div`

@@ -28,7 +28,9 @@
       },
       "modal": {
         "titleRegister": "Inscrever-se",
-        "subTitleRegister": "Ao se registrar, você poderá armazenar seus dados."
+        "subTitleRegister": "Ao se registrar, você poderá armazenar seus dados.",
+        "titleLogin": "Entrar",
+        "subTitleLogin": "Depois de se registrar, continue acessando sua conta."
       },
       "SignUp": {
         "placeholderName": "Nome",
@@ -36,8 +38,6 @@
         "placeholderPassword": "Senha",
         "createButton": "Criar conta"
       },
-      "titleLogin": "Entrar",
-      "subTitleLogin": "Continue acessando sua conta.",
       "SignIn": {
         "placeholderEmail": "Email",
         "placeholderPassword": "Senha",

@@ -1,21 +1,24 @@
 import { styled } from "styled-components";
 
 export const Container = styled.div`
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
   width: 100vw;
   height: 100vh;
   display: flex;
-  z-index: 2;
   align-items: center;
   justify-content: center;
   backdrop-filter: blur(3px);
+  font-family: "Supreme", sans-serif;
 `;
 
 export const ContentModal = styled.div`
   position: relative;
   background-color: #212126ff;
-  width: 25em;
-  height: 30em;
+  width: 25rem;
+  height: 30rem;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -34,15 +37,16 @@ export const CloseButton = styled.button`
 
 export const TitleContent = styled.div`
   display: flex;
-  width: 20em;
+  width: 20rem;
   text-align: center;
   align-items: center;
   flex-direction: column;
 `;
 
 export const Title = styled.h1`
-  font-weight: 800;
   color: #8eb5f0;
+  font-weight: 800;
+  font-size: 24pt;
 `;
 
 export const SubTitle = styled.p`

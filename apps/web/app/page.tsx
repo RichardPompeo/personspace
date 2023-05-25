@@ -15,9 +15,8 @@ import en from "../languages/en.json";
 import pt from "../languages/pt.json";
 
 import { darkTheme } from "../styles/themes/dark";
-import { ModalProvider } from "../context/ModalProvider";
 
-declare module 'i18next' {
+declare module "i18next" {
   interface CustomTypeOptions {
     returnNull: false;
   }
@@ -38,10 +37,8 @@ export default function Page() {
   return (
     <ThemeProvider theme={darkTheme}>
       <LayoutProvider>
-        <ModalProvider>
-          <GlobalStyle />
-          <Layout />
-        </ModalProvider>
+        <GlobalStyle />
+        <Layout />
       </LayoutProvider>
     </ThemeProvider>
   );

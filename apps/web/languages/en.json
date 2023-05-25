@@ -30,7 +30,7 @@
         "titleRegister": "Sign up",
         "subTitleRegister": "By registering, will be able to store your data.",
         "titleLogin": "Sign in",
-        "subTitleLogin": "Keep logging into your account."
+        "subTitleLogin": "After registering, continue to access your account."
       },
       "SignUp": {
         "placeholderName": "Name",

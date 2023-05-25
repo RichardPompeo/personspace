@@ -1,6 +1,9 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import { Popover } from "antd";
 import { useTranslation } from "react-i18next";
+
+import SignInModal from "./SignInModal";
+import SignUpModal from "./SignUpModal";
 
 import { IconButton, PrimaryButton, SecondaryButton } from "ui";
 import { BsGearFill } from "react-icons/bs";
@@ -13,12 +16,20 @@ import {
   ContentPopover,
   UtilityResponsiveButton,
 } from "../styles/components/UtilityStyles";
-import { ModalContext } from "../context/ModalProvider";
 
 export default function UtilityContent() {
   const { t } = useTranslation();
 
-  const { handleSignUpModalVisibility,  handleSignInModalVisibility } = useContext(ModalContext);
+  const [signUpModal, setSignUpModalVisibility] = useState<Boolean>(false);
+  const [signInModal, setSignInModalVisibility] = useState<Boolean>(false);
+
+  const handleSignUpModalVisibility = () => {
+    return !signUpModal ? setSignUpModalVisibility(true) : setSignUpModalVisibility(false);
+  };
+
+  const handleSignInModalVisibility = () => {
+    return !signInModal ? setSignInModalVisibility(true) : setSignInModalVisibility(false);
+  };
 
   const content = (
     <ContainerPopover>
@@ -60,6 +71,9 @@ export default function UtilityContent() {
           </PrimaryButton>
         </ContentRegistration>
       </Container>
+
+      <SignUpModal signUpModal={signUpModal} handleSignUpModalVisibility={handleSignUpModalVisibility}/>
+      <SignInModal signInModal={signInModal} handleSignInModalVisibility={handleSignInModalVisibility}/>
     </>
   );
 }

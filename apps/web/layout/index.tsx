@@ -19,8 +19,6 @@ import {
   SubTitle,
   Img,
 } from "../styles/pages/HomeStyles";
-import RegisterModal from "../components/SignUpModal";
-import LoginModal from "../components/SignInModal";
 
 export default function Layout() {
   const { menu } = useContext(LayoutContext);
@@ -29,8 +27,6 @@ export default function Layout() {
 
   return (
     <LayoutContainer>
-      <RegisterModal />
-      <LoginModal />
       <Row>
         <Col span={menu ? 4 : 2}>
           <NavBar />
