@@ -4,6 +4,18 @@ import { ErrorModel } from "./ErrorModel";
 import { UserModel } from "./UserModel";
 
 @ObjectType()
+class AuthenticationUserResponse {
+  @Field()
+  uid: string;
+
+  @Field()
+  email: string;
+
+  @Field()
+  idToken: string;
+}
+
+@ObjectType()
 export class AuthenticationResponseModel {
   @Field()
   success: boolean;
@@ -12,5 +24,5 @@ export class AuthenticationResponseModel {
   error: ErrorModel;
 
   @Field({ nullable: true })
-  user: UserModel;
+  user: AuthenticationUserResponse;
 }
