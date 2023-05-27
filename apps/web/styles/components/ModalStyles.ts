@@ -11,11 +11,20 @@ export const Container = styled.div<ContainerProps>`
   z-index: 1;
   width: 100vw;
   height: 100vh;
-  display: ${(props) => props.open ? "flex" : "none"};
+  display: ${(props) => (props.open ? "flex" : "none")};
   align-items: center;
   justify-content: center;
   backdrop-filter: blur(3px);
   font-family: "Supreme", sans-serif;
+
+  @media (max-width: 600px) {
+    align-items: flex-end;
+
+    div {
+      width: 100%;
+      border-radius: 20px;
+    }
+  }
 `;
 
 export const ContentModal = styled.div`
@@ -68,13 +77,17 @@ export const DataField = styled.div`
     height: 2.9em;
     font-size: medium;
     border-radius: 10px;
-    background-color: #26262c;
+    background-color: ${({ theme }) => theme.COLORS.PRIMARY};
     border: 1px solid rgba(255, 255, 255, 0.3);
     color: ${({ theme }) => theme.COLORS.DEFAULT};
   }
 
+  input::placeholder {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
   span {
-    background-color: #26262c;
+    background-color: ${({ theme }) => theme.COLORS.PRIMARY};
     border-radius: 10px;
     font-size: medium;
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -114,7 +127,27 @@ export const DataField = styled.div`
     margin-top: 2em;
   }
 
-  input::placeholder {
-    color: rgba(255, 255, 255, 0.8);
+  @media (max-width: 600px) {
+    align-items: center;
+
+    input {
+      width: 90%;
+    }
+
+    span {
+      width: 90%;
+
+      input {
+        width: 93%;
+      }
+
+      span {
+        width: 20px;
+      }
+    }
+
+    button {
+      width: 90%;
+    }
   }
 `;

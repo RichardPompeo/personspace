@@ -28,10 +28,10 @@ export default function UtilityContent() {
   const content = (
     <ContainerPopover>
       <ContentPopover>
-        <SecondaryButton color="#26262c">
+        <SecondaryButton onClick={() => setSignInOpen(true)} color="#26262c">
           {t("utility.signInButton")}
         </SecondaryButton>
-        <PrimaryButton color="#8EB5F0">
+        <PrimaryButton onClick={() => setSignUpOpen(true)} color="#8EB5F0">
           {t("utility.signUpButton")}
         </PrimaryButton>
       </ContentPopover>
