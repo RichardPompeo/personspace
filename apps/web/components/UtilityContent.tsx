@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { Popover } from "antd";
 import { useTranslation } from "react-i18next";
+import { BsGearFill } from "react-icons/bs";
+import { RiGlobeFill } from "react-icons/ri";
+
+import { Popover } from "antd";
 
 import SignInModal from "./SignInModal";
 import SignUpModal from "./SignUpModal";
 
-import { IconButton, PrimaryButton, SecondaryButton } from "ui";
-import { BsGearFill } from "react-icons/bs";
-import { RiGlobeFill } from "react-icons/ri";
 import {
   Container,
   ContentRegistration,
@@ -17,19 +17,13 @@ import {
   UtilityResponsiveButton,
 } from "../styles/components/UtilityStyles";
 
+import { IconButton, PrimaryButton, SecondaryButton } from "ui";
+
 export default function UtilityContent() {
+  const [signUpOpen, setSignUpOpen] = useState(false);
+  const [signInOpen, setSignInOpen] = useState(false);
+  
   const { t } = useTranslation();
-
-  const [signUpModal, setSignUpModalVisibility] = useState<Boolean>(false);
-  const [signInModal, setSignInModalVisibility] = useState<Boolean>(false);
-
-  const handleSignUpModalVisibility = () => {
-    return !signUpModal ? setSignUpModalVisibility(true) : setSignUpModalVisibility(false);
-  };
-
-  const handleSignInModalVisibility = () => {
-    return !signInModal ? setSignInModalVisibility(true) : setSignInModalVisibility(false);
-  };
 
   const content = (
     <ContainerPopover>
@@ -63,17 +57,17 @@ export default function UtilityContent() {
           </UtilityResponsiveButton>
         </Popover>
         <ContentRegistration>
-          <SecondaryButton onClick={handleSignInModalVisibility} color="#26262C">
+          <SecondaryButton onClick={() => setSignInOpen(true)} color="#26262C">
             {t("utility.signInButton")}
           </SecondaryButton>
-          <PrimaryButton onClick={handleSignUpModalVisibility} color="#8EB5F0">
+          <PrimaryButton onClick={() => setSignUpOpen(true)} color="#8EB5F0">
             {t("utility.signUpButton")}
           </PrimaryButton>
         </ContentRegistration>
       </Container>
 
-      <SignUpModal signUpModal={signUpModal} handleSignUpModalVisibility={handleSignUpModalVisibility}/>
-      <SignInModal signInModal={signInModal} handleSignInModalVisibility={handleSignInModalVisibility}/>
+      <SignUpModal open={signUpOpen} onClose={() => setSignUpOpen(false)}/>
+      <SignInModal open={signInOpen} onClose={() => setSignInOpen(false)}/>
     </>
   );
 }

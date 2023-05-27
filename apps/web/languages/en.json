@@ -24,24 +24,20 @@
         "signUpButton": "Sign up",
         "popover": {
           "title": "Settings"
-        }
-      },
-      "modal": {
-        "titleRegister": "Sign up",
-        "subTitleRegister": "By registering, will be able to store your data.",
-        "titleLogin": "Sign in",
-        "subTitleLogin": "After registering, continue to access your account."
-      },
-      "SignUp": {
-        "placeholderName": "Name",
-        "placeholderEmail": "Email",
-        "placeholderPassword": "Password",
-        "createButton": "Create account"
-      },
-      "SignIn": {
-        "placeholderEmail": "Email",
-        "placeholderPassword": "Password",
-        "createButton": "Continue"
+        },
+        "signUpModal": {
+          "title": "Sign up",
+          "subTitle": "By registering, will be able to store your data.",
+          "namePlaceholder": "Name",
+          "registerButton": "Create account"
+        },
+        "signInModal": {
+          "title": "Sign in",
+          "subTitle": "After registering, continue to access your account.",
+          "loginButton": "Continue"
+        },
+        "emailPlaceholder": "Email",
+        "passwordPlaceholder": "Password"
       }
     }
   }

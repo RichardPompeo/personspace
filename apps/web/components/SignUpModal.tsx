@@ -1,53 +1,37 @@
 import { Input } from "antd";
 import { useTranslation } from "react-i18next";
-import { IoIosCloseCircle } from "react-icons/io";
 
 import { PrimaryButton } from "ui";
 import {
-  Container,
-  ContentModal,
   TitleContent,
   Title,
   SubTitle,
-  CloseButton,
   DataField,
 } from "../styles/components/ModalStyles";
+import Modal from "./Modal";
 
 interface ModalProps {
-  signUpModal: Boolean;
-  handleSignUpModalVisibility: () => void;
+  open: boolean;
+  onClose: () => void;
 }
 
-export default function SignUpModal({ signUpModal, handleSignUpModalVisibility }: ModalProps) {
+export default function SignUpModal({ open, onClose }: ModalProps) {
   const { t } = useTranslation();
 
   return (
-    <>
-      {signUpModal ? (
-        <Container>
-          <ContentModal>
-            <TitleContent>
-              <CloseButton onClick={handleSignUpModalVisibility}>
-                <IoIosCloseCircle fontSize={25} />
-              </CloseButton>
-              <Title>{t("modal.titleRegister")}</Title>
-              <SubTitle>{t("modal.subTitleRegister")}</SubTitle>
-            </TitleContent>
-
-            <DataField>
-              <Input type="text" placeholder={t("SignUp.placeholderName")} />
-              <Input type="email" placeholder={t("SignUp.placeholderEmail")} />
-              <Input.Password placeholder={t("SignUp.placeholderPassword")} />
-
-              <PrimaryButton color="#8EB5F0">
-                {t("SignUp.createButton")}
-              </PrimaryButton>
-            </DataField>
-          </ContentModal>
-        </Container>
-      ) : (
-        ""
-      )}
-    </>
+    <Modal open={open} onClose={onClose}>
+      <TitleContent>
+        <Title>{t("utility.signUpModal.title")}</Title>
+        <SubTitle>{t("utility.signUpModal.subTitle")}</SubTitle>
+      </TitleContent>
+      <DataField>
+        <Input type="text" placeholder={t("utility.signUpModal.namePlaceholder")} />
+        <Input type="email" placeholder={t("utility.emailPlaceholder")} />
+        <Input.Password placeholder={t("utility.passwordPlaceholder")} />
+        <PrimaryButton color="#8EB5F0">
+          {t("utility.signUpModal.registerButton")}
+        </PrimaryButton>
+      </DataField>
+    </Modal>
   );
 }

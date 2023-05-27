@@ -24,24 +24,20 @@
         "signUpButton": "Inscrever-se",
         "popover": {
           "title": "Configurações"
-        }
-      },
-      "modal": {
-        "titleRegister": "Inscrever-se",
-        "subTitleRegister": "Ao se registrar, você poderá armazenar seus dados.",
-        "titleLogin": "Entrar",
-        "subTitleLogin": "Depois de se registrar, continue acessando sua conta."
-      },
-      "SignUp": {
-        "placeholderName": "Nome",
-        "placeholderEmail": "Email",
-        "placeholderPassword": "Senha",
-        "createButton": "Criar conta"
-      },
-      "SignIn": {
-        "placeholderEmail": "Email",
-        "placeholderPassword": "Senha",
-        "createButton": "Continuar"
+        },
+        "signUpModal": {
+          "title": "Inscrever-se",
+          "subTitle": "Ao se registrar, você poderá armazenar seus dados.",
+          "namePlaceholder": "Nome",
+          "registerButton": "Criar conta"
+        },
+        "signInModal": {
+          "title": "Entrar",
+          "subTitle": "Depois de se registrar, continue acessando sua conta.",
+          "loginButton": "Continuar"
+        },
+        "emailPlaceholder": "Email",
+        "passwordPlaceholder": "Senha"
       }
     }
   }
