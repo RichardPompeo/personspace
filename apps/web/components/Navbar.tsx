@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
 import Link from "next/link";
+
+import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 
 import { AiFillBulb } from "react-icons/ai";
@@ -9,8 +10,11 @@ import { MdViewAgenda, MdHelpCenter } from "react-icons/md";
 import { RiEdit2Fill, RiContactsBook2Fill, RiHome3Fill } from "react-icons/ri";
 
 import { IconButton } from "ui";
+
+import { LayoutContext } from "../contexts/LayoutProvider";
+
 import logo from "../assets/personspace-logo.svg";
-import { LayoutContext } from "../context/LayoutProvider";
+
 import {
   Container,
   ListRoutes,

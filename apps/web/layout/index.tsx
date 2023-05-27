@@ -8,7 +8,7 @@ import UtilityContent from "../components/UtilityContent";
 
 import abstract from "../assets/abstract.svg";
 
-import { LayoutContext } from "../context/LayoutProvider";
+import { LayoutContext } from "../contexts/LayoutProvider";
 import { Container as LayoutContainer } from "../styles/components/LayoutStyles";
 import { PrimaryButton } from "ui";
 import {
@@ -42,7 +42,9 @@ export default function Layout() {
                   </Trans>
                 </Title>
                 <SubTitle>{t("home.subtitle")}</SubTitle>
-                <PrimaryButton size="large">{t("home.aboutTheSiteButton")}</PrimaryButton>
+                <PrimaryButton size="large">
+                  {t("home.aboutTheSiteButton")}
+                </PrimaryButton>
               </Header>
               <Img src={abstract.src} />
             </HeaderContent>

@@ -2,19 +2,24 @@
 
 import React from "react";
 import { initReactI18next } from "react-i18next";
-import i18n from "i18next";
 
+import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+
 import { ThemeProvider } from "styled-components";
-import GlobalStyle from "../styles/global";
-import { LayoutProvider } from "../context/LayoutProvider";
+
+import { LayoutProvider } from "../contexts/LayoutProvider";
+import { AuthProvider } from "../contexts/AuthProvider";
+
 import Layout from "../layout";
+
+import GlobalStyle from "../styles/global";
+import { darkTheme } from "../styles/themes/dark";
 
 import en from "../languages/en.json";
 import pt from "../languages/pt.json";
-
-import { darkTheme } from "../styles/themes/dark";
 
 declare module "i18next" {
   interface CustomTypeOptions {
@@ -33,13 +38,22 @@ i18n
     },
   });
 
+const client = new ApolloClient({
+  uri: "http://localhost:4000",
+  cache: new InMemoryCache(),
+});
+
 export default function Page() {
   return (
-    <ThemeProvider theme={darkTheme}>
-      <LayoutProvider>
-        <GlobalStyle />
-        <Layout />
-      </LayoutProvider>
-    </ThemeProvider>
+    <ApolloProvider client={client}>
+      <ThemeProvider theme={darkTheme}>
+        <LayoutProvider>
+          <AuthProvider>
+            <GlobalStyle />
+            <Layout />
+          </AuthProvider>
+        </LayoutProvider>
+      </ThemeProvider>
+    </ApolloProvider>
   );
 }
