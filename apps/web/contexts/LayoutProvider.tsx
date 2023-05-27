@@ -5,10 +5,13 @@ interface LayoutProps {
   handleMenuVisibility: () => void;
 }
 
-export const LayoutContext = createContext<LayoutProps>({menu: true, handleMenuVisibility: () => false});
+export const LayoutContext = createContext<LayoutProps>({
+  menu: false,
+  handleMenuVisibility: () => false,
+});
 
 export const LayoutProvider = ({ children }) => {
-  const [menu, setMenu] = useState<Boolean>(true);
+  const [menu, setMenu] = useState<Boolean>(false);
 
   const handleMenuVisibility = () => {
     return menu ? setMenu(false) : setMenu(true);

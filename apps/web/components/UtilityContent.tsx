@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { BsGearFill } from "react-icons/bs";
 import { RiGlobeFill } from "react-icons/ri";
 
 import { Popover } from "antd";
 
+import { IconButton, PrimaryButton, SecondaryButton } from "ui";
+
 import SignInModal from "./SignInModal";
 import SignUpModal from "./SignUpModal";
+
+import { AuthContext } from "../contexts/AuthProvider";
 
 import {
   Container,
@@ -17,23 +21,29 @@ import {
   UtilityResponsiveButton,
 } from "../styles/components/UtilityStyles";
 
-import { IconButton, PrimaryButton, SecondaryButton } from "ui";
-
 export default function UtilityContent() {
   const [signUpOpen, setSignUpOpen] = useState(false);
   const [signInOpen, setSignInOpen] = useState(false);
-  
+
+  const { isLogged, user } = useContext(AuthContext);
+
   const { t } = useTranslation();
 
   const content = (
     <ContainerPopover>
       <ContentPopover>
-        <SecondaryButton onClick={() => setSignInOpen(true)} color="#26262c">
-          {t("utility.signInButton")}
-        </SecondaryButton>
-        <PrimaryButton onClick={() => setSignUpOpen(true)} color="#8EB5F0">
-          {t("utility.signUpButton")}
-        </PrimaryButton>
+        {!isLogged ? (
+          <>
+            <SecondaryButton onClick={() => setSignInOpen(true)} color="#26262c">
+              {t("utility.signInButton")}
+            </SecondaryButton>
+            <PrimaryButton onClick={() => setSignUpOpen(true)} color="#8EB5F0">
+              {t("utility.signUpButton")}
+            </PrimaryButton>
+          </>
+        ) : (
+          <p>{user.displayName}</p>
+        )}
       </ContentPopover>
     </ContainerPopover>
   );
@@ -57,17 +67,28 @@ export default function UtilityContent() {
           </UtilityResponsiveButton>
         </Popover>
         <ContentRegistration>
-          <SecondaryButton onClick={() => setSignInOpen(true)} color="#26262C">
-            {t("utility.signInButton")}
-          </SecondaryButton>
-          <PrimaryButton onClick={() => setSignUpOpen(true)} color="#8EB5F0">
-            {t("utility.signUpButton")}
-          </PrimaryButton>
+          {!isLogged ? (
+            <>
+              <SecondaryButton
+                onClick={() => setSignInOpen(true)}
+                color="#26262C"
+              >
+                {t("utility.signInButton")}
+              </SecondaryButton>
+              <PrimaryButton
+                onClick={() => setSignUpOpen(true)}
+                color="#8EB5F0"
+              >
+                {t("utility.signUpButton")}
+              </PrimaryButton>
+            </>
+          ) : (
+            <p>{user.displayName}</p>
+          )}
         </ContentRegistration>
       </Container>
-
-      <SignUpModal open={signUpOpen} onClose={() => setSignUpOpen(false)}/>
-      <SignInModal open={signInOpen} onClose={() => setSignInOpen(false)}/>
+      <SignUpModal open={signUpOpen} onClose={() => setSignUpOpen(false)} />
+      <SignInModal open={signInOpen} onClose={() => setSignInOpen(false)} />
     </>
   );
 }
