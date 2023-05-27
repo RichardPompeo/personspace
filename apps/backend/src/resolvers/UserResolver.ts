@@ -1,10 +1,13 @@
-import { Arg, Resolver } from "type-graphql";
+import { Arg, Authorized, Ctx, Query, Resolver } from "type-graphql";
 
 import { randomUUID } from "node:crypto";
 
 import { prisma } from "../helpers/prisma";
 
 import { CreateUserInput } from "../dtos/inputs/CreateUserInput";
+import { UserModel } from "../dtos/models/UserModel";
+
+import { Authorization } from "../middlewares/authorization";
 
 @Resolver()
 export class UserResolver {
@@ -22,5 +25,17 @@ export class UserResolver {
     });
 
     return user;
+  }
+
+  @Authorized()
+  @Query(() => UserModel)
+  async getUser(@Ctx() context: { bearerToken: string }) {
+    const payload = await Authorization.verify(context.bearerToken);
+
+    const user = await prisma.users.findUnique({
+      where: { firebaseId: payload.uid },
+    });
+
+    return { id: user.id, email: payload.email, displayName: user.displayName };
   }
 }

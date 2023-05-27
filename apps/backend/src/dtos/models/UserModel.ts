@@ -5,11 +5,11 @@ import { ErrorModel } from "./ErrorModel";
 @ObjectType()
 export class UserModel {
   @Field()
-  uid: string;
+  id: string;
 
-  @Field({ nullable: true })
+  @Field()
+  displayName: string;
+
+  @Field()
   email: string;
-
-  @Field({ nullable: true })
-  idToken: string;
 }

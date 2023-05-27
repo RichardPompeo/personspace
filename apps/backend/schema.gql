@@ -6,7 +6,13 @@
 type AuthenticationResponseModel {
   error: ErrorModel
   success: Boolean!
-  user: UserModel
+  user: AuthenticationUserResponse
+}
+
+type AuthenticationUserResponse {
+  email: String!
+  idToken: String!
+  uid: String!
 }
 
 type ErrorModel {
@@ -20,6 +26,7 @@ type Mutation {
 }
 
 type Query {
+  getUser: UserModel!
   helloWorld: String!
 }
 
@@ -35,7 +42,7 @@ input SignUpWithEmailAndPasswordInput {
 }
 
 type UserModel {
-  email: String
-  idToken: String
-  uid: String!
+  displayName: String!
+  email: String!
+  id: String!
 }

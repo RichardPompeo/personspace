@@ -7,13 +7,18 @@ import path from "node:path";
 import { buildSchema } from "type-graphql";
 
 import { AuthenticationResolver } from "./resolvers/AuthenticationResolver";
+import { UserResolver } from "./resolvers/UserResolver";
 
+import { authChecker } from "./middlewares/auth-checker";
+
+import "./helpers/firebase-admin";
 import "./helpers/firebase";
 
 const bootstrap = async () => {
   const schema = await buildSchema({
-    resolvers: [AuthenticationResolver],
+    resolvers: [AuthenticationResolver, UserResolver],
     validate: { forbidUnknownValues: false },
+    authChecker: authChecker,
     emitSchemaFile: path.resolve(__dirname, "../schema.gql"),
   });
 
@@ -23,6 +28,11 @@ const bootstrap = async () => {
       exposedHeaders: ["content-type"],
     },
     schema,
+    context: ({ req }) => {
+      const bearerToken = req.headers.authorization;
+
+      return { bearerToken };
+    },
   });
 
   const { url } = await server.listen();
