@@ -11,9 +11,10 @@ export class Authorization {
   static async verify(bearerToken): Promise<AuthorizationResponse> {
     return new Promise((resolve) => {
       if (
-        !bearerToken &&
-        !bearerToken.split(" ") &&
-        !bearerToken.split(" ")[1]
+        (!bearerToken &&
+          !bearerToken.split(" ") &&
+          !bearerToken.split(" ")[1]) ||
+        bearerToken.split(" ")[0] !== "Bearer"
       ) {
         return resolve({
           success: false,
