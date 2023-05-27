@@ -15,7 +15,7 @@ export const Logo = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 90px 27px 45px 0;
+  margin: 100px 27px 45px 0;
 `;
 
 export const LogoImg = styled.img`

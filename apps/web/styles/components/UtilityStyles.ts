@@ -27,6 +27,12 @@ export const ContentRegistration = styled.div`
   }
 `;
 
+export const overlayStyle = {
+  background: "#23232fff",
+  width: "250px",
+  borderRadius: "10px",
+};
+
 export const ContainerPopover = styled.div`
   display: flex;
   margin-top: 1.5em;

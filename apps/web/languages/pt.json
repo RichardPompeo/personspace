@@ -24,7 +24,20 @@
         "signUpButton": "Inscrever-se",
         "popover": {
           "title": "Configurações"
-        }
+        },
+        "signUpModal": {
+          "title": "Inscrever-se",
+          "subTitle": "Ao se registrar, você poderá armazenar seus dados.",
+          "namePlaceholder": "Nome",
+          "registerButton": "Criar conta"
+        },
+        "signInModal": {
+          "title": "Entrar",
+          "subTitle": "Depois de se registrar, continue acessando sua conta.",
+          "loginButton": "Continuar"
+        },
+        "emailPlaceholder": "Email",
+        "passwordPlaceholder": "Senha"
       }
     }
   }

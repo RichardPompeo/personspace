@@ -16,6 +16,12 @@ import pt from "../languages/pt.json";
 
 import { darkTheme } from "../styles/themes/dark";
 
+declare module "i18next" {
+  interface CustomTypeOptions {
+    returnNull: false;
+  }
+}
+
 i18n
   .use(initReactI18next)
   .use(LanguageDetector)

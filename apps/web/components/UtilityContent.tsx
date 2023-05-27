@@ -1,25 +1,29 @@
-import React from "react";
-import { Popover } from "antd";
-
-import { IconButton, PrimaryButton, SecondaryButton } from "ui";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { BsGearFill } from "react-icons/bs";
 import { RiGlobeFill } from "react-icons/ri";
-import { useTranslation } from "react-i18next";
+
+import { Popover } from "antd";
+
+import SignInModal from "./SignInModal";
+import SignUpModal from "./SignUpModal";
+
 import {
   Container,
   ContentRegistration,
+  overlayStyle,
   ContainerPopover,
   ContentPopover,
   UtilityResponsiveButton,
 } from "../styles/components/UtilityStyles";
 
-export default function UtilityContent() {
-  const { t } = useTranslation();
+import { IconButton, PrimaryButton, SecondaryButton } from "ui";
 
-  const overlayStyle = {
-    width: "250px",
-    borderRadius: "10px",
-  };
+export default function UtilityContent() {
+  const [signUpOpen, setSignUpOpen] = useState(false);
+  const [signInOpen, setSignInOpen] = useState(false);
+  
+  const { t } = useTranslation();
 
   const content = (
     <ContainerPopover>
@@ -53,14 +57,17 @@ export default function UtilityContent() {
           </UtilityResponsiveButton>
         </Popover>
         <ContentRegistration>
-          <SecondaryButton color="#26262C">
+          <SecondaryButton onClick={() => setSignInOpen(true)} color="#26262C">
             {t("utility.signInButton")}
           </SecondaryButton>
-          <PrimaryButton color="#8EB5F0">
+          <PrimaryButton onClick={() => setSignUpOpen(true)} color="#8EB5F0">
             {t("utility.signUpButton")}
           </PrimaryButton>
         </ContentRegistration>
       </Container>
+
+      <SignUpModal open={signUpOpen} onClose={() => setSignUpOpen(false)}/>
+      <SignInModal open={signInOpen} onClose={() => setSignInOpen(false)}/>
     </>
   );
 }
