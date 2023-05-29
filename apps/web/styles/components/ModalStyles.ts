@@ -8,7 +8,7 @@ export const Container = styled.div<ContainerProps>`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 2;
   width: 100vw;
   height: 100vh;
   display: ${(props) => (props.open ? "flex" : "none")};
@@ -22,7 +22,7 @@ export const Container = styled.div<ContainerProps>`
 
     div {
       width: 100%;
-      border-radius: 20px;
+      border-radius: 20px 20px 0 0;
     }
   }
 `;
@@ -36,7 +36,8 @@ export const ContentModal = styled.div`
   align-items: center;
   flex-direction: column;
   border-radius: 10px;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 2em;
 `;
 
 export const CloseButton = styled.button`
@@ -66,6 +67,10 @@ export const SubTitle = styled.p`
   opacity: 0.8;
   font-size: 13pt;
   margin-top: 0.7em;
+
+  @media (max-width: 600px) {
+    width: 90%;
+  }
 `;
 
 export const DataField = styled.div`
