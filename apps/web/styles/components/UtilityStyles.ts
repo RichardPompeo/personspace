@@ -48,6 +48,11 @@ export const ContentPopover = styled.div`
   flex-direction: column;
 `;
 
+export const ProfileContentPopover = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 export const UtilityResponsiveButton = styled(IconButton)`
   display: none;
   padding: 13px;

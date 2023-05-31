@@ -5,7 +5,7 @@ import { RiGlobeFill } from "react-icons/ri";
 
 import { Popover } from "antd";
 
-import { IconButton, ProfileButton, PrimaryButton, SecondaryButton} from "ui";
+import { IconButton, ProfileButton, PrimaryButton, SecondaryButton } from "ui";
 
 import SignInModal from "./SignInModal";
 import SignUpModal from "./SignUpModal";
@@ -19,13 +19,14 @@ import {
   ContainerPopover,
   ContentPopover,
   UtilityResponsiveButton,
+  ProfileContentPopover,
 } from "../styles/components/UtilityStyles";
 
 export default function UtilityContent() {
   const [signUpOpen, setSignUpOpen] = useState(false);
   const [signInOpen, setSignInOpen] = useState(false);
 
-  const { isLogged, user } = useContext(AuthContext);
+  const { isLogged, user, logout } = useContext(AuthContext);
 
   const { t } = useTranslation();
 
@@ -45,7 +46,25 @@ export default function UtilityContent() {
             </PrimaryButton>
           </>
         ) : (
-          <ProfileButton><span>{user.displayName.split("")[0]}</span></ProfileButton>
+          <>
+            <ProfileContentPopover>
+              <ProfileButton>
+                <span>{user.displayName.split("")[0]}</span>
+              </ProfileButton>
+              <div
+                style={{
+                  overflow: "hidden",
+                  width: "75%",
+                }}
+              >
+                <h3>{user.displayName}</h3>
+                <h5 style={{ color: "#b6b6b6" }}>{user.email}</h5>
+              </div>
+            </ProfileContentPopover>
+            <SecondaryButton onClick={logout} color="#c92121">
+              Sair
+            </SecondaryButton>
+          </>
         )}
       </ContentPopover>
     </ContainerPopover>
@@ -87,7 +106,9 @@ export default function UtilityContent() {
               </PrimaryButton>
             </>
           ) : (
-            <ProfileButton><span>{user.displayName.split("")[0]}</span></ProfileButton>
+            <ProfileButton>
+              <span>{user.displayName.split("")[0]}</span>
+            </ProfileButton>
           )}
         </ContentRegistration>
       </Container>

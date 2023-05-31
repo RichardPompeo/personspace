@@ -29,35 +29,35 @@
           "title": "Inscrever-se",
           "subTitle": "Ao se registrar, você poderá armazenar seus dados.",
           "namePlaceholder": "Nome",
-          "registerButton": "Criar conta"
+          "registerButton": "Criar conta",
+          "notification": {
+            "success": {
+              "title": "Registrado com sucesso!",
+              "description": "Conta criada com sucesso, não se esqueça de fazer o login."
+            },
+            "error": {
+              "title": "Erro ao cadastrar!",
+              "description": "Infelizmente houve um erro no seu cadastro, revise seus dados e tente novamente."
+            }
+          }
         },
         "signInModal": {
           "title": "Entrar",
           "subTitle": "Depois de se registrar, continue acessando sua conta.",
-          "loginButton": "Continuar"
+          "loginButton": "Continuar",
+          "notification": {
+            "success": {
+              "title": "Logado com sucesso!",
+              "description": "Pronto! Você foi logado com sucesso, aproveite."
+            },
+            "error": {
+              "title": "Erro ao logar!",
+              "description": "Infelizmente houve um erro ao se logar, tente novamente."
+            }
+          }
         },
         "emailPlaceholder": "Email",
         "passwordPlaceholder": "Senha"
-      },
-      "notificationSignUp": {
-        "success": {
-          "title": "Registrado com sucesso!",
-          "description":"Conta criada com sucesso, não se esqueça de fazer o login."
-        },
-        "error": {
-          "title": "Erro ao cadastrar!",
-          "description":"Infelizmente houve um erro no seu cadastro, revise seus dados e tente novamente."
-        }
-      },
-      "notificationSignIn": {
-        "success": {
-          "title": "Logado com sucesso!",
-          "description":"Pronto! Você foi logado com sucesso, aproveite."
-        },
-        "error": {
-          "title": "Erro ao logar!",
-          "description":"Infelizmente houve um erro ao se logar, tente novamente."
-        }
       }
     }
   }

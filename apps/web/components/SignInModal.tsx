@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { useMutation } from "@apollo/client";
 
-import { Input, notification } from "antd";
+import { Input } from "antd";
 
 import { PrimaryButton } from "ui";
 
@@ -12,7 +12,8 @@ import SIGN_IN_WITH_EMAIL_AND_PASSWORD_MUTATION from "../graphql/signInWithEmail
 import { AuthContext } from "../contexts/AuthProvider";
 
 import Modal from "./Modal";
-import { openNotificationSignIn } from "./NotificationSign";
+
+import { sendNotification } from "../utils/notifications";
 
 import {
   TitleContent,
@@ -36,8 +37,6 @@ export default function SignInModal({ open, onClose }: ModalProps) {
 
   const { t } = useTranslation();
 
-  const [api, contextHolder] = notification.useNotification();
-
   const handleSignIn = async () => {
     const { data } = await signIn({
       variables: {
@@ -49,21 +48,31 @@ export default function SignInModal({ open, onClose }: ModalProps) {
     });
 
     if (data.signInWithEmailAndPassword.success) {
-      openNotificationSignIn("success", t, api);
-
       localStorage.setItem(
         "idToken",
         data.signInWithEmailAndPassword.user.idToken
       );
+
       refresh();
+
+      sendNotification(
+        "success",
+        t("utility.signInModal.notification.success.title"),
+        t("utility.signInModal.notification.success.description")
+      );
+
+      onClose();
     } else {
-      openNotificationSignIn("error", t, api);
+      sendNotification(
+        "error",
+        t("utility.signInModal.notification.error.title"),
+        t("utility.signInModal.notification.error.description")
+      );
     }
   };
 
   return (
     <Modal open={open} onClose={onClose}>
-      {contextHolder}
       <TitleContent>
         <Title>{t("utility.signInModal.title")}</Title>
         <SubTitle>{t("utility.signInModal.subTitle")}</SubTitle>

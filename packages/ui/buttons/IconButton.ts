@@ -16,7 +16,7 @@ export const IconButton = styled.button<IconButtonProps>`
   margin: 20px;
   border-radius: 50%;
   background-color: rgba(142, 181, 240, 0.1);
-  
+
   &:hover {
     background-color: ${({ theme }) => theme.COLORS.DEFAULT};
 
@@ -55,7 +55,11 @@ export const ProfileButton = styled.button<IconButtonProps>`
   span {
     font-size: 19pt;
     font-weight: 800;
-    font-family: 'Supreme', sans-serif;
+    font-family: "Supreme", sans-serif;
     color: ${({ theme }) => theme.COLORS.DEFAULT_TWO};
+  }
+
+  @media (max-width: 900px) {
+    margin-right: 12px;
   }
 `;

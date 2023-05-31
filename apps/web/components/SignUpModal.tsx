@@ -3,15 +3,15 @@ import { useTranslation } from "react-i18next";
 
 import { useMutation } from "@apollo/client";
 
-import { Input, notification } from "antd";
+import { Input } from "antd";
 
 import { PrimaryButton } from "ui";
 
 import SIGN_UP_WITH_EMAIL_AND_PASSWORD_MUTATION from "../graphql/signUpWithEmailAndPassword";
 
 import Modal from "./Modal";
-import { openNotificationSignUp } from "./NotificationSign";
 
+import { sendNotification } from "../utils/notifications";
 
 import {
   TitleContent,
@@ -29,12 +29,10 @@ export default function SignUpModal({ open, onClose }: ModalProps) {
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
-  const [signUp] = useMutation(SIGN_UP_WITH_EMAIL_AND_PASSWORD_MUTATION);
-  
-  const { t } = useTranslation();
 
-  const [api, contextHolder] = notification.useNotification();
+  const [signUp] = useMutation(SIGN_UP_WITH_EMAIL_AND_PASSWORD_MUTATION);
+
+  const { t } = useTranslation();
 
   const handleSignUp = async () => {
     const { data } = await signUp({
@@ -48,15 +46,24 @@ export default function SignUpModal({ open, onClose }: ModalProps) {
     });
 
     if (data.signUpWithEmailAndPassword.success) {
-      openNotificationSignUp("success", t, api);
+      sendNotification(
+        "success",
+        t("utility.signUpModal.notification.success.title"),
+        t("utility.signUpModal.notification.success.description")
+      );
+
+      onClose();
     } else {
-      openNotificationSignUp("error", t, api);
+      sendNotification(
+        "error",
+        t("utility.signUpModal.notification.error.title"),
+        t("utility.signUpModal.notification.error.description")
+      );
     }
   };
 
   return (
     <Modal open={open} onClose={onClose}>
-      {contextHolder}
       <TitleContent>
         <Title>{t("utility.signUpModal.title")}</Title>
         <SubTitle>{t("utility.signUpModal.subTitle")}</SubTitle>
