@@ -5,7 +5,7 @@ import { RiGlobeFill } from "react-icons/ri";
 
 import { Popover } from "antd";
 
-import { IconButton, PrimaryButton, SecondaryButton } from "ui";
+import { IconButton, ProfileButton, PrimaryButton, SecondaryButton} from "ui";
 
 import SignInModal from "./SignInModal";
 import SignUpModal from "./SignUpModal";
@@ -34,7 +34,10 @@ export default function UtilityContent() {
       <ContentPopover>
         {!isLogged ? (
           <>
-            <SecondaryButton onClick={() => setSignInOpen(true)} color="#26262c">
+            <SecondaryButton
+              onClick={() => setSignInOpen(true)}
+              color="#26262c"
+            >
               {t("utility.signInButton")}
             </SecondaryButton>
             <PrimaryButton onClick={() => setSignUpOpen(true)} color="#8EB5F0">
@@ -42,7 +45,7 @@ export default function UtilityContent() {
             </PrimaryButton>
           </>
         ) : (
-          <p>{user.displayName}</p>
+          <ProfileButton><span>{user.displayName.split("")[0]}</span></ProfileButton>
         )}
       </ContentPopover>
     </ContainerPopover>
@@ -84,7 +87,7 @@ export default function UtilityContent() {
               </PrimaryButton>
             </>
           ) : (
-            <p>{user.displayName}</p>
+            <ProfileButton><span>{user.displayName.split("")[0]}</span></ProfileButton>
           )}
         </ContentRegistration>
       </Container>

@@ -19,7 +19,7 @@ export const Container = styled.div`
 export const ContentRegistration = styled.div`
   display: flex;
   gap: 1em;
-  padding-left: 30px;
+  padding-left: 20px;
   border-left: 1px solid ${({ theme }) => theme.COLORS.DEFAULT};
 
   @media (max-width: 900px) {

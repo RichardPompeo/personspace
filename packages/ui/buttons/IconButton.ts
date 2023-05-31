@@ -16,7 +16,7 @@ export const IconButton = styled.button<IconButtonProps>`
   margin: 20px;
   border-radius: 50%;
   background-color: rgba(142, 181, 240, 0.1);
-
+  
   &:hover {
     background-color: ${({ theme }) => theme.COLORS.DEFAULT};
 
@@ -38,5 +38,24 @@ export const IconButton = styled.button<IconButtonProps>`
     svg {
       font-size: 25px;
     }
+  }
+`;
+
+export const ProfileButton = styled.button<IconButtonProps>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1;
+  width: 47px;
+  height: 47px;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.COLORS.SECONDARY};
+
+  span {
+    font-size: 19pt;
+    font-weight: 800;
+    font-family: 'Supreme', sans-serif;
+    color: ${({ theme }) => theme.COLORS.DEFAULT_TWO};
   }
 `;

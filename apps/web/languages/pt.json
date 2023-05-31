@@ -38,6 +38,26 @@
         },
         "emailPlaceholder": "Email",
         "passwordPlaceholder": "Senha"
+      },
+      "notificationSignUp": {
+        "success": {
+          "title": "Registrado com sucesso!",
+          "description":"Conta criada com sucesso, não se esqueça de fazer o login."
+        },
+        "error": {
+          "title": "Erro ao cadastrar!",
+          "description":"Infelizmente houve um erro no seu cadastro, revise seus dados e tente novamente."
+        }
+      },
+      "notificationSignIn": {
+        "success": {
+          "title": "Logado com sucesso!",
+          "description":"Pronto! Você foi logado com sucesso, aproveite."
+        },
+        "error": {
+          "title": "Erro ao logar!",
+          "description":"Infelizmente houve um erro ao se logar, tente novamente."
+        }
       }
     }
   }

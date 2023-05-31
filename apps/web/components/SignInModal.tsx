@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { useMutation } from "@apollo/client";
 
-import { Input } from "antd";
+import { Input, notification } from "antd";
 
 import { PrimaryButton } from "ui";
 
@@ -12,6 +12,7 @@ import SIGN_IN_WITH_EMAIL_AND_PASSWORD_MUTATION from "../graphql/signInWithEmail
 import { AuthContext } from "../contexts/AuthProvider";
 
 import Modal from "./Modal";
+import { openNotificationSignIn } from "./NotificationSign";
 
 import {
   TitleContent,
@@ -35,6 +36,8 @@ export default function SignInModal({ open, onClose }: ModalProps) {
 
   const { t } = useTranslation();
 
+  const [api, contextHolder] = notification.useNotification();
+
   const handleSignIn = async () => {
     const { data } = await signIn({
       variables: {
@@ -46,21 +49,21 @@ export default function SignInModal({ open, onClose }: ModalProps) {
     });
 
     if (data.signInWithEmailAndPassword.success) {
-      alert(`Usuário logado, ${data.signInWithEmailAndPassword.user.uid}`);
+      openNotificationSignIn("success", t, api);
 
       localStorage.setItem(
         "idToken",
         data.signInWithEmailAndPassword.user.idToken
       );
-
       refresh();
     } else {
-      alert(`Erro, ${data.signInWithEmailAndPassword.error.message}`);
+      openNotificationSignIn("error", t, api);
     }
   };
 
   return (
     <Modal open={open} onClose={onClose}>
+      {contextHolder}
       <TitleContent>
         <Title>{t("utility.signInModal.title")}</Title>
         <SubTitle>{t("utility.signInModal.subTitle")}</SubTitle>
