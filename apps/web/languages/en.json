@@ -23,7 +23,8 @@
         "signInButton": "Sign in",
         "signUpButton": "Sign up",
         "popover": {
-          "title": "Settings"
+          "title": "Settings",
+          "logoutButton": "Logout"
         },
         "signUpModal": {
           "title": "Sign up",

@@ -23,7 +23,8 @@
         "signInButton": "Entrar",
         "signUpButton": "Inscrever-se",
         "popover": {
-          "title": "Configurações"
+          "title": "Configurações",
+          "logoutButton": "Sair"
         },
         "signUpModal": {
           "title": "Inscrever-se",

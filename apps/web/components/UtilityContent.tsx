@@ -62,7 +62,7 @@ export default function UtilityContent() {
               </div>
             </ProfileContentPopover>
             <SecondaryButton onClick={logout} color="#c92121">
-              Sair
+              {t("utility.popover.logoutButton")}
             </SecondaryButton>
           </>
         )}
