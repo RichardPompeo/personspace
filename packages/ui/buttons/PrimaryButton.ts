@@ -1,12 +1,26 @@
-import { styled } from "styled-components";
+import { styled, keyframes } from "styled-components";
 
 interface PrimaryButtonProps {
   color?: string;
+  clicked?: boolean;
   size?: "large" | "middle" | "small";
 }
 
+const spinAnimation = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
 export const PrimaryButton = styled.button<PrimaryButtonProps>`
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   padding: ${(props) =>
     (props.size === "large" && "1.3em 2.6em") ||
     ((props.size === "middle" || !props.size) && "0.8em 2em") ||
@@ -17,7 +31,17 @@ export const PrimaryButton = styled.button<PrimaryButtonProps>`
   border: 2px solid ${({ theme }) => theme.COLORS.DEFAULT_TWO};
   box-shadow: 4px 5px ${({ theme }) => theme.COLORS.DEFAULT_TWO};
   border-radius: 10px;
-  background-color: ${(props) => props.color};
+  background-color: ${({color, clicked}) => clicked === true ? "#4f80ca" : color };
+
+  svg {
+    display: ${({clicked}) => clicked === true ? "flex" : "none"};
+    margin-right: 10px;
+    animation: ${spinAnimation} 1s linear infinite;
+  }
+
+  &:visited {
+    background-color: #4f80ca;
+  }
 
   @media (max-width: 1600px) {
     font-size: clamp(9pt, 0.5vw, 10pt);

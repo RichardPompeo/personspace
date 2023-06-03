@@ -55,6 +55,7 @@ export const ProfileButton = styled.button<IconButtonProps>`
   span {
     font-size: 19pt;
     font-weight: 800;
+    text-transform: uppercase;
     font-family: "Supreme", sans-serif;
     color: ${({ theme }) => theme.COLORS.DEFAULT_TWO};
   }

@@ -24,12 +24,15 @@
         "signUpButton": "Sign up",
         "popover": {
           "title": "Settings",
+          "account": "Account",
+          "profile": "Profile",
           "logoutButton": "Logout"
         },
         "signUpModal": {
           "title": "Sign up",
           "subTitle": "By registering, will be able to store your data.",
           "namePlaceholder": "Name",
+          "loadingButton": "Loading...",
           "registerButton": "Create account",
           "notification": {
             "success": {
@@ -45,6 +48,7 @@
         "signInModal": {
           "title": "Sign in",
           "subTitle": "After registering, continue to access your account.",
+          "loadingButton": "Loading...",
           "loginButton": "Continue",
           "notification": {
             "success": {

@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { BsGearFill } from "react-icons/bs";
-import { RiGlobeFill } from "react-icons/ri";
+import { BsGearFill, BsFillBoxFill } from "react-icons/bs";
+import { RiAccountBoxFill, RiGlobeFill } from "react-icons/ri";
+import { FaSignOutAlt } from "react-icons/fa";
 
 import { Popover } from "antd";
 
@@ -15,11 +16,15 @@ import { AuthContext } from "../contexts/AuthProvider";
 import {
   Container,
   ContentRegistration,
-  overlayStyle,
+  overlayStyleMobile,
+  overlayStyleWeb,
   ContainerPopover,
   ContentPopover,
   UtilityResponsiveButton,
   ProfileContentPopover,
+  LinksPopover,
+  Link,
+  UserData,
 } from "../styles/components/UtilityStyles";
 
 export default function UtilityContent() {
@@ -30,7 +35,7 @@ export default function UtilityContent() {
 
   const { t } = useTranslation();
 
-  const content = (
+  const contentPopoverMobile = (
     <ContainerPopover>
       <ContentPopover>
         {!isLogged ? (
@@ -51,20 +56,40 @@ export default function UtilityContent() {
               <ProfileButton>
                 <span>{user.displayName.split("")[0]}</span>
               </ProfileButton>
-              <div
-                style={{
-                  overflow: "hidden",
-                  width: "75%",
-                }}
-              >
+              <UserData>
                 <h3>{user.displayName}</h3>
                 <h5 style={{ color: "#b6b6b6" }}>{user.email}</h5>
-              </div>
+              </UserData>
             </ProfileContentPopover>
             <SecondaryButton onClick={logout} color="#c92121">
               {t("utility.popover.logoutButton")}
             </SecondaryButton>
           </>
+        )}
+      </ContentPopover>
+    </ContainerPopover>
+  );
+
+  const contentPopoverWeb = (
+    <ContainerPopover>
+      <ContentPopover>
+        {isLogged && (
+          <ProfileContentPopover>
+            <LinksPopover>
+              <Link>
+                <BsFillBoxFill fontSize={16} />
+                {t("utility.popover.profile")}
+              </Link>
+              <Link>
+                <RiAccountBoxFill fontSize={16} />
+                {t("utility.popover.account")}
+              </Link>
+              <Link onClick={logout}>
+                <FaSignOutAlt fontSize={16} />
+                {t("utility.popover.logoutButton")}
+              </Link>
+            </LinksPopover>
+          </ProfileContentPopover>
         )}
       </ContentPopover>
     </ContainerPopover>
@@ -77,9 +102,9 @@ export default function UtilityContent() {
           <RiGlobeFill fontSize={23} />
         </IconButton>
         <Popover
-          overlayStyle={overlayStyle}
+          overlayStyle={overlayStyleMobile}
           trigger={"click"}
-          content={content}
+          content={contentPopoverMobile}
           placement="bottomLeft"
           color="#212126ff"
           zIndex={1}
@@ -106,9 +131,19 @@ export default function UtilityContent() {
               </PrimaryButton>
             </>
           ) : (
-            <ProfileButton>
-              <span>{user.displayName.split("")[0]}</span>
-            </ProfileButton>
+            <>
+              <Popover
+                content={contentPopoverWeb}
+                overlayStyle={overlayStyleWeb}
+                trigger={"hover"}
+                placement="bottomLeft"
+                color="#212126ff"
+              >
+                <ProfileButton>
+                  <span>{user.displayName.split("")[0]}</span>
+                </ProfileButton>
+              </Popover>
+            </>
           )}
         </ContentRegistration>
       </Container>
