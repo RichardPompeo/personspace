@@ -91,7 +91,7 @@ export const DataField = styled.div`
     color: rgba(255, 255, 255, 0.8);
   }
 
-  span:nth-child(n+2) {
+  span {
     background-color: ${({ theme }) => theme.COLORS.PRIMARY};
     border-radius: 10px;
     font-size: medium;
