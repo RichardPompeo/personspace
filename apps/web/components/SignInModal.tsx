@@ -2,19 +2,11 @@ import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useMutation } from "@apollo/client";
-
 import { Input } from "antd";
-import { VscLoading } from "react-icons/vsc";
 
 import { PrimaryButton } from "ui";
 
-import SIGN_IN_WITH_EMAIL_AND_PASSWORD_MUTATION from "../graphql/signInWithEmailAndPassword";
-
-import { AuthContext } from "../contexts/AuthProvider";
-
 import Modal from "./Modal";
-
-import { sendNotification } from "../utils/notifications";
 
 import {
   TitleContent,
@@ -22,6 +14,9 @@ import {
   SubTitle,
   DataField,
 } from "../styles/components/ModalStyles";
+import { sendNotification } from "../utils/notifications";
+import { AuthContext } from "../contexts/AuthProvider";
+import SIGN_IN_WITH_EMAIL_AND_PASSWORD_MUTATION from "../graphql/signInWithEmailAndPassword";
 
 interface ModalProps {
   open: boolean;
@@ -31,17 +26,16 @@ interface ModalProps {
 export default function SignInModal({ open, onClose }: ModalProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isClicked, setIsClicked] = useState(false);
 
-  const [signIn] = useMutation(SIGN_IN_WITH_EMAIL_AND_PASSWORD_MUTATION);
+  const [signIn, { loading }] = useMutation(
+    SIGN_IN_WITH_EMAIL_AND_PASSWORD_MUTATION
+  );
 
-  const { refresh, loading } = useContext(AuthContext);
+  const { refresh } = useContext(AuthContext);
 
   const { t } = useTranslation();
 
   const handleSignIn = async () => {
-    setIsClicked(true);
-   
     const { data } = await signIn({
       variables: {
         input: {
@@ -51,28 +45,28 @@ export default function SignInModal({ open, onClose }: ModalProps) {
       },
     });
 
-    !isClicked && (
-      data.signInWithEmailAndPassword.success
-        ? (() => {
-            localStorage.setItem("idToken", data.signInWithEmailAndPassword.user.idToken);
-            refresh();
-            sendNotification(
-              "success",
-              t("utility.signInModal.notification.success.title"),
-              t("utility.signInModal.notification.success.description")
-            );
-            onClose();
-            setIsClicked(false);
-          })()
-        : (() => {
-            sendNotification(
-              "error",
-              t("utility.signInModal.notification.error.title"),
-              t("utility.signInModal.notification.error.description")
-            );
-            setIsClicked(false);
-          })()
-    );
+    if (data.signInWithEmailAndPassword.success) {
+      localStorage.setItem(
+        "idToken",
+        data.signInWithEmailAndPassword.user.idToken
+      );
+
+      refresh();
+
+      sendNotification(
+        "success",
+        t("utility.signInModal.notification.success.title"),
+        t("utility.signInModal.notification.success.description")
+      );
+
+      return onClose();
+    } else {
+      return sendNotification(
+        "error",
+        t("utility.signInModal.notification.error.title"),
+        t("utility.signInModal.notification.error.description")
+      );
+    }
   };
 
   return (
@@ -92,9 +86,8 @@ export default function SignInModal({ open, onClose }: ModalProps) {
           onChange={(ev) => setPassword(ev.target.value)}
         />
 
-        <PrimaryButton color="#8EB5F0" clicked={isClicked} onClick={handleSignIn}>
-          <VscLoading fill="#000000" />
-          {isClicked ? t("utility.signInModal.loadingButton") : t("utility.signInModal.loginButton")}
+        <PrimaryButton color="#8EB5F0" loading={loading} onClick={handleSignIn}>
+          {t("utility.signInButton")}
         </PrimaryButton>
       </DataField>
     </Modal>

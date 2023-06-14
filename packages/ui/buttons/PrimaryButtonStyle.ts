@@ -2,7 +2,7 @@ import { styled, keyframes } from "styled-components";
 
 interface PrimaryButtonProps {
   color?: string;
-  clicked?: boolean;
+  loading?: boolean;
   size?: "large" | "middle" | "small";
 }
 
@@ -15,7 +15,7 @@ const spinAnimation = keyframes`
   }
 `;
 
-export const PrimaryButton = styled.button<PrimaryButtonProps>`
+export const PrimaryButtonStyle = styled.button<PrimaryButtonProps>`
   cursor: pointer;
   display: flex;
   flex-direction: row;
@@ -31,12 +31,12 @@ export const PrimaryButton = styled.button<PrimaryButtonProps>`
   border: 2px solid ${({ theme }) => theme.COLORS.DEFAULT_TWO};
   box-shadow: 4px 5px ${({ theme }) => theme.COLORS.DEFAULT_TWO};
   border-radius: 10px;
-  background-color: ${({color, clicked}) => clicked === true ? "#4f80ca" : color };
+  background-color: ${({ color, loading }) => (loading ? "#4f80ca" : color)};
 
   svg {
-    display: ${({clicked}) => clicked === true ? "flex" : "none"};
+    display: "flex";
     margin-right: 10px;
-    animation: ${spinAnimation} 1s linear infinite;
+    animation: ${({ loading }) => loading && spinAnimation} 1s linear infinite;
   }
 
   &:visited {
