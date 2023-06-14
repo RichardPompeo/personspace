@@ -39,10 +39,6 @@ export const PrimaryButtonStyle = styled.button<PrimaryButtonProps>`
     animation: ${({ loading }) => loading && spinAnimation} 1s linear infinite;
   }
 
-  &:visited {
-    background-color: #4f80ca;
-  }
-
   @media (max-width: 1600px) {
     font-size: clamp(9pt, 0.5vw, 10pt);
   }

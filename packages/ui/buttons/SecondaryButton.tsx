@@ -1,9 +1,9 @@
 import React, { ReactNode } from "react";
 import { VscLoading } from "react-icons/vsc";
 
-import { PrimaryButtonStyle } from "./PrimaryButtonStyle";
+import { SecondaryButtonStyle } from "./SecondaryButtonStyle";
 
-interface PrimaryButtonProps {
+interface SecondaryButtonProps {
   children: ReactNode;
   size?: "large" | "middle" | "small";
   color?: string;
@@ -11,9 +11,10 @@ interface PrimaryButtonProps {
   icon?: any;
   onClick?: () => void;
 }
-export const PrimaryButton = (props: PrimaryButtonProps) => {
+
+export const SecondaryButton = (props: SecondaryButtonProps) => {
   return (
-    <PrimaryButtonStyle
+    <SecondaryButtonStyle
       onClick={props.onClick}
       color={props.color}
       size={props.size}
@@ -22,6 +23,6 @@ export const PrimaryButton = (props: PrimaryButtonProps) => {
     >
       {props.loading && <VscLoading fill="#000000" />}
       {props.children}
-    </PrimaryButtonStyle>
+    </SecondaryButtonStyle>
   );
 };

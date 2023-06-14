@@ -1,11 +1,21 @@
-import { styled } from "styled-components";
+import { styled, keyframes } from "styled-components";
 
 interface SecondaryButtonProps {
   color?: string;
+  loading?: boolean;
   size?: "large" | "middle" | "small";
 }
 
-export const SecondaryButton = styled.button<SecondaryButtonProps>`
+const spinAnimation = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+export const SecondaryButtonStyle = styled.button<SecondaryButtonProps>`
   cursor: pointer;
   padding: ${(props) =>
     (props.size === "large" && "1.3em 2.6em") ||
@@ -17,6 +27,12 @@ export const SecondaryButton = styled.button<SecondaryButtonProps>`
   border-radius: 10px;
   box-shadow: none;
   background-color: ${(props) => props.color};
+
+  svg {
+    display: "flex";
+    margin-right: 10px;
+    animation: ${({ loading }) => loading && spinAnimation} 1s linear infinite;
+  }
 
   @media (max-width: 1600px) {
     font-size: clamp(9pt, 0.5vw, 10pt);
