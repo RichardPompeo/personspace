@@ -40,3 +40,27 @@ export const IconButton = styled.button<IconButtonProps>`
     }
   }
 `;
+
+export const ProfileButton = styled.button<IconButtonProps>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1;
+  width: 47px;
+  height: 47px;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.COLORS.SECONDARY};
+
+  span {
+    font-size: 19pt;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-family: "Supreme", sans-serif;
+    color: ${({ theme }) => theme.COLORS.DEFAULT_TWO};
+  }
+
+  @media (max-width: 900px) {
+    margin-right: 12px;
+  }
+`;
