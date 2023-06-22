@@ -20,7 +20,7 @@ export const PrimaryButton = (props: PrimaryButtonProps) => {
       disabled={props.loading}
       loading={props.loading}
     >
-      {props.loading && <VscLoading fill="#000000" />}
+      {props.loading ? <VscLoading fill="#000000" /> : props.icon && props.icon}
       {props.children}
     </PrimaryButtonStyle>
   );

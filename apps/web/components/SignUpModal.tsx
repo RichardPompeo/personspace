@@ -83,7 +83,7 @@ export default function SignUpModal({ open, onClose }: ModalProps) {
           onChange={(ev) => setPassword(ev.target.value)}
         />
         <PrimaryButton color="#8EB5F0" loading={loading} onClick={handleSignUp}>
-          {loading ? t("utility.loading") : t("utility.signUpModal.registerButton")}
+          {t("utility.signUpModal.registerButton")}
         </PrimaryButton>
       </DataField>
     </Modal>

@@ -87,7 +87,7 @@ export default function SignInModal({ open, onClose }: ModalProps) {
         />
 
         <PrimaryButton color="#8EB5F0" loading={loading} onClick={handleSignIn}>
-          {loading ? t("utility.loading") : t("utility.signInModal.loginButton")}
+          {t("utility.signInModal.loginButton")}
         </PrimaryButton>
       </DataField>
     </Modal>

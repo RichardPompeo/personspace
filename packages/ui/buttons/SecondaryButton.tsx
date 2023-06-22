@@ -21,7 +21,7 @@ export const SecondaryButton = (props: SecondaryButtonProps) => {
       disabled={props.loading}
       loading={props.loading}
     >
-      {props.loading && <VscLoading fill="#000000" />}
+      {props.loading ? <VscLoading fill="#000000" /> : props.icon && props.icon}
       {props.children}
     </SecondaryButtonStyle>
   );

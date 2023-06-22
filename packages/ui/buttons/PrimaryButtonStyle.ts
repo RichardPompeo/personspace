@@ -32,6 +32,8 @@ export const PrimaryButtonStyle = styled.button<PrimaryButtonProps>`
   box-shadow: 4px 5px ${({ theme }) => theme.COLORS.DEFAULT_TWO};
   border-radius: 10px;
   background-color: ${({ color, loading }) => (loading ? "#4f80ca" : color)};
+  display: flex;
+  justify-content: center;
 
   svg {
     display: "flex";
