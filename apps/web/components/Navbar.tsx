@@ -62,7 +62,7 @@ export default function NavBar() {
           </Navigation>
           <SectionsTitle>{t("navbar.personal")}</SectionsTitle>
           <Navigation>
-            <Link href="#">
+            <Link href="annotations">
               <ListRoutes>
                 <RiEdit2Fill fontSize={16} />
                 {t("navbar.annotation")}
