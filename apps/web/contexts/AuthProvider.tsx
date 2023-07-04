@@ -8,11 +8,13 @@ const AuthContext = createContext<{
   user: any;
   loading: boolean;
   refresh: any;
+  logout: any;
 }>({
   isLogged: false,
   user: null,
   loading: true,
   refresh: () => {},
+  logout: () => {},
 });
 
 const AuthProvider = ({ children }: any) => {
@@ -20,6 +22,13 @@ const AuthProvider = ({ children }: any) => {
   const [user, setUser] = useState(null);
 
   const [getUser, { loading }] = useLazyQuery(GET_USER_QUERY);
+
+  const logout = useCallback(() => {
+    localStorage.removeItem("idToken");
+
+    setIsLogged(false);
+    setUser(null);
+  }, []);
 
   const refresh = useCallback(() => {
     getUser({
@@ -58,7 +67,7 @@ const AuthProvider = ({ children }: any) => {
   }, [refresh]);
 
   return (
-    <AuthContext.Provider value={{ isLogged, user, refresh, loading }}>
+    <AuthContext.Provider value={{ isLogged, user, refresh, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

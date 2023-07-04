@@ -114,7 +114,6 @@ export const DataField = styled.div`
     border: none;
     font-size: 12pt;
     padding: 0.8em 2em;
-
     @media (max-width: 1600px) {
       font-size: 12pt;
     }
@@ -124,7 +123,7 @@ export const DataField = styled.div`
     }
   }
 
-  * + * {
+  input + * {
     margin-top: 1em;
   }
 
