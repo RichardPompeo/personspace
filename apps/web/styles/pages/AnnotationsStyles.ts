@@ -1,17 +1,12 @@
 import { styled } from "styled-components";
 
-interface NotesToolsProps {
-  color: string;
-}
-
 export const Container = styled.div`
   display: flex;
-  width: 75vw;
+  width: 72vw;
   height: 100vh;
-  margin-right: 2em;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
 
   button {
     box-shadow: none;
@@ -49,20 +44,6 @@ export const TitleNotes = styled.h3`
   font-weight: 500;
 `;
 
-export const CardNotes = styled.div`
-  display: grid;
-  position: relative;
-  padding: 0 1.5em;
-  box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.2);
-  justify-content: center;
-  flex-direction: column;
-  grid-template-rows: 2.5fr 2fr;
-  width: 28em;
-  height: 18em;
-  border-radius: 15px;
-  background-color: #212126ff;
-`;
-
 export const Title = styled.h2`
   font-size: 13pt;
   margin-top: 4em;
@@ -70,18 +51,4 @@ export const Title = styled.h2`
 
 export const Text = styled.p`
   margin-bottom: 2em;
-`;
-
-export const NotesTools = styled.div<NotesToolsProps>`
-  display: flex;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2em;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: 1em;
-  border-radius: 15px 15px 0 0;
-  background-color: ${( props ) => props.color};
 `;

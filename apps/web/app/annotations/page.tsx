@@ -2,23 +2,21 @@
 
 import { Col, Row } from "antd";
 
-import { MdLibraryAdd, MdEditSquare } from "react-icons/md";
-import { RiDeleteBin5Fill } from "react-icons/ri";
-import { IoIosMore } from "react-icons/io";
-
-import { PrimaryButton } from "ui";
+import { MdLibraryAdd } from "react-icons/md";
 
 import Layout from "../../layout";
+
+import { PrimaryButton } from "ui";
 import {
   Container,
   ContentNotes,
   HeaderNotes,
   TitleNotes,
-  CardNotes,
   Title,
   Text,
-  NotesTools,
 } from "../../styles/pages/AnnotationsStyles";
+
+import CardNotes from "../../components/CardNotes";
 
 export default function Annotations() {
   return (
@@ -41,12 +39,9 @@ export default function Annotations() {
             </TitleNotes>
           </HeaderNotes>
 
-          <Row wrap justify="space-between">
-            <Col>
-              <CardNotes>
-                <NotesTools color="#80ed99">
-                  <IoIosMore fill="#161a1d" fontSize={19} />
-                </NotesTools>
+          <Row gutter={[105, 60]} justify="center">
+            <Col span={8} xs={{ span: 12 }} xxl={{ span: 8 }}>
+              <CardNotes color="#80ed99">
                 <Title>Sobre meu curso</Title>
                 <Text>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
@@ -54,21 +49,24 @@ export default function Annotations() {
                   necessitatibus libero, vel molestiae!
                 </Text>
               </CardNotes>
-              <CardNotes>
-                <NotesTools color="#ffafcc">
-                  <IoIosMore fill="#161a1d" fontSize={19} />
-                </NotesTools>
+            </Col>
+            <Col
+              span={8}
+              xs={{ span: 12 }}
+              sm={{ span: 9 }}
+              lg={{ span: 9 }}
+              xl={{ span: 9 }}
+              xxl={{ span: 8 }}
+            >
+              <CardNotes color="#ffafcc">
                 <Title>Roteiro</Title>
                 <Text>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 </Text>
               </CardNotes>
             </Col>
-            <Col>
-              <CardNotes>
-                <NotesTools color="#90e0ef">
-                  <IoIosMore fill="#161a1d" fontSize={19} />
-                </NotesTools>
+            <Col span={8} xs={{ span: 12 }} xxl={{ span: 8 }}>
+              <CardNotes color="#90e0ef">
                 <Title>Filmes para assistir</Title>
                 <Text>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
@@ -76,10 +74,16 @@ export default function Annotations() {
                   necessitatibus libero, vel molestiae!
                 </Text>
               </CardNotes>
-              <CardNotes>
-                <NotesTools color="#aa7bc3">
-                  <IoIosMore fill="#161a1d" fontSize={19} />
-                </NotesTools>
+            </Col>
+            <Col
+              span={8}
+              xs={{ span: 12 }}
+              sm={{ span: 9 }}
+              lg={{ span: 9 }}
+              xl={{ span: 9 }}
+              xxl={{ span: 8 }}
+            >
+              <CardNotes color="#aa7bc3">
                 <Title>Terminar livro</Title>
                 <Text>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
@@ -88,11 +92,15 @@ export default function Annotations() {
                 </Text>
               </CardNotes>
             </Col>
-            <Col>
-              <CardNotes>
-                <NotesTools color="#98c1d9">
-                  <IoIosMore fill="#161a1d" fontSize={19} />
-                </NotesTools>
+            <Col
+              span={8}
+              xs={{ span: 12 }}
+              sm={{ span: 9 }}
+              lg={{ span: 9 }}
+              xl={{ span: 9 }}
+              xxl={{ span: 8 }}
+            >
+              <CardNotes color="#98c1d9">
                 <Title>Tarefas do dia a dia</Title>
                 <Text>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
@@ -100,10 +108,16 @@ export default function Annotations() {
                   necessitatibus libero, vel molestiae!
                 </Text>
               </CardNotes>
-              <CardNotes>
-                <NotesTools color="#ffd670">
-                  <IoIosMore fill="#161a1d" fontSize={19} />
-                </NotesTools>
+            </Col>
+            <Col
+              span={8}
+              xs={{ span: 12 }}
+              sm={{ span: 9 }}
+              lg={{ span: 9 }}
+              xl={{ span: 9 }}
+              xxl={{ span: 8 }}
+            >
+              <CardNotes color="#ffd670">
                 <Title>Conclusões curso</Title>
                 <Text>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
@@ -117,4 +131,4 @@ export default function Annotations() {
       </Container>
     </Layout>
   );
-}
+};
