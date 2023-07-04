@@ -1,59 +1,41 @@
 "use client";
 
 import React from "react";
-import { initReactI18next } from "react-i18next";
-
-import i18n from "i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
-
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-
-import { ThemeProvider } from "styled-components";
-
-import { LayoutProvider } from "../contexts/LayoutProvider";
-import { AuthProvider } from "../contexts/AuthProvider";
+import { Trans, useTranslation } from "react-i18next";
 
 import Layout from "../layout";
 
-import GlobalStyle from "../styles/global";
-import { darkTheme } from "../styles/themes/dark";
+import { PrimaryButton } from "ui";
 
-import en from "../languages/en.json";
-import pt from "../languages/pt.json";
+import abstract from "../assets/abstract.svg";
 
-declare module "i18next" {
-  interface CustomTypeOptions {
-    returnNull: false;
-  }
-}
-
-i18n
-  .use(initReactI18next)
-  .use(LanguageDetector)
-  .init({
-    fallbackLng: "en",
-    resources: {
-      ...en,
-      ...pt,
-    },
-  });
-
-const client = new ApolloClient({
-  uri: "http://localhost:4000",
-  cache: new InMemoryCache(),
-});
+import {
+  HeaderContent,
+  Header,
+  Title,
+  SubTitle,
+  Img,
+} from "../styles/pages/HomeStyles";
 
 export default function Page() {
+  const { t } = useTranslation();
+
   return (
-    <ApolloProvider client={client}>
-      <ThemeProvider theme={darkTheme}>
-        <LayoutProvider>
-          <AuthProvider>
-            <GlobalStyle />
-            <Layout />
-          </AuthProvider>
-        </LayoutProvider>
-      </ThemeProvider>
-    </ApolloProvider>
+    <Layout>
+      <HeaderContent>
+        <Header>
+          <Title>
+            <Trans i18nKey="home.title" components={[<strong key={0} />]}>
+              {t("home.title")}
+            </Trans>
+          </Title>
+          <SubTitle>{t("home.subtitle")}</SubTitle>
+          <PrimaryButton size="large">
+            {t("home.aboutTheSiteButton")}
+          </PrimaryButton>
+        </Header>
+        <Img src={abstract.src} />
+      </HeaderContent>
+    </Layout>
   );
 }
