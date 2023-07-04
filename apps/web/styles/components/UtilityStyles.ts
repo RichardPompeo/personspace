@@ -19,7 +19,7 @@ export const Container = styled.div`
 export const ContentRegistration = styled.div`
   display: flex;
   gap: 1em;
-  padding-left: 30px;
+  padding-left: 20px;
   border-left: 1px solid ${({ theme }) => theme.COLORS.DEFAULT};
 
   @media (max-width: 900px) {
@@ -27,7 +27,13 @@ export const ContentRegistration = styled.div`
   }
 `;
 
-export const overlayStyle = {
+export const overlayStyleWeb = {
+  background: "#212126ff",
+  width: "120px",
+  borderRadius: "10px",
+};
+
+export const overlayStyleMobile = {
   background: "#23232fff",
   width: "250px",
   borderRadius: "10px",
@@ -46,6 +52,32 @@ export const ContentPopover = styled.div`
   gap: 1em;
   width: 100%;
   flex-direction: column;
+`;
+
+export const ProfileContentPopover = styled.div`
+  display: flex;
+`;
+
+export const UserData = styled.div``;
+
+export const LinksPopover = styled.ul`
+  display: flex;
+  flex-direction: column;
+
+  li + li {
+    margin-top: 1.5em;
+  }
+`;
+
+export const Link = styled.li`
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  opacity: 0.7;
+  font-size: 11pt;
+  cursor: pointer;
+  list-style: none;
+  margin-left: 6px;
 `;
 
 export const UtilityResponsiveButton = styled(IconButton)`

@@ -2,14 +2,11 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useMutation } from "@apollo/client";
-
 import { Input } from "antd";
 
 import { PrimaryButton } from "ui";
 
 import Modal from "./Modal";
-
-import SIGN_UP_WITH_EMAIL_AND_PASSWORD_MUTATION from "../graphql/signUpWithEmailAndPassword";
 
 import {
   TitleContent,
@@ -17,6 +14,8 @@ import {
   SubTitle,
   DataField,
 } from "../styles/components/ModalStyles";
+import SIGN_UP_WITH_EMAIL_AND_PASSWORD_MUTATION from "../graphql/signUpWithEmailAndPassword";
+import { sendNotification } from "../utils/notifications";
 
 interface ModalProps {
   open: boolean;
@@ -28,7 +27,9 @@ export default function SignUpModal({ open, onClose }: ModalProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [signUp] = useMutation(SIGN_UP_WITH_EMAIL_AND_PASSWORD_MUTATION);
+  const [signUp, { loading }] = useMutation(
+    SIGN_UP_WITH_EMAIL_AND_PASSWORD_MUTATION
+  );
 
   const { t } = useTranslation();
 
@@ -44,9 +45,19 @@ export default function SignUpModal({ open, onClose }: ModalProps) {
     });
 
     if (data.signUpWithEmailAndPassword.success) {
-      alert(`Usuário cadastrado, ${data.signUpWithEmailAndPassword.user.uid}`);
+      sendNotification(
+        "success",
+        t("utility.signUpModal.notification.success.title"),
+        t("utility.signUpModal.notification.success.description")
+      );
+
+      return onClose();
     } else {
-      alert(`Erro, ${data.signUpWithEmailAndPassword.error.message}`);
+      return sendNotification(
+        "error",
+        t("utility.signUpModal.notification.error.title"),
+        t("utility.signUpModal.notification.error.description")
+      );
     }
   };
 
@@ -71,7 +82,7 @@ export default function SignUpModal({ open, onClose }: ModalProps) {
           placeholder={t("utility.passwordPlaceholder")}
           onChange={(ev) => setPassword(ev.target.value)}
         />
-        <PrimaryButton color="#8EB5F0" onClick={handleSignUp}>
+        <PrimaryButton color="#8EB5F0" loading={loading} onClick={handleSignUp}>
           {t("utility.signUpModal.registerButton")}
         </PrimaryButton>
       </DataField>

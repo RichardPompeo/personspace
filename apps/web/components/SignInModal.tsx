@@ -2,14 +2,9 @@ import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useMutation } from "@apollo/client";
-
 import { Input } from "antd";
 
 import { PrimaryButton } from "ui";
-
-import SIGN_IN_WITH_EMAIL_AND_PASSWORD_MUTATION from "../graphql/signInWithEmailAndPassword";
-
-import { AuthContext } from "../contexts/AuthProvider";
 
 import Modal from "./Modal";
 
@@ -19,6 +14,9 @@ import {
   SubTitle,
   DataField,
 } from "../styles/components/ModalStyles";
+import { sendNotification } from "../utils/notifications";
+import { AuthContext } from "../contexts/AuthProvider";
+import SIGN_IN_WITH_EMAIL_AND_PASSWORD_MUTATION from "../graphql/signInWithEmailAndPassword";
 
 interface ModalProps {
   open: boolean;
@@ -29,7 +27,9 @@ export default function SignInModal({ open, onClose }: ModalProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [signIn] = useMutation(SIGN_IN_WITH_EMAIL_AND_PASSWORD_MUTATION);
+  const [signIn, { loading }] = useMutation(
+    SIGN_IN_WITH_EMAIL_AND_PASSWORD_MUTATION
+  );
 
   const { refresh } = useContext(AuthContext);
 
@@ -46,16 +46,26 @@ export default function SignInModal({ open, onClose }: ModalProps) {
     });
 
     if (data.signInWithEmailAndPassword.success) {
-      alert(`Usuário logado, ${data.signInWithEmailAndPassword.user.uid}`);
-
       localStorage.setItem(
         "idToken",
         data.signInWithEmailAndPassword.user.idToken
       );
 
       refresh();
+
+      sendNotification(
+        "success",
+        t("utility.signInModal.notification.success.title"),
+        t("utility.signInModal.notification.success.description")
+      );
+
+      return onClose();
     } else {
-      alert(`Erro, ${data.signInWithEmailAndPassword.error.message}`);
+      return sendNotification(
+        "error",
+        t("utility.signInModal.notification.error.title"),
+        t("utility.signInModal.notification.error.description")
+      );
     }
   };
 
@@ -75,7 +85,8 @@ export default function SignInModal({ open, onClose }: ModalProps) {
           placeholder={t("utility.passwordPlaceholder")}
           onChange={(ev) => setPassword(ev.target.value)}
         />
-        <PrimaryButton color="#8EB5F0" onClick={handleSignIn}>
+
+        <PrimaryButton color="#8EB5F0" loading={loading} onClick={handleSignIn}>
           {t("utility.signInModal.loginButton")}
         </PrimaryButton>
       </DataField>
