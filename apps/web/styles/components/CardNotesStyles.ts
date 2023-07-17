@@ -4,10 +4,14 @@ interface NotesToolsProps {
   color: string;
 }
 
+interface PlaceholderProps {
+  display: string;
+}
+
 export const overlayStyle = {
   background: "#212126ff",
   width: "190px",
-  borderRadius: "15px"
+  borderRadius: "15px",
 };
 
 export const ContainerPopover = styled.div`
@@ -54,10 +58,10 @@ export const NotesTools = styled.div<NotesToolsProps>`
   width: 100%;
   height: 2em;
   align-items: center;
-  justify-content: flex-end;
-  padding-right: 1em;
+  justify-content: space-between;
+  padding: 1em;
   border-radius: 15px 15px 0 0;
-  background-color: ${( props ) => props.color};
+  background-color: ${(props) => props.color};
 `;
 
 export const Container = styled.div`
@@ -65,13 +69,58 @@ export const Container = styled.div`
   position: relative;
   padding: 0 1.5em;
   box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.2);
-  justify-content: center;
+  justify-self: self-start;
   flex-direction: column;
-  grid-template-rows: 2.5fr 2fr;
+  grid-template-rows: 3fr 2fr;
   width: 28em;
   height: 18em;
   border-radius: 15px;
   background-color: #212126ff;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+export const Title = styled.div`
+  position: relative;
+  margin-top: 5em;
+`;
+
+export const PlaceholderTitle = styled.h1<PlaceholderProps>`
+  display: ${(props) => (props.display ? "none" : "flex")};
+  position: absolute;
+  color: #d6d6d6;
+  font-size: 14pt;
+  font-weight: 700;
+`;
+
+export const ContentTitle = styled.div`
+  z-index: 1;
+  outline: none;
+  font-size: 14pt;
+  font-weight: 700;
+`;
+
+export const Text = styled.div`
+  position: relative;
+  max-width: 25.5em;
+  margin-bottom: 2em;
+`;
+
+export const PlaceholderText = styled.p<PlaceholderProps>`
+  display: ${(props) => (props.display ? "none" : "flex")};
+  position: absolute;
+  color: #d6d6d6;
+  font-size: 11pt;
+  font-weight: 400;
+`;
+
+export const ContentText = styled.div`
+  z-index: 1;
+  outline: none;
+  font-size: 11pt;
+  font-weight: 400;
 `;
 
 export const Date = styled.p`

@@ -1,9 +1,12 @@
+import { useRef, useState } from "react";
+
 import { Popover } from "antd";
 
 import { MdEditSquare } from "react-icons/md";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { IoIosMore } from "react-icons/io";
 import { IoCalendar } from "react-icons/io5";
+import { FaThumbtack } from "react-icons/fa";
 
 import {
   Container,
@@ -15,14 +18,34 @@ import {
   Colors,
   Tools,
   Date,
+  Title,
+  Text,
+  PlaceholderTitle,
+  ContentTitle,
+  ContentText,
+  PlaceholderText
 } from "../styles/components/CardNotesStyles";
 
 interface CardNotesProps {
   color: string;
-  children: React.ReactNode;
 }
 
 export default function CardNote(props: CardNotesProps) {
+  const contentEditableRefTitle = useRef<any>();
+  const contentEditableRefText = useRef<any>();
+  const [notesTitle, setNotesTitle] = useState<string>("");
+  const [notesText, setNotesText] = useState<string>("");
+
+  const saveNotesTitle = () => {
+    const getNotesTitle = contentEditableRefTitle.current.innerText;
+    setNotesTitle(getNotesTitle);
+  };
+
+  const saveNotesText = () => {
+    const getNotesText = contentEditableRefText.current.innerText;
+    setNotesText(getNotesText);
+  };
+
   const content = (
     <ContainerPopover>
       <ContentPopover>
@@ -41,6 +64,7 @@ export default function CardNote(props: CardNotesProps) {
   return (
     <Container>
       <NotesTools color={props.color}>
+        <FaThumbtack fill="#161a1d" fontSize={12} cursor="pointer" />
         <Popover
           placement="bottomRight"
           color="#212126ff"
@@ -61,10 +85,17 @@ export default function CardNote(props: CardNotesProps) {
           <IoIosMore fill="#161a1d" fontSize={19} cursor="pointer" />
         </Popover>
       </NotesTools>
-      {props.children}
+      <Title>
+        <PlaceholderTitle display={notesTitle}>Título</PlaceholderTitle>
+        <ContentTitle contentEditable="true" ref={contentEditableRefTitle} onInput={saveNotesTitle}></ContentTitle>
+      </Title>
+      <Text>
+        <PlaceholderText display={notesText}>Escreva sua anotação...</PlaceholderText>
+        <ContentText contentEditable="true" ref={contentEditableRefText} onInput={saveNotesText}></ContentText>
+      </Text>
       <Date>
         <IoCalendar fill="#bbbbbb" /> 04/07/23
       </Date>
     </Container>
   );
-};
+}

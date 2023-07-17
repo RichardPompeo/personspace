@@ -1,10 +1,13 @@
 "use client";
 
+import { useState } from "react";
+
 import { Col, Row } from "antd";
 
 import { MdLibraryAdd } from "react-icons/md";
 
 import Layout from "../../layout";
+import CardNotes from "../../components/CardNotes";
 
 import { PrimaryButton } from "ui";
 import {
@@ -12,18 +15,23 @@ import {
   ContentNotes,
   HeaderNotes,
   TitleNotes,
-  Title,
-  Text,
+  Image,
 } from "../../styles/pages/AnnotationsStyles";
 
-import CardNotes from "../../components/CardNotes";
-
 export default function Annotations() {
+  const [cardNotes, setCardNotes] = useState<any>([]);
+
+  const addCardNotes = () => {
+    const isCardNotes = <CardNotes color="#80ed99" />;
+    setCardNotes([...cardNotes, isCardNotes]);
+  };
+
   return (
     <Layout>
       <Container>
         <PrimaryButton
           size="small"
+          onClick={addCardNotes}
           color="#80ed99"
           icon={<MdLibraryAdd fontSize={18} fill="#000000" />}
         >
@@ -38,97 +46,15 @@ export default function Annotations() {
               Done <span>0</span>
             </TitleNotes>
           </HeaderNotes>
-
-          <Row gutter={[105, 60]} justify="center">
-            <Col span={8} xs={{ span: 12 }} xxl={{ span: 8 }}>
-              <CardNotes color="#80ed99">
-                <Title>Sobre meu curso</Title>
-                <Text>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
-                  asperiores commodi fuga molestias architecto aspernatur beatae
-                  necessitatibus libero, vel molestiae!
-                </Text>
-              </CardNotes>
-            </Col>
-            <Col
-              span={8}
-              xs={{ span: 12 }}
-              sm={{ span: 9 }}
-              lg={{ span: 9 }}
-              xl={{ span: 9 }}
-              xxl={{ span: 8 }}
-            >
-              <CardNotes color="#ffafcc">
-                <Title>Roteiro</Title>
-                <Text>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                </Text>
-              </CardNotes>
-            </Col>
-            <Col span={8} xs={{ span: 12 }} xxl={{ span: 8 }}>
-              <CardNotes color="#90e0ef">
-                <Title>Filmes para assistir</Title>
-                <Text>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
-                  asperiores commodi fuga molestias architecto aspernatur beatae
-                  necessitatibus libero, vel molestiae!
-                </Text>
-              </CardNotes>
-            </Col>
-            <Col
-              span={8}
-              xs={{ span: 12 }}
-              sm={{ span: 9 }}
-              lg={{ span: 9 }}
-              xl={{ span: 9 }}
-              xxl={{ span: 8 }}
-            >
-              <CardNotes color="#aa7bc3">
-                <Title>Terminar livro</Title>
-                <Text>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
-                  asperiores commodi fuga molestias architecto aspernatur beatae
-                  necessitatibus libero, vel molestiae!
-                </Text>
-              </CardNotes>
-            </Col>
-            <Col
-              span={8}
-              xs={{ span: 12 }}
-              sm={{ span: 9 }}
-              lg={{ span: 9 }}
-              xl={{ span: 9 }}
-              xxl={{ span: 8 }}
-            >
-              <CardNotes color="#98c1d9">
-                <Title>Tarefas do dia a dia</Title>
-                <Text>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
-                  asperiores commodi fuga molestias architecto aspernatur beatae
-                  necessitatibus libero, vel molestiae!
-                </Text>
-              </CardNotes>
-            </Col>
-            <Col
-              span={8}
-              xs={{ span: 12 }}
-              sm={{ span: 9 }}
-              lg={{ span: 9 }}
-              xl={{ span: 9 }}
-              xxl={{ span: 8 }}
-            >
-              <CardNotes color="#ffd670">
-                <Title>Conclusões curso</Title>
-                <Text>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
-                  asperiores commodi fuga molestias architecto aspernatur beatae
-                  necessitatibus libero, vel molestiae!
-                </Text>
-              </CardNotes>
-            </Col>
+          <Row gutter={[105, 60]} justify="start" style={{ paddingBottom: "10em"}}>
+            {cardNotes.map((item, key) => (
+              <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={8} key={key}>
+                {item}
+              </Col>
+            ))}
           </Row>
         </ContentNotes>
       </Container>
     </Layout>
   );
-};
+}

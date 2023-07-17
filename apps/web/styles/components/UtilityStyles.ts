@@ -8,8 +8,9 @@ export const Container = styled.div`
   position: fixed;
   top: 0;
   right: 0;
-  padding: 0.1em 1.7em;
+  z-index: 1;
   border-radius: 10px;
+  padding: 0.1em 1.7em;
 
   @media (max-width: 900px) {
     padding: 0;
