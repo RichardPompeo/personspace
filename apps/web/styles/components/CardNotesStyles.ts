@@ -96,6 +96,8 @@ export const PlaceholderTitle = styled.h1<PlaceholderProps>`
 `;
 
 export const ContentTitle = styled.div`
+  width: 100%;
+  position: absolute;
   z-index: 1;
   outline: none;
   font-size: 14pt;
@@ -117,6 +119,8 @@ export const PlaceholderText = styled.p<PlaceholderProps>`
 `;
 
 export const ContentText = styled.div`
+  width: 100%;
+  position: absolute;
   z-index: 1;
   outline: none;
   font-size: 11pt;

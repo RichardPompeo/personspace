@@ -20,9 +20,12 @@ import {
 
 export default function Annotations() {
   const [cardNotes, setCardNotes] = useState<any>([]);
+  const colors = ["#80ed99", "#ffafcc", "#90e0ef", "#aa7bc3", "#98c1d9", "#ffd670"]
 
   const addCardNotes = () => {
-    const isCardNotes = <CardNotes color="#80ed99" />;
+    const color = colors[cardNotes.length % colors.length];
+    const isCardNotes = <CardNotes color={color}/>;
+
     setCardNotes([...cardNotes, isCardNotes]);
   };
 

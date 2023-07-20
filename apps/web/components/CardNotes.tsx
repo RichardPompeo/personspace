@@ -30,7 +30,7 @@ interface CardNotesProps {
   color: string;
 }
 
-export default function CardNote(props: CardNotesProps) {
+export default function CardNotes(props: CardNotesProps) {
   const contentEditableRefTitle = useRef<any>();
   const contentEditableRefText = useRef<any>();
   const [notesTitle, setNotesTitle] = useState<string>("");
