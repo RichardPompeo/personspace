@@ -43,7 +43,7 @@ export default function Annotations() {
         <ContentNotes>
           <HeaderNotes>
             <TitleNotes>
-              Created annotations <span>6</span>
+              Created annotations <span>{cardNotes.length}</span>
             </TitleNotes>
             <TitleNotes>
               Done <span>0</span>

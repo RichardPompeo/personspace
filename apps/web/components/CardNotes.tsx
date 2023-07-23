@@ -1,5 +1,7 @@
 import { useRef, useState } from "react";
 
+import { format } from "date-fns";
+
 import { Popover } from "antd";
 
 import { MdEditSquare } from "react-icons/md";
@@ -17,7 +19,7 @@ import {
   SelectColors,
   Colors,
   Tools,
-  Date,
+  DateAndTime,
   Title,
   Text,
   PlaceholderTitle,
@@ -33,8 +35,11 @@ interface CardNotesProps {
 export default function CardNotes(props: CardNotesProps) {
   const contentEditableRefTitle = useRef<any>();
   const contentEditableRefText = useRef<any>();
+
   const [notesTitle, setNotesTitle] = useState<string>("");
   const [notesText, setNotesText] = useState<string>("");
+  
+  const currentDateTime = format( new Date(), 'dd/MM/yyyy, h:mm a');
 
   const saveNotesTitle = () => {
     const getNotesTitle = contentEditableRefTitle.current.innerText;
@@ -93,9 +98,9 @@ export default function CardNotes(props: CardNotesProps) {
         <PlaceholderText display={notesText}>Escreva sua anotação...</PlaceholderText>
         <ContentText contentEditable="true" ref={contentEditableRefText} onInput={saveNotesText}></ContentText>
       </Text>
-      <Date>
-        <IoCalendar fill="#bbbbbb" /> 04/07/23
-      </Date>
+      <DateAndTime>
+        <IoCalendar fill="#bbbbbb" /> {currentDateTime}
+      </DateAndTime>
     </Container>
   );
 }

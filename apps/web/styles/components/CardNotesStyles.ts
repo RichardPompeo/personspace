@@ -90,7 +90,7 @@ export const Title = styled.div`
 export const PlaceholderTitle = styled.h1<PlaceholderProps>`
   display: ${(props) => (props.display ? "none" : "flex")};
   position: absolute;
-  color: #d6d6d6;
+  color: #e9ecef;
   font-size: 14pt;
   font-weight: 700;
 `;
@@ -127,7 +127,7 @@ export const ContentText = styled.div`
   font-weight: 400;
 `;
 
-export const Date = styled.p`
+export const DateAndTime = styled.p`
   font-size: 13px;
   font-weight: 600;
   color: #bbbbbb;
