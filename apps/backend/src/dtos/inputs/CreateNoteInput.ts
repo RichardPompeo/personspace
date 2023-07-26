@@ -12,5 +12,8 @@ export class CreateNoteInput {
   description: string;
 
   @Field()
+  color: string;
+
+  @Field()
   createdAt: Date;
 }

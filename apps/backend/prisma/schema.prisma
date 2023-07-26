@@ -23,6 +23,7 @@ model note {
   authorId    String
   title       String
   description String
+  color       String
   createdAt   DateTime
   updatedAt   DateTime?
 }

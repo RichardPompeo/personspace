@@ -17,6 +17,7 @@ type AuthenticationUserResponse {
 
 input CreateNoteInput {
   authorId: String!
+  color: String!
   createdAt: DateTime!
   description: String!
   title: String!
@@ -46,8 +47,10 @@ type Mutation {
 
 type NoteModel {
   authorId: String
+  color: String!
   createdAt: DateTime
   description: String!
+  id: String!
   title: String!
   updatedAt: DateTime
 }

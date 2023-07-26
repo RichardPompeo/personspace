@@ -28,6 +28,7 @@ export class NotesResolver {
       title: input.title,
       description: input.description,
       createdAt: input.createdAt,
+      color: input.color,
     };
 
     await prisma.note.create({ data: note }).catch((err) => {

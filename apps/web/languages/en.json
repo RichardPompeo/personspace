@@ -7,7 +7,7 @@
         "home": "Home",
         "about": "About",
         "personal": "Personal",
-        "annotation": "Annotation",
+        "annotation": "Notes",
         "calendar": "Calendar",
         "contacts": "Contacts",
         "schedule": "Schedule",
@@ -64,9 +64,9 @@
         "passwordPlaceholder": "Password"
       },
       "annotations": {
-        "title": "Annotations",
+        "title": "Notes",
         "notes": {
-          "create": "Click to create a note",
+          "create": "Create note",
           "addTitle": "Add title",
           "addDescription": "Add description..."
         }

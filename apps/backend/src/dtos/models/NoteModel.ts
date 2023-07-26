@@ -5,10 +5,16 @@ import { ErrorModel } from "./ErrorModel";
 @ObjectType()
 export class NoteModel {
   @Field()
+  id: string;
+
+  @Field()
   title: string;
 
   @Field()
   description: string;
+
+  @Field()
+  color: string;
 
   @Field({ nullable: true })
   authorId: string;

@@ -1,5 +1,9 @@
 import { styled } from "styled-components";
 
+interface HeaderProps {
+  color: string;
+}
+
 export const Container = styled.div`
   background-color: #212126ff;
   display: flex;
@@ -16,8 +20,8 @@ export const Button = styled.span`
   }
 `;
 
-export const Header = styled.div`
-  background-color: #80ed99;
+export const Header = styled.div<HeaderProps>`
+  background-color: ${({ color }) => (color ? color : "#8eb5f0")};
   padding: 8px;
   width: 100%;
   border-radius: 15px 15px 0 0;
@@ -33,7 +37,7 @@ export const Content = styled.div`
 `;
 
 export const Footer = styled.div`
-  padding: 15px;
+  padding: 0 15px 15px 15px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -43,12 +47,21 @@ export const Footer = styled.div`
 export const Title = styled.h1`
   font-size: 24px;
   padding: 10px 0;
+  outline: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 1.6em;
 `;
 
 export const Description = styled.p`
   font-size: 16px;
   color: gray;
-  padding: 10px 0;
+  margin: 10px 0;
+  outline: none;
+  max-height: 4.8em;
+  word-wrap: break-word;
+  text-overflow: ellipsis;
+  overflow: scroll;
 `;
 
 export const Time = styled.p`

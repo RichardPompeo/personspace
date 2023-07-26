@@ -7,12 +7,14 @@ const AuthContext = createContext<{
   isLogged: boolean;
   user: any;
   loading: boolean;
+  token: any;
   refresh: any;
   logout: any;
 }>({
   isLogged: false,
   user: null,
   loading: true,
+  token: "",
   refresh: () => {},
   logout: () => {},
 });
@@ -20,6 +22,7 @@ const AuthContext = createContext<{
 const AuthProvider = ({ children }: any) => {
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState<any>(null);
 
   const [getUser, { loading }] = useLazyQuery(GET_USER_QUERY);
 
@@ -59,6 +62,7 @@ const AuthProvider = ({ children }: any) => {
 
   useEffect(() => {
     if (localStorage.getItem("idToken")) {
+      setToken(localStorage.getItem("idToken"));
       refresh();
     } else {
       setIsLogged(false);
@@ -67,7 +71,16 @@ const AuthProvider = ({ children }: any) => {
   }, [refresh]);
 
   return (
-    <AuthContext.Provider value={{ isLogged, user, refresh, logout, loading }}>
+    <AuthContext.Provider
+      value={{
+        isLogged,
+        user,
+        refresh,
+        logout,
+        loading,
+        token: token,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

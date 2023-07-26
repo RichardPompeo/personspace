@@ -31,7 +31,8 @@ export const PrimaryButtonStyle = styled.button<PrimaryButtonProps>`
   border: 2px solid ${({ theme }) => theme.COLORS.DEFAULT_TWO};
   box-shadow: 4px 5px ${({ theme }) => theme.COLORS.DEFAULT_TWO};
   border-radius: 10px;
-  background-color: ${({ color, loading }) => (loading ? "#4f80ca" : color)};
+  background-color: ${({ color }) => (color ? color : "#4f80ca")};
+  opacity: ${({ loading }) => (loading ? "0.75" : "1")};
   display: flex;
   justify-content: center;
 
