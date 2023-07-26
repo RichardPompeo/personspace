@@ -9,13 +9,7 @@ import { PrimaryButton } from "ui";
 
 import abstract from "../assets/abstract.svg";
 
-import {
-  HeaderContent,
-  Header,
-  Title,
-  SubTitle,
-  Img,
-} from "../styles/pages/HomeStyles";
+import { HeaderContent, Header, Title, SubTitle, Img } from "./HomeStyles";
 
 export default function Page() {
   const { t } = useTranslation();

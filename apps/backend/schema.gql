@@ -15,19 +15,52 @@ type AuthenticationUserResponse {
   uid: String!
 }
 
+input CreateNoteInput {
+  authorId: String!
+  createdAt: DateTime!
+  description: String!
+  title: String!
+}
+
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
+input DeleteNoteInput {
+  id: String!
+}
+
 type ErrorModel {
   code: String!
   message: String!
 }
 
 type Mutation {
+  createNote(input: CreateNoteInput!): NoteModel!
+  deleteNote(input: DeleteNoteInput!): ResponseModel!
   signInWithEmailAndPassword(input: SignInWithEmailAndPasswordInput!): AuthenticationResponseModel!
   signUpWithEmailAndPassword(input: SignUpWithEmailAndPasswordInput!): AuthenticationResponseModel!
+  updateNote(input: UpdateNoteInput!): NoteModel!
+}
+
+type NoteModel {
+  authorId: String
+  createdAt: DateTime
+  description: String!
+  title: String!
+  updatedAt: DateTime
 }
 
 type Query {
+  getNotes: [NoteModel!]!
   getUser: UserModel!
   helloWorld: String!
+}
+
+type ResponseModel {
+  error: ErrorModel
+  success: Boolean!
 }
 
 input SignInWithEmailAndPasswordInput {
@@ -39,6 +72,13 @@ input SignUpWithEmailAndPasswordInput {
   displayName: String!
   email: String!
   password: String!
+}
+
+input UpdateNoteInput {
+  description: String!
+  id: String!
+  title: String!
+  updatedAt: DateTime!
 }
 
 type UserModel {

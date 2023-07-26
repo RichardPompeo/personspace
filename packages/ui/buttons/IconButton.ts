@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 interface IconButtonProps {
   zIndex?: string;
   position?: string;
+  color?: string;
 }
 
 export const IconButton = styled.button<IconButtonProps>`
@@ -15,10 +16,13 @@ export const IconButton = styled.button<IconButtonProps>`
   padding: 12px;
   margin: 20px;
   border-radius: 50%;
-  background-color: rgba(142, 181, 240, 0.1);
+  background-color: ${({ color }) =>
+    color ? color : "rgba(142, 181, 240, 0.1)"};
 
   &:hover {
-    background-color: ${({ theme }) => theme.COLORS.DEFAULT};
+    background-color: ${({ theme, color }) =>
+      color ? color : theme.COLORS.DEFAULT};
+    opacity: ${({ color }) => (color ? 0.75 : 1)};
 
     svg {
       fill: ${({ theme }) => theme.COLORS.DEFAULT_TWO};

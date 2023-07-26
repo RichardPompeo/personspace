@@ -2,13 +2,13 @@ import React, { useContext } from "react";
 
 import { Row, Col } from "antd";
 
-import NavBar from "../components/Navbar";
-import UtilityContent from "../components/UtilityContent";
+import NavBar from "../components/app/Navbar";
+import UtilityContent from "../components/app/UtilityContent";
 
 import { LayoutContext } from "../contexts/LayoutProvider";
-import { Container as LayoutContainer } from "../styles/components/LayoutStyles";
+import { Container as LayoutContainer } from "./LayoutStyles";
 
-import { Container } from "../styles/pages/HomeStyles";
+import { Container } from "../app/HomeStyles";
 
 export default function Layout({ children }) {
   const { menu } = useContext(LayoutContext);
@@ -16,12 +16,20 @@ export default function Layout({ children }) {
   return (
     <LayoutContainer>
       <Row>
-        <Col span={menu ? 4 : 2}>
+        <Col xl={menu ? 5 : 2} lg={menu ? 5 : 2} md={2} sm={24} xs={24}>
           <NavBar />
         </Col>
-        <Col span={menu ? 8 : 10}>
-          <UtilityContent />
+        <Col
+          xl={menu ? 16 : 19}
+          lg={menu ? 16 : 19}
+          md={menu ? 14 : 17}
+          sm={24}
+          xs={24}
+        >
           <Container>{children}</Container>
+        </Col>
+        <Col xl={3} lg={3} md={menu ? 8 : 5} sm={24} xs={24}>
+          <UtilityContent />
         </Col>
       </Row>
     </LayoutContainer>

@@ -1,9 +1,5 @@
 import { IoIosCloseCircle } from "react-icons/io";
-import {
-  CloseButton,
-  Container,
-  ContentModal,
-} from "../styles/components/ModalStyles";
+import { CloseButton, Container, ContentModal } from "./ModalStyles";
 
 interface ModalProps {
   children: any;

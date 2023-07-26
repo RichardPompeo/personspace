@@ -53,7 +53,7 @@ export const PrimaryButtonStyle = styled.button<PrimaryButtonProps>`
     box-shadow: 2px 3px ${({ theme }) => theme.COLORS.DEFAULT_TWO};
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 767px) {
     width: 100%;
   }
 `;
