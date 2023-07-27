@@ -27,7 +27,8 @@
           "title": "Settings",
           "account": "Account",
           "profile": "Profile",
-          "logoutButton": "Logout"
+          "logoutButton": "Logout",
+          "language": "Language"
         },
         "signUpModal": {
           "title": "Sign up",

@@ -68,3 +68,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+export { i18n };

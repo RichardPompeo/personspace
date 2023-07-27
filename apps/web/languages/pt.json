@@ -27,7 +27,8 @@
           "title": "Configurações",
           "account": "Conta",
           "profile": "Perfil",
-          "logoutButton": "Sair"
+          "logoutButton": "Sair",
+          "language": "Idioma"
         },
         "signUpModal": {
           "title": "Inscrever-se",
