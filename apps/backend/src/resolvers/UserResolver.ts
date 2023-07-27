@@ -18,7 +18,7 @@ export class UserResolver {
       displayName: input.displayName,
     };
 
-    await prisma.users.create({ data: user }).catch((err) => {
+    await prisma.user.create({ data: user }).catch((err) => {
       if (err.code === "P2002") {
         throw Error(`Duplicated field '${err.meta?.target[0]}'`);
       }
@@ -32,7 +32,7 @@ export class UserResolver {
   async getUser(@Ctx() context: { bearerToken: string }) {
     const payload = await Authorization.verify(context.bearerToken);
 
-    const user = await prisma.users.findUnique({
+    const user = await prisma.user.findUnique({
       where: { firebaseId: payload.uid },
     });
 

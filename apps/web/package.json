@@ -12,6 +12,7 @@
     "@apollo/client": "^3.7.14",
     "antd": "^5.4.7",
     "components": "^0.1.0",
+    "date-fns": "^2.30.0",
     "i18next": "^22.4.15",
     "i18next-browser-languagedetector": "^7.0.1",
     "next": "^13.4.1",

@@ -6,16 +6,11 @@ import { Input } from "antd";
 
 import { PrimaryButton } from "ui";
 
-import Modal from "./Modal";
+import Modal from "../app/Modal";
 
-import {
-  TitleContent,
-  Title,
-  SubTitle,
-  DataField,
-} from "../styles/components/ModalStyles";
-import SIGN_UP_WITH_EMAIL_AND_PASSWORD_MUTATION from "../graphql/signUpWithEmailAndPassword";
-import { sendNotification } from "../utils/notifications";
+import { TitleContent, Title, SubTitle, DataField } from "../app/ModalStyles";
+import SIGN_UP_WITH_EMAIL_AND_PASSWORD_MUTATION from "../../graphql/signUpWithEmailAndPassword";
+import { sendNotification } from "../../utils/notifications";
 
 interface ModalProps {
   open: boolean;

@@ -1,54 +1,35 @@
 import React, { useContext } from "react";
-import { Trans, useTranslation } from "react-i18next";
 
 import { Row, Col } from "antd";
 
-import NavBar from "../components/Navbar";
-import UtilityContent from "../components/UtilityContent";
-
-import abstract from "../assets/abstract.svg";
+import NavBar from "../components/app/Navbar";
+import UtilityContent from "../components/app/UtilityContent";
 
 import { LayoutContext } from "../contexts/LayoutProvider";
-import { Container as LayoutContainer } from "../styles/components/LayoutStyles";
-import { PrimaryButton } from "ui";
-import {
-  Container,
-  HeaderContent,
-  Header,
-  Title,
-  SubTitle,
-  Img,
-} from "../styles/pages/HomeStyles";
+import { Container as LayoutContainer } from "./LayoutStyles";
 
-export default function Layout() {
+import { Container } from "../app/HomeStyles";
+
+export default function Layout({ children }) {
   const { menu } = useContext(LayoutContext);
-
-  const { t } = useTranslation();
 
   return (
     <LayoutContainer>
       <Row>
-        <Col span={menu ? 4 : 2}>
+        <Col xl={menu ? 5 : 2} lg={menu ? 5 : 2} md={2} sm={24} xs={24}>
           <NavBar />
         </Col>
-        <Col span={menu ? 8 : 10}>
+        <Col
+          xl={menu ? 16 : 19}
+          lg={menu ? 16 : 19}
+          md={menu ? 14 : 17}
+          sm={24}
+          xs={24}
+        >
+          <Container>{children}</Container>
+        </Col>
+        <Col xl={3} lg={3} md={menu ? 8 : 5} sm={24} xs={24}>
           <UtilityContent />
-          <Container>
-            <HeaderContent>
-              <Header>
-                <Title>
-                  <Trans i18nKey="home.title" components={[<strong key={0} />]}>
-                    {t("home.title")}
-                  </Trans>
-                </Title>
-                <SubTitle>{t("home.subtitle")}</SubTitle>
-                <PrimaryButton size="large">
-                  {t("home.aboutTheSiteButton")}
-                </PrimaryButton>
-              </Header>
-              <Img src={abstract.src} />
-            </HeaderContent>
-          </Container>
         </Col>
       </Row>
     </LayoutContainer>

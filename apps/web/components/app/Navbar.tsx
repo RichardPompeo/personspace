@@ -11,9 +11,9 @@ import { RiEdit2Fill, RiContactsBook2Fill, RiHome3Fill } from "react-icons/ri";
 
 import { IconButton } from "ui";
 
-import { LayoutContext } from "../contexts/LayoutProvider";
+import { LayoutContext } from "../../contexts/LayoutProvider";
 
-import logo from "../assets/personspace-logo.svg";
+import logo from "../../assets/personspace-logo.svg";
 
 import {
   Container,
@@ -23,7 +23,7 @@ import {
   LogoText,
   Navigation,
   SectionsTitle,
-} from "../styles/components/NavbarStyles";
+} from "./NavbarStyles";
 
 export default function NavBar() {
   const { t } = useTranslation();
@@ -62,7 +62,7 @@ export default function NavBar() {
           </Navigation>
           <SectionsTitle>{t("navbar.personal")}</SectionsTitle>
           <Navigation>
-            <Link href="#">
+            <Link href="notes">
               <ListRoutes>
                 <RiEdit2Fill fontSize={16} />
                 {t("navbar.annotation")}

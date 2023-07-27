@@ -62,6 +62,14 @@
         },
         "emailPlaceholder": "Email",
         "passwordPlaceholder": "Senha"
+      },
+      "annotations": {
+        "title": "Anotações",
+        "notes": {
+          "create": "Criar anotação",
+          "addTitle": "Adicionar título",
+          "addDescription": "Adicionar descrição..."
+        }
       }
     }
   }

@@ -8,10 +8,10 @@ import { Popover } from "antd";
 
 import { IconButton, ProfileButton, PrimaryButton, SecondaryButton } from "ui";
 
-import SignInModal from "./SignInModal";
-import SignUpModal from "./SignUpModal";
+import SignInModal from "../sign-in/SignInModal";
+import SignUpModal from "../sign-up/SignUpModal";
 
-import { AuthContext } from "../contexts/AuthProvider";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 import {
   Container,
@@ -25,7 +25,7 @@ import {
   LinksPopover,
   Link,
   UserData,
-} from "../styles/components/UtilityStyles";
+} from "./UtilityStyles";
 
 export default function UtilityContent() {
   const [signUpOpen, setSignUpOpen] = useState(false);
