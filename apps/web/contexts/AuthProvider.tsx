@@ -48,7 +48,9 @@ const AuthProvider = ({ children }: any) => {
 
           localStorage.removeItem("idToken");
         } else {
+          setToken(localStorage.getItem("idToken"));
           setIsLogged(true);
+
           setUser(data.data.getUser);
         }
       })
@@ -62,7 +64,6 @@ const AuthProvider = ({ children }: any) => {
 
   useEffect(() => {
     if (localStorage.getItem("idToken")) {
-      setToken(localStorage.getItem("idToken"));
       refresh();
     } else {
       setIsLogged(false);
