@@ -4,6 +4,7 @@ import {
   AiOutlineEdit,
   AiOutlineCheck,
   AiOutlineClose,
+  AiOutlineExpand,
 } from "react-icons/ai";
 import { IoCalendar } from "react-icons/io5";
 import { MdModeEdit } from "react-icons/md";
@@ -99,7 +100,7 @@ export default function Note({ note, onDelete }: NoteProps) {
       return setIsEditing(false);
     }
 
-    if (error) {
+    if (updateError) {
       sendNotification("error", "Error", "Error updating the note");
     }
   };
@@ -158,6 +159,9 @@ export default function Note({ note, onDelete }: NoteProps) {
           </>
         ) : (
           <>
+            <Button>
+              <AiOutlineExpand onClick={() => {}} size={18} fill="#000000" />
+            </Button>
             <Button>
               <AiOutlineEdit
                 onClick={() => {

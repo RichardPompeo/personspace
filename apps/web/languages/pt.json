@@ -66,10 +66,17 @@
       },
       "annotations": {
         "title": "Anotações",
+        "switch": {
+          "your": "Seus",
+          "shared": "Compartilhado"
+        },
         "notes": {
           "create": "Criar anotação",
           "addTitle": "Adicionar título",
           "addDescription": "Adicionar descrição..."
+        },
+        "sharedNotes": {
+          "noData": "Nenhuma nota para mostrar..."
         }
       }
     }

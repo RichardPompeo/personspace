@@ -66,10 +66,17 @@
       },
       "annotations": {
         "title": "Notes",
+        "switch": {
+          "your": "Your",
+          "shared": "Shared"
+        },
         "notes": {
           "create": "Create note",
           "addTitle": "Add title",
           "addDescription": "Add description..."
+        },
+        "sharedNotes": {
+          "noData": "No shared notes to show..."
         }
       }
     }
