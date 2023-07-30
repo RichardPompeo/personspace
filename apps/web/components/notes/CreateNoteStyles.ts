@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 
 export const Container = styled.div`
-  width: 100%;
+  width: 396px;
   height: 240px;
   border: 5px dashed #2d2e2e;
 
@@ -15,12 +15,17 @@ export const Container = styled.div`
     background-color: #212126ff;
     cursor: pointer;
   }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  };
 `;
 
 export const Header = styled.div`
   background-color: #8eb5f0;
-  padding: 8px;
   width: 100%;
+  height: 2em;
+  padding: 0 8px;
   border-radius: 15px 15px 0 0;
   color: black;
   display: flex;
@@ -49,7 +54,7 @@ export const Title = styled.h1`
 
 export const TitleInput = styled.input`
   font-weight: bold;
-  font-size: 24px;
+  font-size: 21px;
   padding: 10px 0;
   background: transparent;
   width: 100%;
@@ -66,6 +71,7 @@ export const DescriptionInput = styled.textarea`
   padding: 10px 0;
   background: transparent;
   width: 100%;
+  height: 6em;
   outline: none;
   resize: none;
   font-family: "Supreme", sans-serif;

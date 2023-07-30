@@ -1,10 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   AiFillPlusCircle,
   AiOutlineCheck,
   AiOutlineClose,
-  AiOutlineEdit,
 } from "react-icons/ai";
 
 import { useMutation } from "@apollo/client";
@@ -14,7 +13,6 @@ import { format } from "date-fns";
 import {
   Container as CreateContainer,
   Title as CreateTitle,
-  Footer,
   Header,
   TitleInput,
   DescriptionInput,
@@ -104,12 +102,12 @@ export default function CreateNote({
     <Container>
       <Header>
         <Button>
-          <AiOutlineCheck onClick={handleCreateNote} size={18} fill="#000000" />
+          <AiOutlineCheck onClick={handleCreateNote} size={16} fill="#000000" />
         </Button>
         <Button>
           <AiOutlineClose
             onClick={() => setIsCreating(false)}
-            size={18}
+            size={16}
             fill="#000000"
           />
         </Button>

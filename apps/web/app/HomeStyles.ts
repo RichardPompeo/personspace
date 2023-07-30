@@ -7,10 +7,6 @@ export const Container = styled.main`
   align-items: center;
   flex-direction: row;
   justify-content: center;
-
-  @media (max-width: 900px) {
-    width: 100vw;
-  }
 `;
 
 export const HeaderContent = styled.article`

@@ -72,22 +72,22 @@ export default function Annotations() {
     <Layout>
       <Container>
         <Title>
-          {t("annotations.title")} {notes && `(${notes.length})`}
+          {t("annotations.title")} {notes && <span>{notes.length}</span>}
         </Title>
         <Content>
-          <Row gutter={[16, 16]}>
+          <Row gutter={[40, 35]}>
             {notes && (
               <>
                 {notes.map((note, index) => {
                   return (
-                    <Col xl={8} lg={8} md={12} sm={24} xs={24} key={index}>
+                    <Col xxl={8} xl={12} lg={12} md={12} sm={24} xs={24} key={index}>
                       <Note onDelete={handleOnDelete} note={note} />
                     </Col>
                   );
                 })}
               </>
             )}
-            <Col xl={8} lg={8} md={12} sm={24} xs={24}>
+            <Col xxl={8} xl={12} lg={12} md={12} sm={24} xs={24}>
               <CreateNote
                 authorId={user && user.id}
                 token={token}

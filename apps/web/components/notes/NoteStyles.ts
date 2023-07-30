@@ -9,9 +9,13 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 15px;
-  width: 100%;
+  width: 396px;
   box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.2);
   height: 240px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  };
 `;
 
 export const Button = styled.span`
@@ -22,17 +26,19 @@ export const Button = styled.span`
 
 export const Header = styled.div<HeaderProps>`
   background-color: ${({ color }) => (color ? color : "#8eb5f0")};
-  padding: 8px;
   width: 100%;
+  height: 2em;
+  padding: 0 8px;
   border-radius: 15px 15px 0 0;
   color: black;
   display: flex;
-  justify-content: flex-end;
   align-items: center;
+  justify-content: flex-end;
   gap: 5px;
 `;
 
 export const Content = styled.div`
+  width: 100%;
   padding: 15px;
 `;
 
@@ -42,13 +48,17 @@ export const Footer = styled.div`
   align-items: center;
   gap: 10px;
   margin-top: auto;
+
+  svg {
+    fill: #bbbbbb;
+    font-size: 14px;
+  }
 `;
 
 export const Title = styled.h1`
-  font-size: 24px;
+  font-size: 21px;
   padding: 10px 0;
   outline: none;
-  overflow: hidden;
   text-overflow: ellipsis;
   max-height: 1.6em;
 `;
@@ -58,10 +68,10 @@ export const Description = styled.p`
   color: gray;
   margin: 10px 0;
   outline: none;
-  max-height: 4.8em;
+  max-height: 6em;
   word-wrap: break-word;
   text-overflow: ellipsis;
-  overflow: scroll;
+  overflow: hidden;
 `;
 
 export const Time = styled.p`

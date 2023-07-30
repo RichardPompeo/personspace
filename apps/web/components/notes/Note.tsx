@@ -6,7 +6,7 @@ import {
   AiOutlineClose,
 } from "react-icons/ai";
 import { IoCalendar } from "react-icons/io5";
-import { MdModeEdit } from "react-icons/md";
+import { BiSolidEdit } from "react-icons/bi";
 
 import { useMutation } from "@apollo/client";
 
@@ -148,12 +148,12 @@ export default function Note({ note, onDelete }: NoteProps) {
             <Button>
               <AiOutlineCheck
                 onClick={handleUpdateNote}
-                size={18}
+                size={16}
                 fill="#000000"
               />
             </Button>
             <Button>
-              <AiOutlineClose onClick={handleCancel} size={18} fill="#000000" />
+              <AiOutlineClose onClick={handleCancel} size={16} fill="#000000" />
             </Button>
           </>
         ) : (
@@ -163,14 +163,14 @@ export default function Note({ note, onDelete }: NoteProps) {
                 onClick={() => {
                   setIsEditing(true);
                 }}
-                size={18}
+                size={16}
                 fill="#000000"
               />
             </Button>
             <Button>
               <AiOutlineDelete
                 onClick={handleDeleteNote}
-                size={18}
+                size={16}
                 fill="#000000"
               />
             </Button>
@@ -195,13 +195,13 @@ export default function Note({ note, onDelete }: NoteProps) {
       </Content>
       {updatedAt && (
         <Footer>
-          <MdModeEdit fill="#bbbbbb" />
+          <BiSolidEdit />
           <Time>{format(new Date(updatedAt), "dd/MM/yyyy HH:mm")}</Time>
         </Footer>
       )}
       {!updatedAt && note.createdAt && (
         <Footer>
-          <IoCalendar fill="#bbbbbb" />
+          <IoCalendar />
           <Time>{format(new Date(note.createdAt), "dd/MM/yyyy HH:mm")}</Time>
         </Footer>
       )}
