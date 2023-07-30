@@ -1,7 +1,5 @@
 import { ObjectType, Field } from "type-graphql";
 
-import { ErrorModel } from "./ErrorModel";
-
 @ObjectType()
 export class UserModel {
   @Field()
@@ -10,6 +8,6 @@ export class UserModel {
   @Field()
   displayName: string;
 
-  @Field()
+  @Field({ nullable: true })
   email: string;
 }

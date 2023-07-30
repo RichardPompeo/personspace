@@ -3,13 +3,30 @@ import { gql } from "@apollo/client";
 const GET_NOTES_QUERY = gql`
   query GetNotes {
     getNotes {
-      id
       authorId
       createdAt
       description
       title
-      color
       updatedAt
+      color
+      id
+      author {
+        displayName
+        id
+        email
+      }
+      noteComment {
+        createdAt
+        id
+        message
+        authorId
+        noteId
+        author {
+          displayName
+          id
+          email
+        }
+      }
     }
   }
 `;

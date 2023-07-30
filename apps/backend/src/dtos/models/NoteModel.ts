@@ -1,6 +1,7 @@
 import { Field, ObjectType } from "type-graphql";
 
-import { ErrorModel } from "./ErrorModel";
+import { NoteCommentModel } from "./NoteCommentModel";
+import { UserModel } from "./UserModel";
 
 @ObjectType()
 export class NoteModel {
@@ -15,6 +16,12 @@ export class NoteModel {
 
   @Field()
   color: string;
+
+  @Field(() => [NoteCommentModel], { nullable: true })
+  noteComment: NoteCommentModel[];
+
+  @Field(() => UserModel)
+  author: UserModel;
 
   @Field({ nullable: true })
   authorId: string;

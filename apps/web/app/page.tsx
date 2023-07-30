@@ -24,7 +24,7 @@ export default function Page() {
             </Trans>
           </Title>
           <SubTitle>{t("home.subtitle")}</SubTitle>
-          <PrimaryButton size="large">
+          <PrimaryButton color="#ffffff" size="large">
             {t("home.aboutTheSiteButton")}
           </PrimaryButton>
         </Header>

@@ -70,6 +70,11 @@ export class NotesResolver {
   ) {
     await Authorization.verify(context.bearerToken);
 
+    await prisma.noteComment
+      .deleteMany({ where: { noteId: input.id } })
+      .catch((err) => {
+        throw Error(`'${err}'`);
+      });
     await prisma.note.delete({ where: { id: input.id } }).catch((err) => {
       throw Error(`'${err}'`);
     });
@@ -89,6 +94,18 @@ export class NotesResolver {
       },
     });
 
-    return user.notes;
+    const notes = await prisma.note.findMany({
+      where: { authorId: user.id },
+      include: {
+        author: true,
+        noteComment: {
+          include: {
+            author: true,
+          },
+        },
+      },
+    });
+
+    return notes;
   }
 }

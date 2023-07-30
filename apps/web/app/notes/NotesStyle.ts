@@ -56,8 +56,6 @@ export const SwitchText = styled.p<SwitchTextProps>`
   border-radius: 25px;
   background-color: ${({ theme, active }) =>
     active ? theme.COLORS.PRIMARY : "transparent"};
-  box-shadow: ${({ active }) =>
-    active ? "1px 1px 15px rgba(0, 0, 0, 0.2)" : "none"};
 `;
 
 export const SharedNoteData = styled.div`

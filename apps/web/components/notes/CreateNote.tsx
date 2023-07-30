@@ -1,10 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   AiFillPlusCircle,
   AiOutlineCheck,
   AiOutlineClose,
-  AiOutlineEdit,
 } from "react-icons/ai";
 
 import { useMutation } from "@apollo/client";
@@ -23,7 +22,6 @@ import { Button, Container, Content } from "./NoteStyles";
 
 import CREATE_NOTE_MUTATION from "../../graphql/createNoteMutation";
 
-import { PrimaryButton, SecondaryButton } from "ui";
 import { sendNotification } from "../../utils/notifications";
 
 interface CreateNoteProps {
@@ -41,7 +39,7 @@ export default function CreateNote({
   const [noteTitle, setNoteTitle] = useState<null | string>(null);
   const [noteDescription, setNoteDescription] = useState<null | string>(null);
 
-  const [createNote, { loading, error }] = useMutation(CREATE_NOTE_MUTATION);
+  const [createNote, { error }] = useMutation(CREATE_NOTE_MUTATION);
 
   const { t } = useTranslation();
 

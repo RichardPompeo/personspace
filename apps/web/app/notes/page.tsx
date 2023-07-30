@@ -3,6 +3,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ImFilesEmpty } from "react-icons/im";
+import { AiOutlineSync } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 
 import { useQuery } from "@apollo/client";
@@ -24,19 +25,22 @@ import {
   LeftSide,
 } from "./NotesStyle";
 
-import Note from "../../components/notes/Note";
-import CreateNote from "../../components/notes/CreateNote";
-
 import { AuthContext } from "../../contexts/AuthProvider";
 import { sendNotification } from "../../utils/notifications";
+import { NoteType } from "../../types/NoteType";
+
+import Note from "../../components/notes/Note";
+import CreateNote from "../../components/notes/CreateNote";
+import ExpandedNoteModal from "../../components/notes/ExpandedNoteModal";
 
 import GET_NOTES_QUERY from "../../graphql/getNotesQuery";
-import { AiOutlineSync } from "react-icons/ai";
 
 export default function Annotations() {
-  const [notes, setNotes] = useState<any>([]);
-  const [sharedNotes, setSharedNotes] = useState<any>([]);
+  const [notes, setNotes] = useState<NoteType[]>([]);
+  const [sharedNotes, setSharedNotes] = useState<NoteType[]>([]);
   const [type, setType] = useState("your");
+  const [expandedNote, setExpandedNote] = useState<NoteType>();
+  const [expandedModalOpen, setExpandedModalOpen] = useState(false);
 
   const router = useRouter();
   const {
@@ -56,34 +60,19 @@ export default function Annotations() {
 
   const { t } = useTranslation();
 
-  const handleOnCreate = (note) => {
-    setNotes((prev) => [...prev, note]);
+  const handleOnUpdate = () => {
+    refetch();
   };
 
-  const handleOnDelete = (deletedNote) => {
-    const newNotes = notes.filter((note) => {
-      return note.id !== deletedNote.id;
-    });
-
-    setNotes(newNotes);
+  const handleOnDelete = () => {
+    refetch();
+    setExpandedModalOpen(false);
   };
 
-  /* const handleOnRefetch = async () => {
-    const { data } = await refetch({
-      context: {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    });
-
-    if (error) {
-      return sendNotification("error", "Error", "Error loading the notes.");
-    }
-
-    setNotes(data.getNotes);
-    sendNotification("success", "Success", "Successfully loaded notes.");
-  }; */
+  const handleOnExpand = (note: NoteType) => {
+    setExpandedNote(note);
+    setExpandedModalOpen(true);
+  };
 
   useEffect(() => {
     if (!isLogged && !authLoading) {
@@ -132,10 +121,14 @@ export default function Annotations() {
             <Row gutter={[16, 16]}>
               {notes && (
                 <>
-                  {notes.map((note, index) => {
+                  {notes.map((note: NoteType) => {
                     return (
-                      <Col xl={8} lg={8} md={12} sm={24} xs={24} key={index}>
-                        <Note onDelete={handleOnDelete} note={note} />
+                      <Col xl={8} lg={8} md={12} sm={24} xs={24} key={note.id}>
+                        <Note
+                          onExpand={handleOnExpand}
+                          onUpdate={handleOnUpdate}
+                          note={note}
+                        />
                       </Col>
                     );
                   })}
@@ -145,7 +138,7 @@ export default function Annotations() {
                 <CreateNote
                   authorId={user && user.id}
                   token={token}
-                  onCreate={handleOnCreate}
+                  onCreate={handleOnUpdate}
                 />
               </Col>
             </Row>
@@ -154,10 +147,14 @@ export default function Annotations() {
             <Row gutter={[16, 16]}>
               {sharedNotes.length >= 1 ? (
                 <>
-                  {sharedNotes.map((note, index) => {
+                  {sharedNotes.map((note: NoteType, index: number) => {
                     return (
                       <Col xl={8} lg={8} md={12} sm={24} xs={24} key={index}>
-                        <Note onDelete={handleOnDelete} note={note} />
+                        <Note
+                          onExpand={handleOnExpand}
+                          onUpdate={handleOnUpdate}
+                          note={note}
+                        />
                       </Col>
                     );
                   })}
@@ -176,6 +173,16 @@ export default function Annotations() {
           )}
         </Content>
       </Container>
+      {expandedNote && (
+        <ExpandedNoteModal
+          authorId={user && user.id}
+          note={expandedNote}
+          open={expandedModalOpen}
+          onClose={() => setExpandedModalOpen(false)}
+          onUpdate={handleOnUpdate}
+          onDelete={handleOnDelete}
+        />
+      )}
     </Layout>
   );
 }

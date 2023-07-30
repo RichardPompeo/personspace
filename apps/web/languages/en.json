@@ -77,6 +77,11 @@
         },
         "sharedNotes": {
           "noData": "No shared notes to show..."
+        },
+        "expandedNote": {
+          "addComment": "Add a comment...",
+          "sharing": "Sharing",
+          "comments": "Comments"
         }
       }
     }

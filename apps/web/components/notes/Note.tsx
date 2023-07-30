@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
-  AiOutlineDelete,
-  AiOutlineEdit,
   AiOutlineCheck,
   AiOutlineClose,
+  AiOutlineDelete,
+  AiOutlineEdit,
   AiOutlineExpand,
 } from "react-icons/ai";
 import { IoCalendar } from "react-icons/io5";
@@ -14,41 +14,34 @@ import { useMutation } from "@apollo/client";
 import { format } from "date-fns";
 
 import {
+  Button,
   Container,
-  Header,
   Content,
-  Title,
   Description,
   Footer,
+  Header,
   Time,
-  Button,
+  Title,
 } from "./NoteStyles";
 
 import DELETE_NOTE_MUTATION from "../../graphql/deleteNoteMutation";
 import UPDATE_NOTE_MUTATION from "../../graphql/updateNoteMutation";
 
+import { NoteType } from "../../types/NoteType";
 import { sendNotification } from "../../utils/notifications";
 
 interface NoteProps {
-  note: {
-    id: string;
-    title: string;
-    description: string;
-    createdAt: string;
-    updatedAt: string;
-    authorId: string;
-    color: string;
-  };
-  onDelete: (any) => void;
+  note: NoteType;
+  onUpdate: (any) => void;
+  onExpand: (note: NoteType) => void;
 }
 
-export default function Note({ note, onDelete }: NoteProps) {
+export default function Note({ note, onExpand, onUpdate }: NoteProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [noteTitle, setNoteTitle] = useState<string>(note.title);
   const [noteDescription, setNoteDescription] = useState<string>(
     note.description
   );
-  const [updatedAt, setUpdatedAt] = useState(note.updatedAt);
 
   const titleRef = useRef<any>();
   const descriptionRef = useRef<any>();
@@ -78,6 +71,10 @@ export default function Note({ note, onDelete }: NoteProps) {
       );
     }
 
+    if (noteTitle === note.title && noteDescription === note.description) {
+      return setIsEditing(false);
+    }
+
     const { data } = await updateNote({
       variables: {
         input: {
@@ -95,7 +92,7 @@ export default function Note({ note, onDelete }: NoteProps) {
     });
 
     if (data.updateNote) {
-      setUpdatedAt(data.updateNote.updatedAt);
+      onUpdate(data.updateNote);
 
       return setIsEditing(false);
     }
@@ -129,7 +126,7 @@ export default function Note({ note, onDelete }: NoteProps) {
     });
 
     if (data.deleteNote.success) {
-      return onDelete(note);
+      return onUpdate(note);
     }
 
     if (!data.deleteNote.success || error) {
@@ -160,7 +157,11 @@ export default function Note({ note, onDelete }: NoteProps) {
         ) : (
           <>
             <Button>
-              <AiOutlineExpand onClick={() => {}} size={18} fill="#000000" />
+              <AiOutlineExpand
+                onClick={() => onExpand(note)}
+                size={18}
+                fill="#000000"
+              />
             </Button>
             <Button>
               <AiOutlineEdit
@@ -197,13 +198,13 @@ export default function Note({ note, onDelete }: NoteProps) {
           {note.description}
         </Description>
       </Content>
-      {updatedAt && (
+      {note.updatedAt && (
         <Footer>
           <MdModeEdit fill="#bbbbbb" />
-          <Time>{format(new Date(updatedAt), "dd/MM/yyyy HH:mm")}</Time>
+          <Time>{format(new Date(note.updatedAt), "dd/MM/yyyy HH:mm")}</Time>
         </Footer>
       )}
-      {!updatedAt && note.createdAt && (
+      {!note.updatedAt && note.createdAt && (
         <Footer>
           <IoCalendar fill="#bbbbbb" />
           <Time>{format(new Date(note.createdAt), "dd/MM/yyyy HH:mm")}</Time>

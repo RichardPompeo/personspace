@@ -15,6 +15,13 @@ type AuthenticationUserResponse {
   uid: String!
 }
 
+input CreateNoteCommentInput {
+  authorId: String!
+  createdAt: DateTime!
+  message: String!
+  noteId: String!
+}
+
 input CreateNoteInput {
   authorId: String!
   color: String!
@@ -39,18 +46,30 @@ type ErrorModel {
 
 type Mutation {
   createNote(input: CreateNoteInput!): NoteModel!
+  createNoteComment(input: CreateNoteCommentInput!): NoteCommentModel!
   deleteNote(input: DeleteNoteInput!): ResponseModel!
   signInWithEmailAndPassword(input: SignInWithEmailAndPasswordInput!): AuthenticationResponseModel!
   signUpWithEmailAndPassword(input: SignUpWithEmailAndPasswordInput!): AuthenticationResponseModel!
   updateNote(input: UpdateNoteInput!): NoteModel!
 }
 
+type NoteCommentModel {
+  author: UserModel!
+  authorId: String!
+  createdAt: DateTime!
+  id: String!
+  message: String!
+  noteId: String!
+}
+
 type NoteModel {
+  author: UserModel!
   authorId: String
   color: String!
   createdAt: DateTime
   description: String!
   id: String!
+  noteComment: [NoteCommentModel!]
   title: String!
   updatedAt: DateTime
 }
@@ -86,6 +105,6 @@ input UpdateNoteInput {
 
 type UserModel {
   displayName: String!
-  email: String!
+  email: String
   id: String!
 }
