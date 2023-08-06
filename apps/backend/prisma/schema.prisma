@@ -14,8 +14,10 @@ model user {
   id           String        @id @unique
   displayName  String
   firebaseId   String        @unique
+  email        String        @unique
   notes        note[]
   noteComments noteComment[]
+  noteShare    noteShare[]
 }
 
 model note {
@@ -28,6 +30,7 @@ model note {
   createdAt   DateTime
   updatedAt   DateTime?
   noteComment noteComment[]
+  noteShare   noteShare[]
 }
 
 model noteComment {
@@ -38,4 +41,12 @@ model noteComment {
   noteId    String
   message   String
   createdAt DateTime
+}
+
+model noteShare {
+  id       String @id @unique
+  note     note   @relation(fields: [noteId], references: [id])
+  noteId   String
+  person   user   @relation(fields: [personId], references: [id])
+  personId String
 }

@@ -1,7 +1,8 @@
 import { Field, ObjectType } from "type-graphql";
 
 import { NoteCommentModel } from "./NoteCommentModel";
-import { UserModel } from "./UserModel";
+import { UserModel } from "../users/UserModel";
+import { NoteShareModel } from "./NoteShareModel";
 
 @ObjectType()
 export class NoteModel {
@@ -20,10 +21,13 @@ export class NoteModel {
   @Field(() => [NoteCommentModel], { nullable: true })
   noteComment: NoteCommentModel[];
 
+  @Field(() => [NoteShareModel], { nullable: true })
+  noteShare: NoteShareModel[];
+
   @Field(() => UserModel)
   author: UserModel;
 
-  @Field({ nullable: true })
+  @Field()
   authorId: string;
 
   @Field({ nullable: true })

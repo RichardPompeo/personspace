@@ -20,7 +20,7 @@ import {
 } from "./CreateNoteStyles";
 import { Button, Container, Content } from "./NoteStyles";
 
-import CREATE_NOTE_MUTATION from "../../graphql/createNoteMutation";
+import CREATE_NOTE_MUTATION from "../../graphql/notes/createNoteMutation";
 
 import { sendNotification } from "../../utils/notifications";
 

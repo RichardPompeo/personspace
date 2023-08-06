@@ -27,6 +27,16 @@ const GET_NOTES_QUERY = gql`
           email
         }
       }
+      noteShare {
+        id
+        personId
+        noteId
+        person {
+          displayName
+          id
+          email
+        }
+      }
     }
   }
 `;

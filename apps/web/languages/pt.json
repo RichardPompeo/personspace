@@ -81,7 +81,13 @@
         "expandedNote": {
           "addComment": "Adicionar um comentário...",
           "sharing": "Compartilhando",
-          "comments": "Comentários"
+          "comments": "Comentários",
+          "commentsAuthor": "Autor",
+          "commentsYou": "Você",
+          "shareButton": "Compartilhar",
+          "addPerson": "Escreva um endereço de e-mail",
+          "addPersonTitle": "Adicionar usuário",
+          "personNotFound": "Nenhum usuário encontrado."
         }
       }
     }

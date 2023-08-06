@@ -2,8 +2,8 @@ import { Arg, Authorized, Ctx, Mutation, Resolver } from "type-graphql";
 
 import { randomUUID } from "node:crypto";
 
-import { NoteCommentModel } from "../dtos/models/NoteCommentModel";
-import { CreateNoteCommentInput } from "../dtos/inputs/CreateNoteCommentInput";
+import { NoteCommentModel } from "../dtos/models/notes/NoteCommentModel";
+import { CreateNoteCommentInput } from "../dtos/inputs/notes/CreateNoteCommentInput";
 
 import { Authorization } from "../middlewares/authorization";
 

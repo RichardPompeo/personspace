@@ -8,6 +8,6 @@ export class UserModel {
   @Field()
   displayName: string;
 
-  @Field({ nullable: true })
+  @Field()
   email: string;
 }

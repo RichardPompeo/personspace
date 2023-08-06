@@ -28,16 +28,18 @@ import {
 import { AuthContext } from "../../contexts/AuthProvider";
 import { sendNotification } from "../../utils/notifications";
 import { NoteType } from "../../types/NoteType";
+import { NoteShareType } from "../../types/NoteShareType";
 
 import Note from "../../components/notes/Note";
 import CreateNote from "../../components/notes/CreateNote";
 import ExpandedNoteModal from "../../components/notes/ExpandedNoteModal";
 
-import GET_NOTES_QUERY from "../../graphql/getNotesQuery";
+import GET_NOTES_QUERY from "../../graphql/notes/getNotesQuery";
+import GET_SHARED_NOTES_QUERY from "../../graphql/notes/getSharedNotes";
 
 export default function Annotations() {
   const [notes, setNotes] = useState<NoteType[]>([]);
-  const [sharedNotes, setSharedNotes] = useState<NoteType[]>([]);
+  const [sharedNotes, setSharedNotes] = useState<NoteShareType[]>([]);
   const [type, setType] = useState("your");
   const [expandedNote, setExpandedNote] = useState<NoteType>();
   const [expandedModalOpen, setExpandedModalOpen] = useState(false);
@@ -58,10 +60,32 @@ export default function Annotations() {
     },
   });
 
+  const {
+    data: sharedNotesData,
+    loading: sharedNotesLoading,
+    error: sharedNotesError,
+    refetch: sharedNotesRefetch,
+  } = useQuery(GET_SHARED_NOTES_QUERY, {
+    context: {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  });
+
   const { t } = useTranslation();
 
   const handleOnUpdate = () => {
-    refetch();
+    if (type === "your") {
+      refetch();
+    } else {
+      sharedNotesRefetch();
+    }
+  };
+
+  const handleOnRemove = () => {
+    sharedNotesRefetch();
+    setExpandedModalOpen(false);
   };
 
   const handleOnDelete = () => {
@@ -87,6 +111,14 @@ export default function Annotations() {
       setNotes(data.getNotes);
     }
   }, [data, error, loading]);
+
+  useEffect(() => {
+    if (!sharedNotesLoading && sharedNotesError) {
+      sendNotification("error", "Error", "Error loading the shared notes.");
+    } else if (!sharedNotesLoading && sharedNotesData) {
+      setSharedNotes(sharedNotesData.getSharedNotes);
+    }
+  }, [sharedNotesData, sharedNotesError, sharedNotesLoading]);
 
   return (
     <Layout>
@@ -147,17 +179,20 @@ export default function Annotations() {
             <Row gutter={[16, 16]}>
               {sharedNotes.length >= 1 ? (
                 <>
-                  {sharedNotes.map((note: NoteType, index: number) => {
-                    return (
-                      <Col xl={8} lg={8} md={12} sm={24} xs={24} key={index}>
-                        <Note
-                          onExpand={handleOnExpand}
-                          onUpdate={handleOnUpdate}
-                          note={note}
-                        />
-                      </Col>
-                    );
-                  })}
+                  {sharedNotes.map(
+                    (noteShare: NoteShareType, index: number) => {
+                      return (
+                        <Col xl={8} lg={8} md={12} sm={24} xs={24} key={index}>
+                          <Note
+                            onExpand={handleOnExpand}
+                            onUpdate={handleOnUpdate}
+                            note={noteShare.note}
+                            editable={false}
+                          />
+                        </Col>
+                      );
+                    }
+                  )}
                 </>
               ) : (
                 <Col xl={8} lg={8} md={12} sm={24} xs={24}>
@@ -181,6 +216,8 @@ export default function Annotations() {
           onClose={() => setExpandedModalOpen(false)}
           onUpdate={handleOnUpdate}
           onDelete={handleOnDelete}
+          onRemove={handleOnRemove}
+          editable={type === "your"}
         />
       )}
     </Layout>

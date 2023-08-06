@@ -1,13 +1,18 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import {
   AiOutlineCheck,
   AiOutlineClose,
   AiOutlineDelete,
   AiOutlineEdit,
   AiOutlineExpand,
+  AiOutlineMinus,
 } from "react-icons/ai";
-import { IoCalendar } from "react-icons/io5";
-import { MdModeEdit } from "react-icons/md";
+import {
+  MdCalendarMonth,
+  MdComment,
+  MdModeEdit,
+  MdPerson,
+} from "react-icons/md";
 
 import { useMutation } from "@apollo/client";
 
@@ -20,28 +25,40 @@ import {
   Description,
   Footer,
   Header,
+  PointDivider,
   Time,
   Title,
 } from "./NoteStyles";
 
-import DELETE_NOTE_MUTATION from "../../graphql/deleteNoteMutation";
-import UPDATE_NOTE_MUTATION from "../../graphql/updateNoteMutation";
+import DELETE_NOTE_MUTATION from "../../graphql/notes/deleteNoteMutation";
+import UPDATE_NOTE_MUTATION from "../../graphql/notes/updateNoteMutation";
+import DELETE_NOTE_SHARE_MUTATION from "../../graphql/notes/deleteNoteShareMutation";
 
 import { NoteType } from "../../types/NoteType";
+import { NoteShareType } from "../../types/NoteShareType";
 import { sendNotification } from "../../utils/notifications";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 interface NoteProps {
   note: NoteType;
+  editable?: boolean;
   onUpdate: (any) => void;
   onExpand: (note: NoteType) => void;
 }
 
-export default function Note({ note, onExpand, onUpdate }: NoteProps) {
+export default function Note({
+  note,
+  onExpand,
+  onUpdate,
+  editable = true,
+}: NoteProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [noteTitle, setNoteTitle] = useState<string>(note.title);
   const [noteDescription, setNoteDescription] = useState<string>(
     note.description
   );
+
+  const { user } = useContext(AuthContext);
 
   const titleRef = useRef<any>();
   const descriptionRef = useRef<any>();
@@ -49,6 +66,32 @@ export default function Note({ note, onExpand, onUpdate }: NoteProps) {
   const [deleteNote, { error }] = useMutation(DELETE_NOTE_MUTATION);
   const [updateNote, { error: updateError }] =
     useMutation(UPDATE_NOTE_MUTATION);
+  const [deletePerson, { error: deletePersonError }] = useMutation(
+    DELETE_NOTE_SHARE_MUTATION
+  );
+
+  const handleRemove = async () => {
+    const { data } = await deletePerson({
+      variables: {
+        input: {
+          id: note.noteShare[0].id,
+        },
+      },
+      context: {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("idToken")}`,
+        },
+      },
+    });
+
+    if (deletePersonError || !data.deleteNoteShare.success) {
+      return sendNotification("error", "Error", "Error deleting share");
+    }
+
+    if (data.deleteNoteShare.success) {
+      return onUpdate(note);
+    }
+  };
 
   const handleChangeTitle = () => {
     const getNoteTitle = titleRef.current.innerText;
@@ -92,9 +135,9 @@ export default function Note({ note, onExpand, onUpdate }: NoteProps) {
     });
 
     if (data.updateNote) {
-      onUpdate(data.updateNote);
+      setIsEditing(false);
 
-      return setIsEditing(false);
+      return onUpdate(data.updateNote);
     }
 
     if (updateError) {
@@ -163,22 +206,37 @@ export default function Note({ note, onExpand, onUpdate }: NoteProps) {
                 fill="#000000"
               />
             </Button>
-            <Button>
-              <AiOutlineEdit
-                onClick={() => {
-                  setIsEditing(true);
-                }}
-                size={18}
-                fill="#000000"
-              />
-            </Button>
-            <Button>
-              <AiOutlineDelete
-                onClick={handleDeleteNote}
-                size={18}
-                fill="#000000"
-              />
-            </Button>
+
+            {editable ? (
+              <>
+                <Button>
+                  <AiOutlineEdit
+                    onClick={() => {
+                      setIsEditing(true);
+                    }}
+                    size={18}
+                    fill="#000000"
+                  />
+                </Button>
+                <Button>
+                  <AiOutlineDelete
+                    onClick={handleDeleteNote}
+                    size={18}
+                    fill="#000000"
+                  />
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button>
+                  <AiOutlineMinus
+                    onClick={handleRemove}
+                    size={18}
+                    fill="#000000"
+                  />
+                </Button>
+              </>
+            )}
           </>
         )}
       </Header>
@@ -198,18 +256,46 @@ export default function Note({ note, onExpand, onUpdate }: NoteProps) {
           {note.description}
         </Description>
       </Content>
-      {note.updatedAt && (
-        <Footer>
-          <MdModeEdit fill="#bbbbbb" />
-          <Time>{format(new Date(note.updatedAt), "dd/MM/yyyy HH:mm")}</Time>
-        </Footer>
-      )}
-      {!note.updatedAt && note.createdAt && (
-        <Footer>
-          <IoCalendar fill="#bbbbbb" />
-          <Time>{format(new Date(note.createdAt), "dd/MM/yyyy HH:mm")}</Time>
-        </Footer>
-      )}
+      <Footer>
+        {editable ? (
+          <>
+            {note.updatedAt && (
+              <>
+                <MdModeEdit fill="#bbbbbb" />
+                <Time>
+                  {format(new Date(note.updatedAt), "dd/MM/yyyy HH:mm")}
+                </Time>
+              </>
+            )}
+            {!note.updatedAt && note.createdAt && (
+              <>
+                <MdCalendarMonth fill="#bbbbbb" />
+                <Time>
+                  {format(new Date(note.createdAt), "dd/MM/yyyy HH:mm")}
+                </Time>
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            <Time>{note.author.displayName}</Time>
+          </>
+        )}
+        {note.noteComment.length !== 0 && (
+          <>
+            <PointDivider />
+            <MdComment fill="#bbbbbb" />
+            <Time>{note.noteComment.length}</Time>
+          </>
+        )}
+        {editable && note.noteShare.length !== 0 && (
+          <>
+            <PointDivider />
+            <MdPerson fill="#bbbbbb" />
+            <Time>{note.noteShare.length}</Time>
+          </>
+        )}
+      </Footer>
     </Container>
   );
 }

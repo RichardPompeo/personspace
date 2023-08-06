@@ -1,5 +1,6 @@
 import { UserType } from "./UserType";
 import { NoteCommentType } from "./NoteCommentType";
+import { NoteShareType } from "./NoteShareType";
 
 export interface NoteType {
   id: string;
@@ -11,4 +12,5 @@ export interface NoteType {
   createdAt: string;
   author: UserType;
   noteComment: NoteCommentType[];
+  noteShare: NoteShareType[];
 }

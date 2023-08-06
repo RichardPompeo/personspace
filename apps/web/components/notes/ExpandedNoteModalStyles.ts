@@ -115,7 +115,7 @@ export const Title = styled.h1`
   font-size: 24px;
 `;
 
-export const CommentInput = styled.input`
+export const Input = styled.input`
   border-bottom: ${({ theme }) => `2px solid ${theme.COLORS.SECONDARY}`};
   background-color: ${({ theme }) => theme.COLORS.PRIMARY};
   padding: 10px;
@@ -158,5 +158,17 @@ export const Content = styled.div`
   width: 100%;
   display: flex;
   margin: 10px;
-  border-bottom: ${({ theme }) => `2px solid ${theme.COLORS.PRIMARY}`};
+`;
+
+export const PopoverContainer = styled.div`
+  display: flex;
+  cursor: pointer;
+  padding: 5px 5px 5px 0;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: rgba(211, 211, 211, 0.1);
+  }
 `;

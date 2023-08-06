@@ -5,13 +5,15 @@ import {
   AiOutlineClose,
   AiOutlineDelete,
   AiOutlineEdit,
+  AiOutlineMinus,
+  AiOutlineSearch,
   AiOutlineSend,
 } from "react-icons/ai";
 import { IoCalendar } from "react-icons/io5";
 import { MdModeEdit } from "react-icons/md";
 
-import { useMutation } from "@apollo/client";
-import { Row } from "antd";
+import { useLazyQuery, useMutation } from "@apollo/client";
+import { Col, Popover, Row } from "antd";
 import { format } from "date-fns";
 
 import Modal from "../app/Modal";
@@ -19,7 +21,6 @@ import Modal from "../app/Modal";
 import {
   Button,
   Color,
-  CommentInput,
   Description,
   ExpandedNoteModalContainer,
   FlexCol,
@@ -35,26 +36,38 @@ import {
   Switch,
   TitleContainer,
   Content,
+  Input,
+  PopoverContainer,
 } from "./ExpandedNoteModalStyles";
+import { Email, Name } from "./ShareStyles";
+import { UserData } from "../app/UtilityStyles";
 
 import Comment from "./Comment";
+import Share from "./Share";
 
 import { NoteType } from "../../types/NoteType";
 import { NoteCommentType } from "../../types/NoteCommentType";
+import { NoteShareType } from "../../types/NoteShareType";
 
+import { UserType } from "../../types/UserType";
 import { sendNotification } from "../../utils/notifications";
 import { AuthContext } from "../../contexts/AuthProvider";
 
-import DELETE_NOTE_MUTATION from "../../graphql/deleteNoteMutation";
-import UPDATE_NOTE_MUTATION from "../../graphql/updateNoteMutation";
-import CREATE_NOTE_COMMENT_MUTATION from "../../graphql/createNoteCommentMutation";
+import DELETE_NOTE_MUTATION from "../../graphql/notes/deleteNoteMutation";
+import UPDATE_NOTE_MUTATION from "../../graphql/notes/updateNoteMutation";
+import CREATE_NOTE_COMMENT_MUTATION from "../../graphql/notes/createNoteCommentMutation";
+import GET_USER_BY_EMAIL_QUERY from "../../graphql/users/getUserByEmailQuery";
+import CREATE_NOTE_SHARE_MUTATION from "../../graphql/notes/createNoteShareMutation";
+import DELETE_NOTE_SHARE_MUTATION from "../../graphql/notes/deleteNoteShareMutation";
 
 interface ExpandedNoteModalProps {
   open: boolean;
   authorId: string;
+  editable?: boolean;
   onClose: () => void;
   onUpdate: (any) => void;
   onDelete: () => void;
+  onRemove: (any) => void;
   note: NoteType;
 }
 
@@ -62,13 +75,19 @@ export default function ExpandedNoteModal({
   open,
   note,
   authorId,
+  editable = true,
   onClose,
   onUpdate,
   onDelete,
+  onRemove,
 }: ExpandedNoteModalProps) {
   const [isEditing, setIsEditing] = useState(false);
+  const [shareUser, setShareUser] = useState<UserType | null>(null);
+  const [shareUserInput, setShareUserInput] = useState<string | null>(null);
+  const [popoverOpen, setPopoverOpen] = useState(false);
   const [comment, setComment] = useState<string | null>(null);
   const [comments, setComments] = useState<NoteCommentType[]>(note.noteComment);
+  const [shares, setShares] = useState<NoteShareType[]>(note.noteShare);
   const [noteTitle, setNoteTitle] = useState<string>(note.title);
   const [noteDescription, setNoteDescription] = useState<string>(
     note.description
@@ -89,6 +108,14 @@ export default function ExpandedNoteModal({
   const [sendComment, { error: sendCommentError }] = useMutation(
     CREATE_NOTE_COMMENT_MUTATION
   );
+  const [addPerson, { error: addPersonError }] = useMutation(
+    CREATE_NOTE_SHARE_MUTATION
+  );
+  const [deletePerson, { error: deletePersonError }] = useMutation(
+    DELETE_NOTE_SHARE_MUTATION
+  );
+
+  const [getUserByEmail] = useLazyQuery(GET_USER_BY_EMAIL_QUERY);
 
   const handleChangeTitle = () => {
     const getNoteTitle = titleRef.current.innerText;
@@ -131,14 +158,14 @@ export default function ExpandedNoteModal({
       },
     });
 
+    if (updateError) {
+      sendNotification("error", "Error", "Error updating the note");
+    }
+
     if (data.updateNote) {
       onUpdate(data.updateNote);
 
       return setIsEditing(false);
-    }
-
-    if (updateError) {
-      sendNotification("error", "Error", "Error updating the note");
     }
   };
 
@@ -222,9 +249,137 @@ export default function ExpandedNoteModal({
     }
   };
 
+  const handleOnClose = () => {
+    onClose();
+    setType("comments");
+    setIsEditing(false);
+  };
+
+  const handleOnShareChange = (ev) => {
+    setShareUserInput(ev.target.value);
+  };
+
+  const handleGetUserByEmail = async () => {
+    setPopoverOpen(true);
+
+    if (!shareUserInput) {
+      setPopoverOpen(false);
+      setShareUser(null);
+      return sendNotification("error", "Error", "Missing email");
+    }
+
+    const { data } = await getUserByEmail({
+      variables: {
+        input: {
+          email: shareUserInput,
+        },
+      },
+      context: {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("idToken")}`,
+        },
+      },
+    });
+
+    if (!data.getUserByEmail.success) {
+      return sendNotification("error", "Error", "Error loading user");
+    }
+
+    if (data.getUserByEmail.user === null) {
+      return setShareUser(null);
+    }
+
+    setShareUser(data.getUserByEmail.user);
+  };
+
+  const handleAddPerson = async () => {
+    if (shareUser === null) {
+      return;
+    }
+
+    const { data } = await addPerson({
+      variables: {
+        input: {
+          noteId: note.id,
+          personId: shareUser.id,
+        },
+      },
+      context: {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("idToken")}`,
+        },
+      },
+    });
+
+    console.log(data);
+
+    if (
+      data.createNoteShare.error &&
+      data.createNoteShare.error.message === "Duplicated"
+    ) {
+      return sendNotification("error", "Error", "Duplicated field");
+    }
+
+    if (
+      data.createNoteShare.error &&
+      data.createNoteShare.error.message === "Author"
+    ) {
+      return sendNotification("error", "Error", "Author");
+    }
+
+    if (addPersonError || !data.createNoteShare.success) {
+      return sendNotification("error", "Error", "Error adding person");
+    }
+
+    if (data.createNoteShare.success) {
+      console.log(data);
+      setShares((prev: NoteShareType[]) => [...prev, data.createNoteShare]);
+
+      setPopoverOpen(false);
+      setShareUserInput("");
+      setShareUser(null);
+
+      return onUpdate(note);
+    }
+  };
+
+  const handleRemoveSelf = async () => {
+    const { data } = await deletePerson({
+      variables: {
+        input: {
+          id: note.noteShare[0].id,
+        },
+      },
+      context: {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("idToken")}`,
+        },
+      },
+    });
+
+    if (deletePersonError || !data.deleteNoteShare.success) {
+      return sendNotification("error", "Error", "Error deleting share");
+    }
+
+    if (data.deleteNoteShare.success) {
+      return onRemove(note);
+    }
+  };
+
+  const handleOnDeleteShare = (deletedShare: NoteShareType) => {
+    const filteredShares = shares.filter((share: NoteShareType) => {
+      return share.id !== deletedShare.id;
+    });
+
+    setShares(filteredShares);
+
+    return onUpdate(note);
+  };
+
   useEffect(() => {
     if (note) {
       setComments(note.noteComment);
+      setShares(note.noteShare);
     }
 
     commentsEndRef.current.scrollIntoView({
@@ -232,8 +387,26 @@ export default function ExpandedNoteModal({
     });
   }, [note]);
 
+  const sharingPopoverContent = (
+    <>
+      {shareUser === null ? (
+        <p>{t("annotations.expandedNote.personNotFound")}</p>
+      ) : (
+        <PopoverContainer onClick={handleAddPerson}>
+          <ProfileBadge>
+            <span>{shareUser.displayName.split("")[0]}</span>
+          </ProfileBadge>
+          <UserData>
+            <Name>{shareUser.displayName}</Name>
+            <Email>{shareUser.email}</Email>
+          </UserData>
+        </PopoverContainer>
+      )}
+    </>
+  );
+
   return (
-    <Modal fullScreen={true} open={open} onClose={onClose}>
+    <Modal fullScreen={true} open={open} onClose={handleOnClose}>
       <ExpandedNoteModalContainer>
         <Row style={{ height: "100%" }} gutter={[16, 16]}>
           <FlexCol bordered={true} lg={12} xs={24}>
@@ -249,7 +422,7 @@ export default function ExpandedNoteModal({
                 </Title>
               </LeftSide>
               <RightSide>
-                {isEditing ? (
+                {isEditing && editable ? (
                   <>
                     <Button>
                       <AiOutlineCheck
@@ -268,22 +441,36 @@ export default function ExpandedNoteModal({
                   </>
                 ) : (
                   <>
-                    <Button>
-                      <AiOutlineEdit
-                        onClick={() => {
-                          setIsEditing(true);
-                        }}
-                        size={24}
-                        fill="#ffffff"
-                      />
-                    </Button>
-                    <Button>
-                      <AiOutlineDelete
-                        onClick={handleDeleteNote}
-                        size={24}
-                        fill="#c92121"
-                      />
-                    </Button>
+                    {editable ? (
+                      <>
+                        <Button>
+                          <AiOutlineEdit
+                            onClick={() => {
+                              setIsEditing(true);
+                            }}
+                            size={24}
+                            fill="#ffffff"
+                          />
+                        </Button>
+                        <Button>
+                          <AiOutlineDelete
+                            onClick={handleDeleteNote}
+                            size={24}
+                            fill="#c92121"
+                          />
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        <Button>
+                          <AiOutlineMinus
+                            onClick={handleRemoveSelf}
+                            size={24}
+                            fill="#c92121"
+                          />
+                        </Button>
+                      </>
+                    )}
                   </>
                 )}
               </RightSide>
@@ -296,6 +483,12 @@ export default function ExpandedNoteModal({
               {note.description}
             </Description>
             <Footer>
+              {!editable && (
+                <>
+                  <Time>{note.author.displayName}</Time>
+                  <PointDivider />
+                </>
+              )}
               <IoCalendar fill="#bbbbbb" />
               <Time>
                 {format(new Date(note.createdAt), "dd/MM/yyyy HH:mm")}
@@ -318,48 +511,123 @@ export default function ExpandedNoteModal({
                   {t("annotations.expandedNote.comments")} ({comments.length})
                 </Title>
               )}
-              {type === "sharing" && (
-                <Title>{t("annotations.expandedNote.sharing")} (0)</Title>
+              {type === "sharing" && editable && (
+                <Title>
+                  {t("annotations.expandedNote.sharing")} ({shares.length})
+                </Title>
               )}
-              <Switch>
-                <SwitchText
-                  onClick={() => setType("comments")}
-                  active={type === "comments"}
-                >
-                  {t("annotations.expandedNote.comments")}
-                </SwitchText>
-                <SwitchText
-                  onClick={() => setType("sharing")}
-                  active={type === "sharing"}
-                >
-                  {t("annotations.expandedNote.sharing")}
-                </SwitchText>
-              </Switch>
+              {editable && (
+                <Switch>
+                  <SwitchText
+                    onClick={() => setType("comments")}
+                    active={type === "comments"}
+                  >
+                    {t("annotations.expandedNote.comments")}
+                  </SwitchText>
+                  <SwitchText
+                    onClick={() => setType("sharing")}
+                    active={type === "sharing"}
+                  >
+                    {t("annotations.expandedNote.sharing")}
+                  </SwitchText>
+                </Switch>
+              )}
             </Header>
             <Content>
-              {comments &&
-                comments.map((noteComment: NoteCommentType) => {
-                  return (
-                    <Comment noteComment={noteComment} key={noteComment.id} />
-                  );
-                })}
-              <div ref={commentsEndRef} />
+              {type === "comments" ? (
+                <>
+                  {comments &&
+                    comments.map((noteComment: NoteCommentType) => {
+                      return (
+                        <Comment
+                          noteAuthorId={note.authorId}
+                          noteComment={noteComment}
+                          key={noteComment.id}
+                        />
+                      );
+                    })}
+                  <div ref={commentsEndRef} />
+                </>
+              ) : (
+                <>
+                  {editable && (
+                    <>
+                      <Row gutter={[16, 16]}>
+                        {shares &&
+                          shares.map((noteShare: NoteShareType) => {
+                            return (
+                              <Col lg={12} xs={24} key={noteShare.id}>
+                                <Share
+                                  onDelete={handleOnDeleteShare}
+                                  noteShare={noteShare}
+                                />
+                              </Col>
+                            );
+                          })}
+                      </Row>
+                      <div ref={commentsEndRef} />
+                    </>
+                  )}
+                </>
+              )}
             </Content>
             <Footer>
-              <ProfileBadge>
-                <span>{user.displayName.split("")[0]}</span>
-              </ProfileBadge>
-              <CommentInput
-                onKeyUp={(event) =>
-                  event.key === "Enter" && handleSendComment()
-                }
-                value={comment || ""}
-                onChange={handleOnCommentChange}
-                placeholder={t("annotations.expandedNote.addComment")}
-              />
-              <Button onClick={handleSendComment}>
-                <AiOutlineSend size={24} fill="#ffffff" />
-              </Button>
+              {type === "comments" ? (
+                <>
+                  <ProfileBadge>
+                    <span>{user.displayName.split("")[0]}</span>
+                  </ProfileBadge>
+                  <Input
+                    onKeyUp={(event) =>
+                      event.key === "Enter" && handleSendComment()
+                    }
+                    value={comment || ""}
+                    onChange={handleOnCommentChange}
+                    placeholder={t("annotations.expandedNote.addComment")}
+                  />
+                  <Button onClick={handleSendComment}>
+                    <AiOutlineSend size={24} fill="#ffffff" />
+                  </Button>
+                </>
+              ) : (
+                <div
+                  style={{
+                    width: "100%",
+                  }}
+                >
+                  <Popover
+                    color="#131315"
+                    open={popoverOpen}
+                    title={
+                      <h3>{t("annotations.expandedNote.addPersonTitle")}</h3>
+                    }
+                    placement="topLeft"
+                    content={sharingPopoverContent}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "10px",
+                        marginLeft: "10px",
+                      }}
+                    >
+                      <Input
+                        onKeyUp={(event) =>
+                          event.key === "Enter" && handleGetUserByEmail()
+                        }
+                        value={shareUserInput || ""}
+                        onChange={handleOnShareChange}
+                        placeholder={t("annotations.expandedNote.addPerson")}
+                      />
+                      <Button onClick={handleGetUserByEmail}>
+                        <AiOutlineSearch size={24} fill="#ffffff" />
+                      </Button>
+                    </div>
+                  </Popover>
+                </div>
+              )}
             </Footer>
           </FlexCol>
         </Row>

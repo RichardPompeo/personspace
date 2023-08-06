@@ -10,6 +10,7 @@ import { AuthenticationResolver } from "./resolvers/AuthenticationResolver";
 import { UserResolver } from "./resolvers/UserResolver";
 import { NotesResolver } from "./resolvers/NotesResolver";
 import { NoteCommentsResolver } from "./resolvers/NoteCommentsResolver";
+import { NoteShareResolver } from "./resolvers/NoteShareResolver";
 
 import { authChecker } from "./middlewares/auth-checker";
 
@@ -23,6 +24,7 @@ const bootstrap = async () => {
       UserResolver,
       NotesResolver,
       NoteCommentsResolver,
+      NoteShareResolver,
     ],
     validate: { forbidUnknownValues: false },
     authChecker: authChecker,

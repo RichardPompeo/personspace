@@ -11,7 +11,7 @@ import Modal from "../app/Modal";
 import { TitleContent, Title, SubTitle, DataField } from "../app/ModalStyles";
 import { sendNotification } from "../../utils/notifications";
 import { AuthContext } from "../../contexts/AuthProvider";
-import SIGN_IN_WITH_EMAIL_AND_PASSWORD_MUTATION from "../../graphql/signInWithEmailAndPassword";
+import SIGN_IN_WITH_EMAIL_AND_PASSWORD_MUTATION from "../../graphql/auth/signInWithEmailAndPassword";
 
 interface ModalProps {
   open: boolean;

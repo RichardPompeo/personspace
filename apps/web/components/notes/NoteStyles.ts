@@ -65,6 +65,15 @@ export const Description = styled.p`
   white-space: pre-line;
 `;
 
+export const PointDivider = styled.div`
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: gray;
+  opacity: 0.25;
+  margin: 0 3px;
+`;
+
 export const Time = styled.p`
   color: #bbbbbb;
 `;

@@ -49,3 +49,22 @@ export const Time = styled.p`
   word-wrap: normal;
   font-size: 12px;
 `;
+
+export const Badge = styled.p`
+  padding: 4px;
+  color: #bbbbbb;
+  background-color: ${({ theme }) => theme.COLORS.PRIMARY};
+  font-size: 10px;
+  text-transform: uppercase;
+  height: 18px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const NameContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
