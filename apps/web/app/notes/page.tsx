@@ -126,7 +126,7 @@ export default function Annotations() {
         <Header>
           <LeftSide>
             <Button>
-              <AiOutlineSync onClick={() => refetch()} size={24} />
+              <AiOutlineSync onClick={handleOnUpdate} size={24} />
             </Button>
             <Title>
               {t("annotations.title")} (
