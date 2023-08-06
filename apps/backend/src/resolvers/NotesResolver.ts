@@ -2,12 +2,13 @@ import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql";
 
 import { randomUUID } from "node:crypto";
 
-import { CreateNoteInput } from "../dtos/inputs/CreateNoteInput";
-import { UpdateNoteInput } from "../dtos/inputs/UpdateNoteInput";
-import { DeleteNoteInput } from "../dtos/inputs/DeleteNoteInput";
+import { CreateNoteInput } from "../dtos/inputs/notes/CreateNoteInput";
+import { UpdateNoteInput } from "../dtos/inputs/notes/UpdateNoteInput";
+import { DeleteNoteInput } from "../dtos/inputs/notes/DeleteNoteInput";
+import { NoteShareModel } from "../dtos/models/notes/NoteShareModel";
 
-import { ResponseModel } from "../dtos/models/ResponseModel";
-import { NoteModel } from "../dtos/models/NoteModel";
+import { ResponseModel } from "../dtos/models/app/ResponseModel";
+import { NoteModel } from "../dtos/models/notes/NoteModel";
 
 import { Authorization } from "../middlewares/authorization";
 import { prisma } from "../helpers/prisma";
@@ -44,7 +45,11 @@ export class NotesResolver {
     @Ctx() context: { bearerToken: string },
     @Arg("input") input: UpdateNoteInput
   ) {
-    await Authorization.verify(context.bearerToken);
+    const payload = await Authorization.verify(context.bearerToken);
+
+    const user = await prisma.user.findFirst({
+      where: { firebaseId: payload.uid },
+    });
 
     const note: any = {
       id: input.id,
@@ -54,12 +59,14 @@ export class NotesResolver {
     };
 
     await prisma.note
-      .update({ data: note, where: { id: input.id } })
+      .updateMany({ data: note, where: { id: input.id, authorId: user.id } })
       .catch((err) => {
         throw Error(`'${err}'`);
       });
 
-    return note;
+    const data = await prisma.note.findUnique({ where: { id: input.id } });
+
+    return data;
   }
 
   @Authorized()
@@ -68,11 +75,27 @@ export class NotesResolver {
     @Ctx() context: { bearerToken: string },
     @Arg("input") input: DeleteNoteInput
   ) {
-    await Authorization.verify(context.bearerToken);
+    const payload = await Authorization.verify(context.bearerToken);
 
-    await prisma.note.delete({ where: { id: input.id } }).catch((err) => {
-      throw Error(`'${err}'`);
+    const user = await prisma.user.findFirst({
+      where: { firebaseId: payload.uid },
     });
+
+    await prisma.noteComment
+      .deleteMany({ where: { noteId: input.id } })
+      .catch((err) => {
+        throw Error(`'${err}'`);
+      });
+    await prisma.noteShare
+      .deleteMany({ where: { noteId: input.id } })
+      .catch((err) => {
+        throw Error(`'${err}'`);
+      });
+    await prisma.note
+      .deleteMany({ where: { id: input.id, authorId: user.id } })
+      .catch((err) => {
+        throw Error(`'${err}'`);
+      });
 
     return { success: true };
   }
@@ -84,11 +107,63 @@ export class NotesResolver {
 
     const user = await prisma.user.findUnique({
       where: { firebaseId: payload.uid },
+    });
+
+    const notes = await prisma.note.findMany({
+      where: { authorId: user.id },
       include: {
-        notes: true,
+        author: true,
+        noteComment: {
+          include: {
+            author: true,
+          },
+        },
+        noteShare: {
+          include: {
+            person: true,
+          },
+        },
       },
     });
 
-    return user.notes;
+    return notes;
+  }
+
+  @Authorized()
+  @Query(() => [NoteShareModel])
+  async getSharedNotes(@Ctx() context: { bearerToken: string }) {
+    const payload = await Authorization.verify(context.bearerToken);
+
+    const user = await prisma.user.findUnique({
+      where: { firebaseId: payload.uid },
+    });
+
+    const notes = await prisma.noteShare.findMany({
+      where: { personId: user.id },
+      include: {
+        person: true,
+        note: {
+          include: {
+            author: true,
+            noteComment: {
+              include: {
+                author: true,
+              },
+            },
+            noteShare: {
+              include: {
+                person: true,
+              },
+              where: {
+                personId: user.id,
+              },
+              take: 1,
+            },
+          },
+        },
+      },
+    });
+
+    return notes;
   }
 }

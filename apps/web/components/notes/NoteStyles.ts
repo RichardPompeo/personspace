@@ -33,8 +33,7 @@ export const Header = styled.div<HeaderProps>`
   color: black;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 5px;
+  gap: 10px;
 `;
 
 export const Content = styled.div`
@@ -71,7 +70,17 @@ export const Description = styled.p`
   max-height: 6em;
   word-wrap: break-word;
   text-overflow: ellipsis;
-  overflow: hidden;
+  overflow: scroll;
+  white-space: pre-line;
+`;
+
+export const PointDivider = styled.div`
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: gray;
+  opacity: 0.25;
+  margin: 0 3px;
 `;
 
 export const Time = styled.p`

@@ -19,9 +19,8 @@ import {
 } from "./CreateNoteStyles";
 import { Button, Container, Content } from "./NoteStyles";
 
-import CREATE_NOTE_MUTATION from "../../graphql/createNoteMutation";
+import CREATE_NOTE_MUTATION from "../../graphql/notes/createNoteMutation";
 
-import { PrimaryButton, SecondaryButton } from "ui";
 import { sendNotification } from "../../utils/notifications";
 
 interface CreateNoteProps {
@@ -39,7 +38,7 @@ export default function CreateNote({
   const [noteTitle, setNoteTitle] = useState<null | string>(null);
   const [noteDescription, setNoteDescription] = useState<null | string>(null);
 
-  const [createNote, { loading, error }] = useMutation(CREATE_NOTE_MUTATION);
+  const [createNote, { error }] = useMutation(CREATE_NOTE_MUTATION);
 
   const { t } = useTranslation();
 

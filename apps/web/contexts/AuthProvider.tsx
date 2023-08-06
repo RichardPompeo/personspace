@@ -1,7 +1,9 @@
 import { createContext, useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
 import { useLazyQuery } from "@apollo/client";
 
-import GET_USER_QUERY from "../graphql/getUserQuery";
+import GET_USER_QUERY from "../graphql/users/getUserQuery";
 
 const AuthContext = createContext<{
   isLogged: boolean;
@@ -24,14 +26,18 @@ const AuthProvider = ({ children }: any) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState<any>(null);
 
+  const router = useRouter();
+
   const [getUser, { loading }] = useLazyQuery(GET_USER_QUERY);
 
   const logout = useCallback(() => {
     localStorage.removeItem("idToken");
 
+    router.push("/");
+
     setIsLogged(false);
     setUser(null);
-  }, []);
+  }, [router]);
 
   const refresh = useCallback(() => {
     getUser({
@@ -48,7 +54,9 @@ const AuthProvider = ({ children }: any) => {
 
           localStorage.removeItem("idToken");
         } else {
+          setToken(localStorage.getItem("idToken"));
           setIsLogged(true);
+
           setUser(data.data.getUser);
         }
       })
@@ -62,7 +70,6 @@ const AuthProvider = ({ children }: any) => {
 
   useEffect(() => {
     if (localStorage.getItem("idToken")) {
-      setToken(localStorage.getItem("idToken"));
       refresh();
     } else {
       setIsLogged(false);

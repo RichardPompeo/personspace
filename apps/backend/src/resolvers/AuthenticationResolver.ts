@@ -9,10 +9,10 @@ import {
 
 import { UserResolver } from "./UserResolver";
 
-import { SignUpWithEmailAndPasswordInput } from "../dtos/inputs/SignUpWithEmailAndPasswordInput";
-import { SignInWithEmailAndPasswordInput } from "../dtos/inputs/SignInWithEmailAndPassword";
+import { SignUpWithEmailAndPasswordInput } from "../dtos/inputs/auth/SignUpWithEmailAndPasswordInput";
+import { SignInWithEmailAndPasswordInput } from "../dtos/inputs/auth/SignInWithEmailAndPassword";
 
-import { AuthenticationResponseModel } from "../dtos/models/AuthenticationResponseModel";
+import { AuthenticationResponseModel } from "../dtos/models/auth/AuthenticationResponseModel";
 
 @Resolver()
 export class AuthenticationResolver {
@@ -20,11 +20,6 @@ export class AuthenticationResolver {
 
   constructor() {
     this.auth = getAuth();
-  }
-
-  @Query(() => String)
-  async helloWorld() {
-    return "Hello World!";
   }
 
   @Mutation(() => AuthenticationResponseModel)
@@ -39,6 +34,7 @@ export class AuthenticationResolver {
           await UserResolver.createUser({
             displayName: input.displayName,
             firebaseId: user.uid,
+            email: user.email,
           });
 
           resolve({

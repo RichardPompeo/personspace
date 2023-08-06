@@ -1,53 +1,64 @@
-import React, { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import {
-  AiOutlineDelete,
-  AiOutlineEdit,
   AiOutlineCheck,
   AiOutlineClose,
+  AiOutlineDelete,
+  AiOutlineEdit,
+  AiOutlineExpand,
+  AiOutlineMinus,
 } from "react-icons/ai";
-import { IoCalendar } from "react-icons/io5";
-import { BiSolidEdit } from "react-icons/bi";
+import {
+  MdCalendarMonth,
+  MdComment,
+  MdModeEdit,
+  MdPerson,
+} from "react-icons/md";
 
 import { useMutation } from "@apollo/client";
 
 import { format } from "date-fns";
 
 import {
+  Button,
   Container,
-  Header,
   Content,
-  Title,
   Description,
   Footer,
+  Header,
+  PointDivider,
   Time,
-  Button,
+  Title,
 } from "./NoteStyles";
 
-import DELETE_NOTE_MUTATION from "../../graphql/deleteNoteMutation";
-import UPDATE_NOTE_MUTATION from "../../graphql/updateNoteMutation";
+import DELETE_NOTE_MUTATION from "../../graphql/notes/deleteNoteMutation";
+import UPDATE_NOTE_MUTATION from "../../graphql/notes/updateNoteMutation";
+import DELETE_NOTE_SHARE_MUTATION from "../../graphql/notes/deleteNoteShareMutation";
 
+import { NoteType } from "../../types/NoteType";
+import { NoteShareType } from "../../types/NoteShareType";
 import { sendNotification } from "../../utils/notifications";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 interface NoteProps {
-  note: {
-    id: string;
-    title: string;
-    description: string;
-    createdAt: string;
-    updatedAt: string;
-    authorId: string;
-    color: string;
-  };
-  onDelete: (any) => void;
+  note: NoteType;
+  editable?: boolean;
+  onUpdate: (any) => void;
+  onExpand: (note: NoteType) => void;
 }
 
-export default function Note({ note, onDelete }: NoteProps) {
+export default function Note({
+  note,
+  onExpand,
+  onUpdate,
+  editable = true,
+}: NoteProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [noteTitle, setNoteTitle] = useState<string>(note.title);
   const [noteDescription, setNoteDescription] = useState<string>(
     note.description
   );
-  const [updatedAt, setUpdatedAt] = useState(note.updatedAt);
+
+  const { user } = useContext(AuthContext);
 
   const titleRef = useRef<any>();
   const descriptionRef = useRef<any>();
@@ -55,6 +66,32 @@ export default function Note({ note, onDelete }: NoteProps) {
   const [deleteNote, { error }] = useMutation(DELETE_NOTE_MUTATION);
   const [updateNote, { error: updateError }] =
     useMutation(UPDATE_NOTE_MUTATION);
+  const [deletePerson, { error: deletePersonError }] = useMutation(
+    DELETE_NOTE_SHARE_MUTATION
+  );
+
+  const handleRemove = async () => {
+    const { data } = await deletePerson({
+      variables: {
+        input: {
+          id: note.noteShare[0].id,
+        },
+      },
+      context: {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("idToken")}`,
+        },
+      },
+    });
+
+    if (deletePersonError || !data.deleteNoteShare.success) {
+      return sendNotification("error", "Error", "Error deleting share");
+    }
+
+    if (data.deleteNoteShare.success) {
+      return onUpdate(note);
+    }
+  };
 
   const handleChangeTitle = () => {
     const getNoteTitle = titleRef.current.innerText;
@@ -77,6 +114,10 @@ export default function Note({ note, onDelete }: NoteProps) {
       );
     }
 
+    if (noteTitle === note.title && noteDescription === note.description) {
+      return setIsEditing(false);
+    }
+
     const { data } = await updateNote({
       variables: {
         input: {
@@ -94,12 +135,12 @@ export default function Note({ note, onDelete }: NoteProps) {
     });
 
     if (data.updateNote) {
-      setUpdatedAt(data.updateNote.updatedAt);
+      setIsEditing(false);
 
-      return setIsEditing(false);
+      return onUpdate(data.updateNote);
     }
 
-    if (error) {
+    if (updateError) {
       sendNotification("error", "Error", "Error updating the note");
     }
   };
@@ -128,7 +169,7 @@ export default function Note({ note, onDelete }: NoteProps) {
     });
 
     if (data.deleteNote.success) {
-      return onDelete(note);
+      return onUpdate(note);
     }
 
     if (!data.deleteNote.success || error) {
@@ -159,21 +200,43 @@ export default function Note({ note, onDelete }: NoteProps) {
         ) : (
           <>
             <Button>
-              <AiOutlineEdit
-                onClick={() => {
-                  setIsEditing(true);
-                }}
-                size={16}
+              <AiOutlineExpand
+                onClick={() => onExpand(note)}
+                size={18}
                 fill="#000000"
               />
             </Button>
-            <Button>
-              <AiOutlineDelete
-                onClick={handleDeleteNote}
-                size={16}
-                fill="#000000"
-              />
-            </Button>
+
+            {editable ? (
+              <>
+                <Button>
+                  <AiOutlineEdit
+                    onClick={() => {
+                      setIsEditing(true);
+                    }}
+                    size={18}
+                    fill="#000000"
+                  />
+                </Button>
+                <Button>
+                  <AiOutlineDelete
+                    onClick={handleDeleteNote}
+                    size={18}
+                    fill="#000000"
+                  />
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button>
+                  <AiOutlineMinus
+                    onClick={handleRemove}
+                    size={18}
+                    fill="#000000"
+                  />
+                </Button>
+              </>
+            )}
           </>
         )}
       </Header>
@@ -193,18 +256,46 @@ export default function Note({ note, onDelete }: NoteProps) {
           {note.description}
         </Description>
       </Content>
-      {updatedAt && (
-        <Footer>
-          <BiSolidEdit />
-          <Time>{format(new Date(updatedAt), "dd/MM/yyyy HH:mm")}</Time>
-        </Footer>
-      )}
-      {!updatedAt && note.createdAt && (
-        <Footer>
-          <IoCalendar />
-          <Time>{format(new Date(note.createdAt), "dd/MM/yyyy HH:mm")}</Time>
-        </Footer>
-      )}
+      <Footer>
+        {editable ? (
+          <>
+            {note.updatedAt && (
+              <>
+                <MdModeEdit fill="#bbbbbb" />
+                <Time>
+                  {format(new Date(note.updatedAt), "dd/MM/yyyy HH:mm")}
+                </Time>
+              </>
+            )}
+            {!note.updatedAt && note.createdAt && (
+              <>
+                <MdCalendarMonth fill="#bbbbbb" />
+                <Time>
+                  {format(new Date(note.createdAt), "dd/MM/yyyy HH:mm")}
+                </Time>
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            <Time>{note.author.displayName}</Time>
+          </>
+        )}
+        {note.noteComment.length !== 0 && (
+          <>
+            <PointDivider />
+            <MdComment fill="#bbbbbb" />
+            <Time>{note.noteComment.length}</Time>
+          </>
+        )}
+        {editable && note.noteShare.length !== 0 && (
+          <>
+            <PointDivider />
+            <MdPerson fill="#bbbbbb" />
+            <Time>{note.noteShare.length}</Time>
+          </>
+        )}
+      </Footer>
     </Container>
   );
 }

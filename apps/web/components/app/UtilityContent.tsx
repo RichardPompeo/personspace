@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { BsGearFill, BsFillBoxFill } from "react-icons/bs";
-import { RiAccountBoxFill, RiGlobeFill } from "react-icons/ri";
-import { FaSignOutAlt } from "react-icons/fa";
+import { BsGearFill } from "react-icons/bs";
+import { RiGlobeFill } from "react-icons/ri";
+import { MdLogout } from "react-icons/md";
 
 import { Popover } from "antd";
 
@@ -22,10 +22,11 @@ import {
   ContentPopover,
   UtilityResponsiveButton,
   ProfileContentPopover,
-  LinksPopover,
-  Link,
   UserData,
+  LanguageSelector,
 } from "./UtilityStyles";
+
+import { i18n } from "../../app/layout";
 
 export default function UtilityContent() {
   const [signUpOpen, setSignUpOpen] = useState(false);
@@ -35,7 +36,7 @@ export default function UtilityContent() {
 
   const { t } = useTranslation();
 
-  const contentPopoverMobile = (
+  const settingsPopoverContent = (
     <ContainerPopover>
       <ContentPopover>
         {!isLogged ? (
@@ -61,7 +62,11 @@ export default function UtilityContent() {
                 <h5 style={{ color: "#b6b6b6" }}>{user.email}</h5>
               </UserData>
             </ProfileContentPopover>
-            <SecondaryButton onClick={logout} color="#c92121">
+            <SecondaryButton
+              icon={<MdLogout />}
+              onClick={logout}
+              color="#c92121"
+            >
               {t("utility.popover.logoutButton")}
             </SecondaryButton>
           </>
@@ -70,27 +75,25 @@ export default function UtilityContent() {
     </ContainerPopover>
   );
 
-  const contentPopoverWeb = (
+  const languagePopoverContent = (
     <ContainerPopover>
       <ContentPopover>
-        {isLogged && (
-          <ProfileContentPopover>
-            <LinksPopover>
-              <Link>
-                <BsFillBoxFill fontSize={16} />
-                {t("utility.popover.profile")}
-              </Link>
-              <Link>
-                <RiAccountBoxFill fontSize={16} />
-                {t("utility.popover.account")}
-              </Link>
-              <Link onClick={logout}>
-                <FaSignOutAlt fontSize={16} />
-                {t("utility.popover.logoutButton")}
-              </Link>
-            </LinksPopover>
-          </ProfileContentPopover>
-        )}
+        <LanguageSelector
+          onClick={() => {
+            i18n.changeLanguage("pt");
+          }}
+          active={i18n.language === "pt"}
+        >
+          🇧🇷 Português (Brasil)
+        </LanguageSelector>
+        <LanguageSelector
+          onClick={() => {
+            i18n.changeLanguage("en");
+          }}
+          active={i18n.language === "en"}
+        >
+          🇺🇸 English (United States)
+        </LanguageSelector>
       </ContentPopover>
     </ContainerPopover>
   );
@@ -98,13 +101,23 @@ export default function UtilityContent() {
   return (
     <>
       <Container>
-        <IconButton>
-          <RiGlobeFill fontSize={23} />
-        </IconButton>
         <Popover
           overlayStyle={overlayStyleMobile}
           trigger={"click"}
-          content={contentPopoverMobile}
+          content={languagePopoverContent}
+          placement="bottomLeft"
+          color="#212126ff"
+          zIndex={1}
+          title={<h3>{t("utility.popover.language")}</h3>}
+        >
+          <IconButton>
+            <RiGlobeFill fontSize={23} />
+          </IconButton>
+        </Popover>
+        <Popover
+          overlayStyle={overlayStyleMobile}
+          trigger={"click"}
+          content={settingsPopoverContent}
           placement="bottomLeft"
           color="#212126ff"
           zIndex={1}
@@ -133,11 +146,12 @@ export default function UtilityContent() {
           ) : (
             <>
               <Popover
-                content={contentPopoverWeb}
+                content={settingsPopoverContent}
                 overlayStyle={overlayStyleWeb}
                 trigger={"hover"}
                 placement="bottomLeft"
                 color="#212126ff"
+                title={<h3>{t("utility.popover.title")}</h3>}
               >
                 <ProfileButton>
                   <span>{user.displayName.split("")[0]}</span>

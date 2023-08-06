@@ -9,7 +9,7 @@ import { PrimaryButton } from "ui";
 import Modal from "../app/Modal";
 
 import { TitleContent, Title, SubTitle, DataField } from "../app/ModalStyles";
-import SIGN_UP_WITH_EMAIL_AND_PASSWORD_MUTATION from "../../graphql/signUpWithEmailAndPassword";
+import SIGN_UP_WITH_EMAIL_AND_PASSWORD_MUTATION from "../../graphql/auth/signUpWithEmailAndPassword";
 import { sendNotification } from "../../utils/notifications";
 
 interface ModalProps {
