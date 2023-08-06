@@ -66,8 +66,6 @@ export class NotesResolver {
 
     const data = await prisma.note.findUnique({ where: { id: input.id } });
 
-    console.log(data);
-
     return data;
   }
 
