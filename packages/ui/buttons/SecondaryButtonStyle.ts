@@ -28,6 +28,7 @@ export const SecondaryButtonStyle = styled.button<SecondaryButtonProps>`
   box-shadow: none;
   background-color: ${(props) => props.color};
   display: flex;
+  align-items: center;
   justify-content: center;
 
   svg {

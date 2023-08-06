@@ -27,7 +27,8 @@
           "title": "Configurações",
           "account": "Conta",
           "profile": "Perfil",
-          "logoutButton": "Sair"
+          "logoutButton": "Sair",
+          "language": "Idioma"
         },
         "signUpModal": {
           "title": "Inscrever-se",
@@ -65,10 +66,28 @@
       },
       "annotations": {
         "title": "Anotações",
+        "switch": {
+          "your": "Seus",
+          "shared": "Compartilhado"
+        },
         "notes": {
           "create": "Criar anotação",
           "addTitle": "Adicionar título",
           "addDescription": "Adicionar descrição..."
+        },
+        "sharedNotes": {
+          "noData": "Nenhuma nota para mostrar..."
+        },
+        "expandedNote": {
+          "addComment": "Adicionar um comentário...",
+          "sharing": "Compartilhando",
+          "comments": "Comentários",
+          "commentsAuthor": "Autor",
+          "commentsYou": "Você",
+          "shareButton": "Compartilhar",
+          "addPerson": "Escreva um endereço de e-mail",
+          "addPersonTitle": "Adicionar usuário",
+          "personNotFound": "Nenhum usuário encontrado."
         }
       }
     }

@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import { initReactI18next } from "react-i18next";
 
@@ -68,3 +69,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+export { i18n };

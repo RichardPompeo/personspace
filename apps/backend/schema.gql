@@ -15,12 +15,24 @@ type AuthenticationUserResponse {
   uid: String!
 }
 
+input CreateNoteCommentInput {
+  authorId: String!
+  createdAt: DateTime!
+  message: String!
+  noteId: String!
+}
+
 input CreateNoteInput {
   authorId: String!
   color: String!
   createdAt: DateTime!
   description: String!
   title: String!
+}
+
+input CreateNoteShareInput {
+  noteId: String!
+  personId: String!
 }
 
 """
@@ -32,33 +44,81 @@ input DeleteNoteInput {
   id: String!
 }
 
+input DeleteNoteShareInput {
+  id: String!
+}
+
 type ErrorModel {
   code: String!
   message: String!
 }
 
+input GetUserByEmailInput {
+  email: String!
+}
+
+type GetUserByEmailModel {
+  error: ErrorModel
+  success: Boolean!
+  user: UserModel
+}
+
 type Mutation {
   createNote(input: CreateNoteInput!): NoteModel!
+  createNoteComment(input: CreateNoteCommentInput!): NoteCommentModel!
+  createNoteShare(input: CreateNoteShareInput!): NoteShareResponseModel!
   deleteNote(input: DeleteNoteInput!): ResponseModel!
+  deleteNoteShare(input: DeleteNoteShareInput!): ResponseModel!
   signInWithEmailAndPassword(input: SignInWithEmailAndPasswordInput!): AuthenticationResponseModel!
   signUpWithEmailAndPassword(input: SignUpWithEmailAndPasswordInput!): AuthenticationResponseModel!
   updateNote(input: UpdateNoteInput!): NoteModel!
 }
 
+type NoteCommentModel {
+  author: UserModel!
+  authorId: String!
+  createdAt: DateTime!
+  id: String!
+  message: String!
+  noteId: String!
+}
+
 type NoteModel {
-  authorId: String
+  author: UserModel!
+  authorId: String!
   color: String!
   createdAt: DateTime
   description: String!
   id: String!
+  noteComment: [NoteCommentModel!]
+  noteShare: [NoteShareModel!]
   title: String!
   updatedAt: DateTime
 }
 
+type NoteShareModel {
+  id: String!
+  note: NoteModel
+  noteId: String!
+  person: UserModel
+  personId: String!
+}
+
+type NoteShareResponseModel {
+  error: ErrorModel
+  id: String
+  note: NoteModel
+  noteId: String
+  person: UserModel
+  personId: String
+  success: Boolean!
+}
+
 type Query {
   getNotes: [NoteModel!]!
+  getSharedNotes: [NoteShareModel!]!
   getUser: UserModel!
-  helloWorld: String!
+  getUserByEmail(input: GetUserByEmailInput!): GetUserByEmailModel!
 }
 
 type ResponseModel {

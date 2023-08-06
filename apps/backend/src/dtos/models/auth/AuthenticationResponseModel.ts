@@ -1,7 +1,6 @@
 import { ObjectType, Field } from "type-graphql";
 
-import { ErrorModel } from "./ErrorModel";
-import { UserModel } from "./UserModel";
+import { ErrorModel } from "../app/ErrorModel";
 
 @ObjectType()
 class AuthenticationUserResponse {

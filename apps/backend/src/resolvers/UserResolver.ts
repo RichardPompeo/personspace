@@ -4,8 +4,10 @@ import { randomUUID } from "node:crypto";
 
 import { prisma } from "../helpers/prisma";
 
-import { CreateUserInput } from "../dtos/inputs/CreateUserInput";
-import { UserModel } from "../dtos/models/UserModel";
+import { GetUserByEmailInput } from "../dtos/inputs/users/GetUserByEmailInput";
+import { CreateUserInput } from "../dtos/inputs/users/CreateUserInput";
+import { UserModel } from "../dtos/models/users/UserModel";
+import { GetUserByEmailModel } from "../dtos/models/users/GetUserByEmailModel";
 
 import { Authorization } from "../middlewares/authorization";
 
@@ -16,6 +18,7 @@ export class UserResolver {
       id: randomUUID(),
       firebaseId: input.firebaseId,
       displayName: input.displayName,
+      email: input.email,
     };
 
     await prisma.user.create({ data: user }).catch((err) => {
@@ -37,5 +40,27 @@ export class UserResolver {
     });
 
     return { id: user.id, email: payload.email, displayName: user.displayName };
+  }
+
+  @Authorized()
+  @Query(() => GetUserByEmailModel)
+  async getUserByEmail(
+    @Ctx() context: { bearerToken: string },
+    @Arg("input") input: GetUserByEmailInput
+  ) {
+    await Authorization.verify(context.bearerToken);
+
+    const user = await prisma.user
+      .findUnique({
+        where: { email: input.email },
+      })
+      .catch((err) => {
+        return {
+          success: false,
+          error: { code: err.code, message: err.message },
+        };
+      });
+
+    return { success: true, user };
   }
 }

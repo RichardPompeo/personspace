@@ -27,7 +27,8 @@
           "title": "Settings",
           "account": "Account",
           "profile": "Profile",
-          "logoutButton": "Logout"
+          "logoutButton": "Logout",
+          "language": "Language"
         },
         "signUpModal": {
           "title": "Sign up",
@@ -65,10 +66,28 @@
       },
       "annotations": {
         "title": "Notes",
+        "switch": {
+          "your": "Your",
+          "shared": "Shared"
+        },
         "notes": {
           "create": "Create note",
           "addTitle": "Add title",
           "addDescription": "Add description..."
+        },
+        "sharedNotes": {
+          "noData": "No shared notes to show..."
+        },
+        "expandedNote": {
+          "addComment": "Add a comment...",
+          "sharing": "Sharing",
+          "comments": "Comments",
+          "commentsAuthor": "Author",
+          "commentsYou": "You",
+          "shareButton": "Share",
+          "addPerson": "Write an e-mail address",
+          "addPersonTitle": "Add person",
+          "personNotFound": "No user found."
         }
       }
     }

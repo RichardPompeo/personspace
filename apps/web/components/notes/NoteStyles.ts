@@ -29,7 +29,7 @@ export const Header = styled.div<HeaderProps>`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
 `;
 
 export const Content = styled.div`
@@ -62,6 +62,16 @@ export const Description = styled.p`
   word-wrap: break-word;
   text-overflow: ellipsis;
   overflow: scroll;
+  white-space: pre-line;
+`;
+
+export const PointDivider = styled.div`
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: gray;
+  opacity: 0.25;
+  margin: 0 3px;
 `;
 
 export const Time = styled.p`

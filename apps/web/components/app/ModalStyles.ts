@@ -4,6 +4,10 @@ interface ContainerProps {
   open: boolean;
 }
 
+interface ContentProps {
+  fullScreen?: boolean;
+}
+
 export const Container = styled.div<ContainerProps>`
   position: fixed;
   top: 0;
@@ -27,11 +31,11 @@ export const Container = styled.div<ContainerProps>`
   }
 `;
 
-export const ContentModal = styled.div`
+export const ContentModal = styled.div<ContentProps>`
   position: relative;
   background-color: #212126ff;
-  width: 25rem;
-  height: 30rem;
+  width: ${({ fullScreen }) => (fullScreen ? "85%" : "25rem")};
+  height: ${({ fullScreen }) => (fullScreen ? "85vh" : "30rem")};
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -47,6 +51,7 @@ export const CloseButton = styled.button`
   margin: 2em 2.5em;
   cursor: pointer;
   background-color: transparent;
+  z-index: 999;
 `;
 
 export const TitleContent = styled.div`
