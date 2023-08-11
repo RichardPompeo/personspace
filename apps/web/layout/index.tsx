@@ -21,15 +21,15 @@ export default function Layout({ children }) {
         </Col>
         <Col
           xxl={menu ? 18 : 19}
-          xl={menu ? 14 : 17}
+          xl={menu ? 15 : 17}
           lg={menu ? 16 : 18}
-          md={menu ? 14 : 17}
+          md={menu ? 20 : 20}
           sm={24}
           xs={24}
         >
           <Container>{children}</Container>
         </Col>
-        <Col xxl={1} xl={3} lg={3} md={menu ? 8 : 5} sm={24} xs={24}>
+        <Col xxl={1} xl={ menu ? 2 : 3} lg={3} md={menu ? 2 : 2} sm={24} xs={24}>
           <UtilityContent />
         </Col>
       </Row>

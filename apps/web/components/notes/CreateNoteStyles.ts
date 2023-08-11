@@ -15,13 +15,17 @@ export const Container = styled.div`
     cursor: pointer;
   }
 
+  @media (max-width: 1200px) {
+    width: 100%;
+  };
+
   @media (max-width: 768px) {
     width: 100%;
   };
 `;
 
 export const Header = styled.div`
-  background-color: #8eb5f0;
+  background-color: ${({ theme }) => theme.COLORS.SECONDARY};
   width: 100%;
   height: 2em;
   padding: 0 8px;

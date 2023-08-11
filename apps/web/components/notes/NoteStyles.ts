@@ -13,6 +13,10 @@ export const Container = styled.div`
   box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.2);
   height: 240px;
 
+  @media (max-width: 1200px) {
+    width: 100%;
+  };
+
   @media (max-width: 768px) {
     width: 100%;
   };
@@ -33,6 +37,7 @@ export const Header = styled.div<HeaderProps>`
   color: black;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 10px;
 `;
 
@@ -58,8 +63,11 @@ export const Title = styled.h1`
   font-size: 21px;
   padding: 10px 0;
   outline: none;
+  max-height: 2em;
+  
   text-overflow: ellipsis;
-  max-height: 1.6em;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 export const Description = styled.p`
@@ -69,8 +77,8 @@ export const Description = styled.p`
   outline: none;
   max-height: 6em;
   word-wrap: break-word;
+  overflow-y: auto;
   text-overflow: ellipsis;
-  overflow: scroll;
   white-space: pre-line;
 `;
 

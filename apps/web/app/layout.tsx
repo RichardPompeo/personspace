@@ -60,7 +60,7 @@ export default function RootLayout({
             <LayoutProvider>
               <AuthProvider>
                 <GlobalStyle />
-                {children}
+                {children}        
               </AuthProvider>
             </LayoutProvider>
           </ThemeProvider>

@@ -129,8 +129,8 @@ export default function Annotations() {
               <AiOutlineSync onClick={handleOnUpdate} size={24} />
             </Button>
             <Title>
-              {t("annotations.title")} (
-              {type === "your" ? notes.length : sharedNotes.length})
+              {t("annotations.title")}
+              {type === "your" ? <span>{notes.length}</span> : <span>{sharedNotes.length}</span>}
             </Title>
           </LeftSide>
           <Switch>
@@ -150,12 +150,12 @@ export default function Annotations() {
         </Header>
         <Content>
           {type === "your" && (
-            <Row gutter={[16, 16]}>
+            <Row gutter={[16, 32]}>
               {notes && (
                 <>
                   {notes.map((note: NoteType) => {
                     return (
-                      <Col xl={8} lg={8} md={12} sm={24} xs={24} key={note.id}>
+                      <Col xxl={8} xl={12} lg={12} md={12} sm={24} xs={24} key={note.id}>
                         <Note
                           onExpand={handleOnExpand}
                           onUpdate={handleOnUpdate}
@@ -166,7 +166,7 @@ export default function Annotations() {
                   })}
                 </>
               )}
-              <Col xl={8} lg={8} md={12} sm={24} xs={24}>
+              <Col xxl={8} xl={12} lg={12} md={12} sm={24} xs={24}>
                 <CreateNote
                   authorId={user && user.id}
                   token={token}
@@ -182,7 +182,7 @@ export default function Annotations() {
                   {sharedNotes.map(
                     (noteShare: NoteShareType, index: number) => {
                       return (
-                        <Col xl={8} lg={8} md={12} sm={24} xs={24} key={index}>
+                        <Col xxl={8} xl={12} lg={12} md={12} sm={24} xs={24} key={index}>
                           <Note
                             onExpand={handleOnExpand}
                             onUpdate={handleOnUpdate}
@@ -195,7 +195,7 @@ export default function Annotations() {
                   )}
                 </>
               ) : (
-                <Col xl={8} lg={8} md={12} sm={24} xs={24}>
+                <Col xxl={8} xl={12} lg={12} md={12} sm={24} xs={24}>
                   <SharedNoteData>
                     <ImFilesEmpty size={56} fill="#2d2e2e" />
                     <SharedNoteTitle>

@@ -10,7 +10,7 @@ import {
   AiOutlineSend,
 } from "react-icons/ai";
 import { IoCalendar } from "react-icons/io5";
-import { MdModeEdit } from "react-icons/md";
+import { BiSolidEdit } from "react-icons/bi";
 
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { Col, Popover, Row } from "antd";
@@ -496,7 +496,7 @@ export default function ExpandedNoteModal({
               {note.updatedAt && (
                 <>
                   <PointDivider />
-                  <MdModeEdit fill="#bbbbbb" />
+                  <BiSolidEdit fill="#bbbbbb" />
                   <Time>
                     {format(new Date(note.updatedAt), "dd/MM/yyyy HH:mm")}
                   </Time>

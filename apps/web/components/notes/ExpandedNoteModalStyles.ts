@@ -36,7 +36,6 @@ export const Description = styled.h3`
   color: gray;
   margin: 25px 0;
   white-space: pre-line;
-  overflow: scroll;
   outline: none;
   font-weight: normal;
 `;

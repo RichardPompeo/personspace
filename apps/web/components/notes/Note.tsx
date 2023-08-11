@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   AiOutlineCheck,
   AiOutlineClose,
@@ -7,12 +7,9 @@ import {
   AiOutlineExpand,
   AiOutlineMinus,
 } from "react-icons/ai";
-import {
-  MdCalendarMonth,
-  MdComment,
-  MdModeEdit,
-  MdPerson,
-} from "react-icons/md";
+import { MdCalendarMonth, MdComment, MdPerson } from "react-icons/md";
+
+import { BiSolidEdit } from "react-icons/bi";
 
 import { useMutation } from "@apollo/client";
 
@@ -35,9 +32,7 @@ import UPDATE_NOTE_MUTATION from "../../graphql/notes/updateNoteMutation";
 import DELETE_NOTE_SHARE_MUTATION from "../../graphql/notes/deleteNoteShareMutation";
 
 import { NoteType } from "../../types/NoteType";
-import { NoteShareType } from "../../types/NoteShareType";
 import { sendNotification } from "../../utils/notifications";
-import { AuthContext } from "../../contexts/AuthProvider";
 
 interface NoteProps {
   note: NoteType;
@@ -57,8 +52,6 @@ export default function Note({
   const [noteDescription, setNoteDescription] = useState<string>(
     note.description
   );
-
-  const { user } = useContext(AuthContext);
 
   const titleRef = useRef<any>();
   const descriptionRef = useRef<any>();
@@ -189,12 +182,12 @@ export default function Note({
             <Button>
               <AiOutlineCheck
                 onClick={handleUpdateNote}
-                size={16}
+                size={15}
                 fill="#000000"
               />
             </Button>
             <Button>
-              <AiOutlineClose onClick={handleCancel} size={16} fill="#000000" />
+              <AiOutlineClose onClick={handleCancel} size={15} fill="#000000" />
             </Button>
           </>
         ) : (
@@ -202,7 +195,7 @@ export default function Note({
             <Button>
               <AiOutlineExpand
                 onClick={() => onExpand(note)}
-                size={18}
+                size={15}
                 fill="#000000"
               />
             </Button>
@@ -261,7 +254,7 @@ export default function Note({
           <>
             {note.updatedAt && (
               <>
-                <MdModeEdit fill="#bbbbbb" />
+                <BiSolidEdit fill="#bbbbbb" />
                 <Time>
                   {format(new Date(note.updatedAt), "dd/MM/yyyy HH:mm")}
                 </Time>
