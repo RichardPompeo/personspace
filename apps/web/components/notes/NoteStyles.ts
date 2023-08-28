@@ -33,6 +33,7 @@ export const Header = styled.div<HeaderProps>`
   width: 100%;
   height: 2em;
   padding: 0 8px;
+  margin-bottom: 15px;
   border-radius: 15px 15px 0 0;
   color: black;
   display: flex;
@@ -43,7 +44,7 @@ export const Header = styled.div<HeaderProps>`
 
 export const Content = styled.div`
   width: 100%;
-  padding: 15px;
+  padding: 0 15px 10px 15px;
 `;
 
 export const Footer = styled.div`
@@ -61,10 +62,8 @@ export const Footer = styled.div`
 
 export const Title = styled.h1`
   font-size: 21px;
-  padding: 10px 0;
   outline: none;
   max-height: 2em;
-  
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -73,9 +72,9 @@ export const Title = styled.h1`
 export const Description = styled.p`
   font-size: 16px;
   color: gray;
-  margin: 10px 0;
+  margin-top: 10px;
   outline: none;
-  max-height: 6em;
+  max-height: 7em;
   word-wrap: break-word;
   overflow-y: auto;
   text-overflow: ellipsis;

@@ -29,6 +29,7 @@ export const Header = styled.div`
   width: 100%;
   height: 2em;
   padding: 0 8px;
+  margin-bottom: 15px;
   border-radius: 15px 15px 0 0;
   color: black;
   display: flex;

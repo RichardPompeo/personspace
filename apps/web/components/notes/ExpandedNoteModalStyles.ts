@@ -19,7 +19,7 @@ interface SwitchTextProps {
 export const ExpandedNoteModalContainer = styled.div`
   width: 100%;
   height: 100%;
-  padding: 2em 2.5em;
+  padding: 2em 1.5em 2em 2.5em;
   flex-direction: column;
   display: flex;
 `;
@@ -27,17 +27,26 @@ export const ExpandedNoteModalContainer = styled.div`
 export const Header = styled.div`
   display: flex;
   align-items: top;
-  margin-right: 35px;
+  margin-right: 45px;
   justify-content: space-between;
   margin-left: 10px;
+`;
+
+export const ContentDescription = styled.div`
+  display: flex;
+  width: 100%;
+  height: 90%;
+  overflow-y: auto;
+  padding-right: 1.5em;
+  word-break: break-word;
 `;
 
 export const Description = styled.h3`
   color: gray;
   margin: 25px 0;
-  white-space: pre-line;
   outline: none;
   font-weight: normal;
+  white-space: pre-line;
 `;
 
 export const TitleContainer = styled.div`
@@ -110,8 +119,21 @@ export const Button = styled.span`
 `;
 
 export const Title = styled.h1`
+  display: flex;
   outline: none;
+  gap: 0.4em;
   font-size: 24px;
+  align-items: center;
+
+  span {
+    display: flex;
+    align-items: center;
+    padding: 0 13px 2px 13px;
+    height: 1.2em;
+    border-radius: 15px;
+    background-color: #212126ff;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+  }
 `;
 
 export const Input = styled.input`

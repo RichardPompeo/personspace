@@ -43,6 +43,7 @@ export default function Annotations() {
   const [type, setType] = useState("your");
   const [expandedNote, setExpandedNote] = useState<NoteType>();
   const [expandedModalOpen, setExpandedModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
   const {
@@ -78,9 +79,13 @@ export default function Annotations() {
   const handleOnUpdate = () => {
     if (type === "your") {
       refetch();
+      setIsLoading(true);
     } else {
       sharedNotesRefetch();
+      setIsLoading(true);
     }
+
+    setTimeout(() => setIsLoading(false), 1000);
   };
 
   const handleOnRemove = () => {
@@ -125,7 +130,7 @@ export default function Annotations() {
       <Container>
         <Header>
           <LeftSide>
-            <Button>
+            <Button loading={isLoading}>
               <AiOutlineSync onClick={handleOnUpdate} size={24} />
             </Button>
             <Title>

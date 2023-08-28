@@ -63,7 +63,7 @@ export const TitleContent = styled.div`
 `;
 
 export const Title = styled.h1`
-  color: #8eb5f0;
+  color: ${({ theme }) => theme.COLORS.SECONDARY};
   font-weight: 800;
   font-size: 24pt;
 `;

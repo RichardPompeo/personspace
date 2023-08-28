@@ -21,6 +21,7 @@ import Modal from "../app/Modal";
 import {
   Button,
   Color,
+  ContentDescription,
   Description,
   ExpandedNoteModalContainer,
   FlexCol,
@@ -475,13 +476,15 @@ export default function ExpandedNoteModal({
                 )}
               </RightSide>
             </TitleContainer>
-            <Description
-              contentEditable={isEditing}
-              ref={descriptionRef}
-              onInput={handleChangeDescription}
-            >
-              {note.description}
-            </Description>
+            <ContentDescription>
+              <Description
+                contentEditable={isEditing}
+                ref={descriptionRef}
+                onInput={handleChangeDescription}
+              >
+                {note.description}
+              </Description>
+            </ContentDescription>
             <Footer>
               {!editable && (
                 <>
@@ -508,12 +511,12 @@ export default function ExpandedNoteModal({
             <Header>
               {type === "comments" && (
                 <Title>
-                  {t("annotations.expandedNote.comments")} ({comments.length})
+                  {t("annotations.expandedNote.comments")} <span>{comments.length}</span>
                 </Title>
               )}
               {type === "sharing" && editable && (
                 <Title>
-                  {t("annotations.expandedNote.sharing")} ({shares.length})
+                  {t("annotations.expandedNote.sharing")} <span>{shares.length}</span>
                 </Title>
               )}
               {editable && (
@@ -610,7 +613,7 @@ export default function ExpandedNoteModal({
                         alignItems: "center",
                         justifyContent: "center",
                         gap: "10px",
-                        marginLeft: "10px",
+                        marginLeft: "10px"
                       }}
                     >
                       <Input

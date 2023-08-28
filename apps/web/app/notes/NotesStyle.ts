@@ -1,8 +1,21 @@
-import { styled } from "styled-components";
+import { styled, keyframes } from "styled-components";
 
 interface SwitchTextProps {
   active: boolean;
 }
+
+interface ButtonProps {
+  loading?: any;
+}
+
+const spinAnimation = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
 
 export const Container = styled.div`
   width: 100%;
@@ -31,9 +44,15 @@ export const LeftSide = styled.div`
   gap: 15px;
 `;
 
-export const Button = styled.span`
+export const Button = styled.span<ButtonProps>`
+  display: flex;
+  
   &:hover {
     cursor: pointer;
+  }
+
+  svg {
+    animation: ${({ loading }) => loading && spinAnimation} 1s linear infinite;
   }
 `;
 
@@ -76,7 +95,6 @@ export const SwitchText = styled.p<SwitchTextProps>`
 export const Content = styled.div`
   padding: 25px 0;
   margin-top: 3em;
-
 `;
 
 export const SharedNoteData = styled.div`

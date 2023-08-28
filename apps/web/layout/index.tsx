@@ -16,13 +16,13 @@ export default function Layout({ children }) {
   return (
     <LayoutContainer>
       <Row>
-        <Col xxl={menu ? 5 : 3} xl={menu ? 7 : 4} lg={menu ? 5 : 3} md={2} sm={24} xs={24}>
+        <Col xxl={menu ? 5 : 3} xl={menu ? 7 : 4} lg={menu ? 3 : 3} md={2} sm={24} xs={24}>
           <NavBar />
         </Col>
         <Col
           xxl={menu ? 18 : 19}
           xl={menu ? 15 : 17}
-          lg={menu ? 16 : 18}
+          lg={menu ? 18 : 18}
           md={menu ? 20 : 20}
           sm={24}
           xs={24}
