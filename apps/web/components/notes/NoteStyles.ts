@@ -9,9 +9,17 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 15px;
-  width: 100%;
+  width: 396px;
   box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.2);
   height: 240px;
+
+  @media (max-width: 1200px) {
+    width: 100%;
+  };
+
+  @media (max-width: 768px) {
+    width: 100%;
+  };
 `;
 
 export const Button = styled.span`
@@ -22,18 +30,21 @@ export const Button = styled.span`
 
 export const Header = styled.div<HeaderProps>`
   background-color: ${({ color }) => (color ? color : "#8eb5f0")};
-  padding: 8px;
   width: 100%;
+  height: 2em;
+  padding: 0 8px;
+  margin-bottom: 15px;
   border-radius: 15px 15px 0 0;
   color: black;
   display: flex;
-  justify-content: flex-end;
   align-items: center;
+  justify-content: flex-end;
   gap: 10px;
 `;
 
 export const Content = styled.div`
-  padding: 15px;
+  width: 100%;
+  padding: 0 15px 10px 15px;
 `;
 
 export const Footer = styled.div`
@@ -42,26 +53,31 @@ export const Footer = styled.div`
   align-items: center;
   gap: 10px;
   margin-top: auto;
+
+  svg {
+    fill: #bbbbbb;
+    font-size: 14px;
+  }
 `;
 
 export const Title = styled.h1`
-  font-size: 24px;
-  padding: 10px 0;
+  font-size: 21px;
   outline: none;
-  overflow: hidden;
+  max-height: 2em;
   text-overflow: ellipsis;
-  max-height: 1.6em;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 export const Description = styled.p`
   font-size: 16px;
   color: gray;
-  margin: 10px 0;
+  margin-top: 10px;
   outline: none;
-  max-height: 4.8em;
+  max-height: 7em;
   word-wrap: break-word;
+  overflow-y: auto;
   text-overflow: ellipsis;
-  overflow: scroll;
   white-space: pre-line;
 `;
 

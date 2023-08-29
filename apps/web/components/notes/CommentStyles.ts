@@ -7,6 +7,7 @@ export const Container = styled.div`
   justify-content: space-between;
   width: 100%;
   margin: 10px 0;
+  padding-right: 1.5em;
 `;
 
 export const LeftSide = styled.div`

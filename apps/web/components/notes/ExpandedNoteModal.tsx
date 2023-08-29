@@ -10,7 +10,7 @@ import {
   AiOutlineSend,
 } from "react-icons/ai";
 import { IoCalendar } from "react-icons/io5";
-import { MdModeEdit } from "react-icons/md";
+import { BiSolidEdit } from "react-icons/bi";
 
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { Col, Popover, Row } from "antd";
@@ -21,6 +21,7 @@ import Modal from "../app/Modal";
 import {
   Button,
   Color,
+  ContentDescription,
   Description,
   ExpandedNoteModalContainer,
   FlexCol,
@@ -475,13 +476,15 @@ export default function ExpandedNoteModal({
                 )}
               </RightSide>
             </TitleContainer>
-            <Description
-              contentEditable={isEditing}
-              ref={descriptionRef}
-              onInput={handleChangeDescription}
-            >
-              {note.description}
-            </Description>
+            <ContentDescription>
+              <Description
+                contentEditable={isEditing}
+                ref={descriptionRef}
+                onInput={handleChangeDescription}
+              >
+                {note.description}
+              </Description>
+            </ContentDescription>
             <Footer>
               {!editable && (
                 <>
@@ -496,7 +499,7 @@ export default function ExpandedNoteModal({
               {note.updatedAt && (
                 <>
                   <PointDivider />
-                  <MdModeEdit fill="#bbbbbb" />
+                  <BiSolidEdit fill="#bbbbbb" />
                   <Time>
                     {format(new Date(note.updatedAt), "dd/MM/yyyy HH:mm")}
                   </Time>
@@ -508,12 +511,12 @@ export default function ExpandedNoteModal({
             <Header>
               {type === "comments" && (
                 <Title>
-                  {t("annotations.expandedNote.comments")} ({comments.length})
+                  {t("annotations.expandedNote.comments")} <span>{comments.length}</span>
                 </Title>
               )}
               {type === "sharing" && editable && (
                 <Title>
-                  {t("annotations.expandedNote.sharing")} ({shares.length})
+                  {t("annotations.expandedNote.sharing")} <span>{shares.length}</span>
                 </Title>
               )}
               {editable && (
@@ -610,7 +613,7 @@ export default function ExpandedNoteModal({
                         alignItems: "center",
                         justifyContent: "center",
                         gap: "10px",
-                        marginLeft: "10px",
+                        marginLeft: "10px"
                       }}
                     >
                       <Input

@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components"
+import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
   * {
@@ -8,6 +8,10 @@ export default createGlobalStyle`
     color: #fff;
     box-sizing: border-box;
   };
+
+  :root { 
+    color-scheme: dark;
+  }
 
   body {
     font-family: 'Supreme', sans-serif;

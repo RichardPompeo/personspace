@@ -13,7 +13,6 @@ import { format } from "date-fns";
 import {
   Container as CreateContainer,
   Title as CreateTitle,
-  Footer,
   Header,
   TitleInput,
   DescriptionInput,
@@ -102,12 +101,12 @@ export default function CreateNote({
     <Container>
       <Header>
         <Button>
-          <AiOutlineCheck onClick={handleCreateNote} size={18} fill="#000000" />
+          <AiOutlineCheck onClick={handleCreateNote} size={16} fill="#000000" />
         </Button>
         <Button>
           <AiOutlineClose
             onClick={() => setIsCreating(false)}
-            size={18}
+            size={16}
             fill="#000000"
           />
         </Button>

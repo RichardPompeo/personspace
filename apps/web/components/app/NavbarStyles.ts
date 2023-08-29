@@ -23,7 +23,7 @@ export const LogoImg = styled.img`
   height: 45px;
 `;
 export const LogoText = styled.h2`
-  color: #8eb5f0;
+  color: ${({ theme }) => theme.COLORS.SECONDARY};
   font-size: 18pt;
   margin-left: 15px;
 `;
