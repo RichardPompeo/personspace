@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import { Input } from "antd";
 
 import { PrimaryButton } from "ui";
@@ -16,6 +16,10 @@ import {
 } from "../styles/components/ModalStyles";
 import SIGN_UP_WITH_EMAIL_AND_PASSWORD_MUTATION from "../graphql/signUpWithEmailAndPassword";
 import { sendNotification } from "../utils/notifications";
+import type {
+  SignUpWithEmailAndPasswordData,
+  SignUpWithEmailAndPasswordVariables,
+} from "../graphql/types";
 
 interface ModalProps {
   open: boolean;
@@ -27,9 +31,10 @@ export default function SignUpModal({ open, onClose }: ModalProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [signUp, { loading }] = useMutation(
-    SIGN_UP_WITH_EMAIL_AND_PASSWORD_MUTATION
-  );
+  const [signUp, { loading }] = useMutation<
+    SignUpWithEmailAndPasswordData,
+    SignUpWithEmailAndPasswordVariables
+  >(SIGN_UP_WITH_EMAIL_AND_PASSWORD_MUTATION);
 
   const { t } = useTranslation();
 
@@ -44,7 +49,9 @@ export default function SignUpModal({ open, onClose }: ModalProps) {
       },
     });
 
-    if (data.signUpWithEmailAndPassword.success) {
+    const result = data?.signUpWithEmailAndPassword;
+
+    if (result?.success) {
       sendNotification(
         "success",
         t("utility.signUpModal.notification.success.title"),
@@ -52,13 +59,13 @@ export default function SignUpModal({ open, onClose }: ModalProps) {
       );
 
       return onClose();
-    } else {
-      return sendNotification(
-        "error",
-        t("utility.signUpModal.notification.error.title"),
-        t("utility.signUpModal.notification.error.description")
-      );
     }
+
+    return sendNotification(
+      "error",
+      t("utility.signUpModal.notification.error.title"),
+      t("utility.signUpModal.notification.error.description")
+    );
   };
 
   return (

@@ -15,7 +15,12 @@ const spinAnimation = keyframes`
   }
 `;
 
-export const PrimaryButtonStyle = styled.button<PrimaryButtonProps>`
+const shouldForwardPrimaryProp = (prop: PropertyKey) =>
+  !["color", "loading", "size"].includes(String(prop));
+
+export const PrimaryButtonStyle = styled.button.withConfig({
+  shouldForwardProp: shouldForwardPrimaryProp,
+})<PrimaryButtonProps>`
   cursor: pointer;
   display: flex;
   flex-direction: row;

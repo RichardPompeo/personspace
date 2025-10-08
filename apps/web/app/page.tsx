@@ -6,7 +6,12 @@ import { initReactI18next } from "react-i18next";
 import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  createHttpLink,
+} from "@apollo/client";
+import { ApolloProvider } from "@apollo/client/react";
 
 import { ThemeProvider } from "styled-components";
 
@@ -39,7 +44,7 @@ i18n
   });
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000",
+  link: createHttpLink({ uri: "http://localhost:4000" }),
   cache: new InMemoryCache(),
 });
 

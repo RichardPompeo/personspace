@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import { Input } from "antd";
 
 import { PrimaryButton } from "ui";
@@ -17,6 +17,10 @@ import {
 import { sendNotification } from "../utils/notifications";
 import { AuthContext } from "../contexts/AuthProvider";
 import SIGN_IN_WITH_EMAIL_AND_PASSWORD_MUTATION from "../graphql/signInWithEmailAndPassword";
+import type {
+  SignInWithEmailAndPasswordData,
+  SignInWithEmailAndPasswordVariables,
+} from "../graphql/types";
 
 interface ModalProps {
   open: boolean;
@@ -27,9 +31,10 @@ export default function SignInModal({ open, onClose }: ModalProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [signIn, { loading }] = useMutation(
-    SIGN_IN_WITH_EMAIL_AND_PASSWORD_MUTATION
-  );
+  const [signIn, { loading }] = useMutation<
+    SignInWithEmailAndPasswordData,
+    SignInWithEmailAndPasswordVariables
+  >(SIGN_IN_WITH_EMAIL_AND_PASSWORD_MUTATION);
 
   const { refresh } = useContext(AuthContext);
 
@@ -45,11 +50,10 @@ export default function SignInModal({ open, onClose }: ModalProps) {
       },
     });
 
-    if (data.signInWithEmailAndPassword.success) {
-      localStorage.setItem(
-        "idToken",
-        data.signInWithEmailAndPassword.user.idToken
-      );
+    const result = data?.signInWithEmailAndPassword;
+
+    if (result?.success && result.user) {
+      localStorage.setItem("idToken", result.user.idToken);
 
       refresh();
 
@@ -60,13 +64,13 @@ export default function SignInModal({ open, onClose }: ModalProps) {
       );
 
       return onClose();
-    } else {
-      return sendNotification(
-        "error",
-        t("utility.signInModal.notification.error.title"),
-        t("utility.signInModal.notification.error.description")
-      );
     }
+
+    return sendNotification(
+      "error",
+      t("utility.signInModal.notification.error.title"),
+      t("utility.signInModal.notification.error.description")
+    );
   };
 
   return (

@@ -54,11 +54,11 @@ export default function UtilityContent() {
           <>
             <ProfileContentPopover>
               <ProfileButton>
-                <span>{user.displayName.split("")[0]}</span>
+                <span>{user?.displayName?.charAt(0) ?? ""}</span>
               </ProfileButton>
               <UserData>
-                <h3>{user.displayName}</h3>
-                <h5 style={{ color: "#b6b6b6" }}>{user.email}</h5>
+                <h3>{user?.displayName}</h3>
+                <h5 style={{ color: "#b6b6b6" }}>{user?.email}</h5>
               </UserData>
             </ProfileContentPopover>
             <SecondaryButton onClick={logout} color="#c92121">
@@ -107,7 +107,6 @@ export default function UtilityContent() {
           content={contentPopoverMobile}
           placement="bottomLeft"
           color="#212126ff"
-          zIndex={1}
           title={<h3>{t("utility.popover.title")}</h3>}
         >
           <UtilityResponsiveButton>
@@ -140,7 +139,7 @@ export default function UtilityContent() {
                 color="#212126ff"
               >
                 <ProfileButton>
-                  <span>{user.displayName.split("")[0]}</span>
+                  <span>{user?.displayName?.charAt(0) ?? ""}</span>
                 </ProfileButton>
               </Popover>
             </>

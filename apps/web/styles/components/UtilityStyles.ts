@@ -31,12 +31,14 @@ export const overlayStyleWeb = {
   background: "#212126ff",
   width: "120px",
   borderRadius: "10px",
+  zIndex: 1,
 };
 
 export const overlayStyleMobile = {
   background: "#23232fff",
   width: "250px",
   borderRadius: "10px",
+  zIndex: 1,
 };
 
 export const ContainerPopover = styled.div`

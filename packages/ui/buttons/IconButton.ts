@@ -5,7 +5,12 @@ interface IconButtonProps {
   position?: string;
 }
 
-export const IconButton = styled.button<IconButtonProps>`
+const shouldForwardIconProp = (prop: PropertyKey) =>
+  !["zIndex", "position"].includes(String(prop));
+
+export const IconButton = styled.button.withConfig({
+  shouldForwardProp: shouldForwardIconProp,
+})<IconButtonProps>`
   position: ${(props) => props.position};
   display: flex;
   align-items: center;
@@ -41,7 +46,7 @@ export const IconButton = styled.button<IconButtonProps>`
   }
 `;
 
-export const ProfileButton = styled.button<IconButtonProps>`
+export const ProfileButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;

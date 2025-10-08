@@ -15,7 +15,12 @@ const spinAnimation = keyframes`
   }
 `;
 
-export const SecondaryButtonStyle = styled.button<SecondaryButtonProps>`
+const shouldForwardSecondaryProp = (prop: PropertyKey) =>
+  !["color", "loading", "size"].includes(String(prop));
+
+export const SecondaryButtonStyle = styled.button.withConfig({
+  shouldForwardProp: shouldForwardSecondaryProp,
+})<SecondaryButtonProps>`
   cursor: pointer;
   padding: ${(props) =>
     (props.size === "large" && "1.3em 2.6em") ||

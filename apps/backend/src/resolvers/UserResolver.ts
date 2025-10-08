@@ -8,6 +8,7 @@ import { CreateUserInput } from "../dtos/inputs/CreateUserInput";
 import { UserModel } from "../dtos/models/UserModel";
 
 import { Authorization } from "../middlewares/authorization";
+import { GraphQLContext } from "../types/context";
 
 @Resolver()
 export class UserResolver {
@@ -29,7 +30,7 @@ export class UserResolver {
 
   @Authorized()
   @Query(() => UserModel)
-  async getUser(@Ctx() context: { bearerToken: string }) {
+  async getUser(@Ctx() context: GraphQLContext) {
     const payload = await Authorization.verify(context.bearerToken);
 
     const user = await prisma.users.findUnique({

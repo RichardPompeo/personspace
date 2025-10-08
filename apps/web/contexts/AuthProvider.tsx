@@ -1,27 +1,31 @@
 import { createContext, useCallback, useEffect, useState } from "react";
-import { useLazyQuery } from "@apollo/client";
+import type { ReactNode } from "react";
+import { useLazyQuery } from "@apollo/client/react";
 
 import GET_USER_QUERY from "../graphql/getUserQuery";
+import type { GetUserData } from "../graphql/types";
 
-const AuthContext = createContext<{
+interface AuthContextValue {
   isLogged: boolean;
-  user: any;
+  user: GetUserData["getUser"] | null;
   loading: boolean;
-  refresh: any;
-  logout: any;
-}>({
+  refresh: () => Promise<void>;
+  logout: () => void;
+}
+
+const AuthContext = createContext<AuthContextValue>({
   isLogged: false,
   user: null,
   loading: true,
-  refresh: () => {},
+  refresh: async () => {},
   logout: () => {},
 });
 
-const AuthProvider = ({ children }: any) => {
+const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLogged, setIsLogged] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<GetUserData["getUser"] | null>(null);
 
-  const [getUser, { loading }] = useLazyQuery(GET_USER_QUERY);
+  const [getUser, { loading }] = useLazyQuery<GetUserData>(GET_USER_QUERY);
 
   const logout = useCallback(() => {
     localStorage.removeItem("idToken");
@@ -30,36 +34,36 @@ const AuthProvider = ({ children }: any) => {
     setUser(null);
   }, []);
 
-  const refresh = useCallback(() => {
-    getUser({
-      context: {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("idToken")}`,
+  const refresh = useCallback(async () => {
+    try {
+      const { data, error } = await getUser({
+        context: {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("idToken")}`,
+          },
         },
-      },
-    })
-      .then((data) => {
-        if (data.error) {
-          setIsLogged(false);
-          setUser(null);
+      });
 
-          localStorage.removeItem("idToken");
-        } else {
-          setIsLogged(true);
-          setUser(data.data.getUser);
-        }
-      })
-      .catch(() => {
+      if (error || !data?.getUser) {
         setIsLogged(false);
         setUser(null);
-
         localStorage.removeItem("idToken");
-      });
+        return;
+      }
+
+      setIsLogged(true);
+      setUser(data.getUser);
+    } catch (caughtError) {
+      console.error("Failed to refresh auth state", caughtError);
+      setIsLogged(false);
+      setUser(null);
+      localStorage.removeItem("idToken");
+    }
   }, [getUser]);
 
   useEffect(() => {
     if (localStorage.getItem("idToken")) {
-      refresh();
+      void refresh();
     } else {
       setIsLogged(false);
       setUser(null);

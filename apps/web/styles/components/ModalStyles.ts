@@ -4,7 +4,11 @@ interface ContainerProps {
   open: boolean;
 }
 
-export const Container = styled.div<ContainerProps>`
+const shouldForwardModalProp = (prop: PropertyKey) => String(prop) !== "open";
+
+export const Container = styled.div.withConfig({
+  shouldForwardProp: shouldForwardModalProp,
+})<ContainerProps>`
   position: fixed;
   top: 0;
   left: 0;
