@@ -1,0 +1,40 @@
+import { Arg, Authorized, Ctx, Mutation, Resolver } from "type-graphql";
+import { randomUUID } from "node:crypto";
+
+import { NoteCommentModel } from "../dtos/models/notes/NoteCommentModel";
+import { CreateNoteCommentInput } from "../dtos/inputs/notes/CreateNoteCommentInput";
+import { Authorization } from "../middlewares/authorization";
+import { prisma } from "../helpers/prisma";
+
+@Resolver()
+export class NoteCommentsResolver {
+  @Authorized()
+  @Mutation(() => NoteCommentModel)
+  async createNoteComment(
+    @Ctx() context: { bearerToken: string },
+    @Arg("input") input: CreateNoteCommentInput,
+  ) {
+    const payload = await Authorization.verify(context.bearerToken);
+
+    const user = await prisma.users.findFirst({
+      where: { firebaseId: payload.uid },
+    });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const data = await prisma.noteComment.create({
+      data: {
+        id: randomUUID(),
+        authorId: user.id,
+        noteId: input.noteId,
+        message: input.message,
+        createdAt: new Date(),
+      },
+      include: { author: true },
+    });
+
+    return data;
+  }
+}

@@ -1,0 +1,209 @@
+import { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { ImFilesEmpty } from "react-icons/im";
+import { AiOutlineSync } from "react-icons/ai";
+import { useNavigate } from "react-router";
+import { useQuery } from "@apollo/client/react";
+
+import { AuthContext } from "../contexts/AuthProvider";
+import { NoteType } from "../types/NoteType";
+import { NoteShareType } from "../types/NoteShareType";
+import LoadingSpinner from "../components/LoadingSpinner";
+import CreateNoteCard from "../components/CreateNoteCard";
+import NoteCard from "../components/NoteCard";
+import ExpandedNoteModal from "../components/ExpandedNoteModal";
+
+import GET_NOTES_QUERY from "../graphql/notes/getNotesQuery";
+import GET_SHARED_NOTES_QUERY from "../graphql/notes/getSharedNotes";
+
+interface GetNotesData {
+  getNotes: NoteType[];
+}
+
+interface GetSharedNotesData {
+  getSharedNotes: NoteShareType[];
+}
+
+export default function NotesPage() {
+  const [notes, setNotes] = useState<NoteType[]>([]);
+  const [sharedNotes, setSharedNotes] = useState<NoteShareType[]>([]);
+  const [type, setType] = useState<"your" | "shared">("your");
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [selectedNote, setSelectedNote] = useState<NoteType | null>(null);
+
+  const navigate = useNavigate();
+  const { isLogged, loading: authLoading, user } = useContext(AuthContext);
+  const { t } = useTranslation();
+
+  const token = localStorage.getItem("idToken");
+
+  const { data, loading, refetch } = useQuery<GetNotesData>(GET_NOTES_QUERY, {
+    context: {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+    skip: !token,
+  });
+
+  const {
+    data: sharedNotesData,
+    loading: sharedNotesLoading,
+    refetch: sharedNotesRefetch,
+  } = useQuery<GetSharedNotesData>(GET_SHARED_NOTES_QUERY, {
+    context: {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+    skip: !token,
+  });
+
+  useEffect(() => {
+    if (!authLoading && !isLogged) {
+      navigate("/login");
+    }
+  }, [isLogged, authLoading, navigate]);
+
+  useEffect(() => {
+    if (data?.getNotes) {
+      setNotes(data.getNotes);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (sharedNotesData?.getSharedNotes) {
+      setSharedNotes(sharedNotesData.getSharedNotes);
+    }
+  }, [sharedNotesData]);
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    try {
+      if (type === "your") {
+        await refetch();
+      } else {
+        await sharedNotesRefetch();
+      }
+    } catch (err) {
+      console.error("Error refreshing notes:", err);
+    } finally {
+      setTimeout(() => setIsRefreshing(false), 1000);
+    }
+  };
+
+  if (authLoading) {
+    return (
+      <div className="flex h-full w-full items-center justify-center p-8">
+        <LoadingSpinner size="lg" />
+      </div>
+    );
+  }
+
+  const isLoading = loading || sharedNotesLoading;
+  const displayNotes = type === "your" ? notes : sharedNotes;
+
+  return (
+    <div className="flex h-full w-full flex-col gap-6 overflow-y-auto p-8 md:p-4">
+      {/* Header */}
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-4">
+          <h1 className="text-3xl font-bold text-text md:text-2xl">
+            {t("notes.title", "Notes")}
+          </h1>
+          <button
+            onClick={handleRefresh}
+            disabled={isRefreshing}
+            className="flex items-center gap-2 rounded-lg border-none bg-accent px-4 py-2 text-sm text-white transition-all hover:opacity-80 disabled:cursor-not-allowed disabled:bg-border disabled:opacity-60"
+          >
+            <AiOutlineSync className={isRefreshing ? "animate-spin" : ""} />
+            {isRefreshing
+              ? t("notes.refreshing", "Refreshing...")
+              : t("notes.refresh", "Refresh")}
+          </button>
+        </div>
+
+        {/* Switch */}
+        <div className="flex overflow-hidden rounded-lg border border-border bg-background">
+          <button
+            className={`cursor-pointer whitespace-nowrap border-none px-4 py-2 text-sm transition-all hover:opacity-80 ${
+              type === "your"
+                ? "bg-accent text-white"
+                : "bg-transparent text-text"
+            }`}
+            onClick={() => setType("your")}
+          >
+            {t("notes.yourNotes", "Your Notes")}
+          </button>
+          <button
+            className={`cursor-pointer whitespace-nowrap border-none px-4 py-2 text-sm transition-all hover:opacity-80 ${
+              type === "shared"
+                ? "bg-accent text-white"
+                : "bg-transparent text-text"
+            }`}
+            onClick={() => setType("shared")}
+          >
+            {t("notes.sharedNotes", "Shared Notes")}
+          </button>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-[repeat(auto-fill,minmax(280px,1fr))]">
+        {type === "your" && <CreateNoteCard onNoteCreated={handleRefresh} />}
+
+        {isLoading ? (
+          <div className="col-span-full flex items-center justify-center p-16">
+            <LoadingSpinner size="lg" />
+          </div>
+        ) : displayNotes.length === 0 ? (
+          <div className="col-span-full flex flex-col items-center justify-center gap-4 p-16">
+            <ImFilesEmpty className="text-6xl text-border" />
+            <p className="text-xl text-text-dim">
+              {type === "your"
+                ? t("notes.noNotes", "No notes yet. Create your first note!")
+                : t("notes.noSharedNotes", "No shared notes yet.")}
+            </p>
+          </div>
+        ) : (
+          <>
+            {type === "shared"
+              ? sharedNotes.map((sharedNote) => (
+                  <div key={sharedNote.id} className="flex flex-col gap-2">
+                    <div className="rounded-lg border-l-4 border-accent bg-background-secondary px-3 py-2">
+                      <p className="m-0 text-xs text-text-dim">
+                        {t("notes.sharedBy", "Shared by")}{" "}
+                        <strong className="text-text">
+                          {sharedNote.note.author.displayName}
+                        </strong>
+                      </p>
+                    </div>
+                    <NoteCard
+                      note={sharedNote.note}
+                      onClick={() => setSelectedNote(sharedNote.note)}
+                    />
+                  </div>
+                ))
+              : notes.map((note) => (
+                  <NoteCard
+                    key={note.id}
+                    note={note}
+                    onClick={() => setSelectedNote(note)}
+                  />
+                ))}
+          </>
+        )}
+      </div>
+
+      {/* Expanded Note Modal */}
+      {selectedNote && (
+        <ExpandedNoteModal
+          note={selectedNote}
+          onClose={() => setSelectedNote(null)}
+          onNoteUpdated={handleRefresh}
+          isOwner={selectedNote.authorId === user?.id}
+        />
+      )}
+    </div>
+  );
+}

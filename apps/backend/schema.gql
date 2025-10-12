@@ -15,9 +15,38 @@ type AuthenticationUserResponse {
   uid: String!
 }
 
+input CreateNoteCommentInput {
+  message: String!
+  noteId: String!
+}
+
+input CreateNoteInput {
+  color: String!
+  description: String!
+  title: String!
+}
+
+input CreateNoteShareInput {
+  noteId: String!
+  personId: String!
+}
+
 input CreateUserInput {
   displayName: String!
   firebaseId: String!
+}
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.This scalar is serialized to a string in ISO 8601 format and parsed from a string in ISO 8601 format.
+"""
+scalar DateTimeISO
+
+input DeleteNoteInput {
+  id: String!
+}
+
+input DeleteNoteShareInput {
+  id: String!
 }
 
 type ErrorModel {
@@ -25,20 +54,90 @@ type ErrorModel {
   message: String!
 }
 
+input GetUserByEmailInput {
+  email: String!
+}
+
+type GetUserByEmailModel {
+  error: ErrorModel
+  success: Boolean!
+  user: UserModel
+}
+
 type Mutation {
+  createNote(input: CreateNoteInput!): NoteModel!
+  createNoteComment(input: CreateNoteCommentInput!): NoteCommentModel!
+  createNoteShare(input: CreateNoteShareInput!): NoteShareResponseModel!
   createUser(input: CreateUserInput!): UserModel!
+  deleteNote(input: DeleteNoteInput!): ResponseModel!
+  deleteNoteShare(input: DeleteNoteShareInput!): ResponseModel!
   signUpWithEmailAndPassword(input: SignUpWithEmailAndPasswordInput!): AuthenticationResponseModel!
+  updateNote(input: UpdateNoteInput!): NoteModel!
+}
+
+type NoteCommentModel {
+  author: UserModel!
+  authorId: String!
+  createdAt: DateTimeISO!
+  id: String!
+  message: String!
+  noteId: String!
+}
+
+type NoteModel {
+  author: UserModel!
+  authorId: String!
+  color: String!
+  comments: [NoteCommentModel!]
+  createdAt: DateTimeISO
+  description: String!
+  id: String!
+  shares: [NoteShareModel!]
+  title: String!
+  updatedAt: DateTimeISO
+}
+
+type NoteShareModel {
+  id: String!
+  note: NoteModel
+  noteId: String!
+  person: UserModel
+  personId: String!
+}
+
+type NoteShareResponseModel {
+  error: ErrorModel
+  id: String
+  note: NoteModel
+  noteId: String
+  person: UserModel
+  personId: String
+  success: Boolean!
 }
 
 type Query {
+  getNotes: [NoteModel!]!
+  getSharedNotes: [NoteShareModel!]!
   getUser: UserModel!
+  getUserByEmail(input: GetUserByEmailInput!): GetUserByEmailModel!
   helloWorld: String!
+}
+
+type ResponseModel {
+  error: ErrorModel
+  success: Boolean!
 }
 
 input SignUpWithEmailAndPasswordInput {
   displayName: String!
   email: String!
   password: String!
+}
+
+input UpdateNoteInput {
+  description: String!
+  id: String!
+  title: String!
 }
 
 type UserModel {

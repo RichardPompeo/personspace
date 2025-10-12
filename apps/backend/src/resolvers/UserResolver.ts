@@ -4,8 +4,10 @@ import { randomUUID } from "node:crypto";
 
 import { prisma } from "../helpers/prisma";
 
-import { CreateUserInput } from "../dtos/inputs/CreateUserInput";
-import { UserModel } from "../dtos/models/UserModel";
+import { CreateUserInput } from "../dtos/inputs/users/CreateUserInput";
+import { GetUserByEmailInput } from "../dtos/inputs/users/GetUserByEmailInput";
+import { UserModel } from "../dtos/models/users/UserModel";
+import { GetUserByEmailModel } from "../dtos/models/users/GetUserByEmailModel";
 
 import { Authorization } from "../middlewares/authorization";
 import { GraphQLContext } from "../types/context";
@@ -58,5 +60,27 @@ export class UserResolver {
       email: payload.email,
       displayName: user.displayName,
     };
+  }
+
+  @Authorized()
+  @Query(() => GetUserByEmailModel)
+  async getUserByEmail(
+    @Ctx() context: GraphQLContext,
+    @Arg("input") input: GetUserByEmailInput,
+  ) {
+    await Authorization.verify(context.bearerToken);
+
+    const user = await prisma.users
+      .findUnique({
+        where: { email: input.email },
+      })
+      .catch((err) => {
+        return {
+          success: false,
+          error: { code: err.code, message: err.message },
+        };
+      });
+
+    return { success: true, user };
   }
 }

@@ -49,7 +49,7 @@ const RootLayout = () => {
             id: "annotation",
             label: t("navbar.annotation"),
             icon: <RiEdit2Fill size={18} />,
-            to: "#annotation",
+            to: "/notes",
           },
           {
             id: "calendar",

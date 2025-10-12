@@ -5,6 +5,7 @@ import HomePage from "@/pages/HomePage";
 import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
 import ProfilePage from "@/pages/ProfilePage";
+import NotesPage from "@/pages/NotesPage";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
 const router = createBrowserRouter([
@@ -29,6 +30,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <ProfilePage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/notes",
+        element: (
+          <ProtectedRoute>
+            <NotesPage />
           </ProtectedRoute>
         ),
       },

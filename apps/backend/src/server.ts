@@ -13,6 +13,9 @@ import { buildSchema } from "type-graphql";
 
 import { AuthenticationResolver } from "./resolvers/AuthenticationResolver";
 import { UserResolver } from "./resolvers/UserResolver";
+import { NotesResolver } from "./resolvers/NotesResolver";
+import { NoteCommentsResolver } from "./resolvers/NoteCommentsResolver";
+import { NoteShareResolver } from "./resolvers/NoteShareResolver";
 
 import { authChecker } from "./middlewares/auth-checker";
 
@@ -26,7 +29,13 @@ const bootstrap = async () => {
   const httpServer = http.createServer(app);
 
   const schema = await buildSchema({
-    resolvers: [AuthenticationResolver, UserResolver],
+    resolvers: [
+      AuthenticationResolver,
+      UserResolver,
+      NotesResolver,
+      NoteCommentsResolver,
+      NoteShareResolver,
+    ],
     validate: { forbidUnknownValues: false },
     authChecker,
     emitSchemaFile: path.resolve(__dirname, "../schema.gql"),

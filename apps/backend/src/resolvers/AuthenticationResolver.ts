@@ -4,9 +4,9 @@ import { Auth, createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 
 import { UserResolver } from "./UserResolver";
 
-import { SignUpWithEmailAndPasswordInput } from "../dtos/inputs/SignUpWithEmailAndPasswordInput";
+import { SignUpWithEmailAndPasswordInput } from "../dtos/inputs/auth/SignUpWithEmailAndPasswordInput";
 
-import { AuthenticationResponseModel } from "../dtos/models/AuthenticationResponseModel";
+import { AuthenticationResponseModel } from "../dtos/models/auth/AuthenticationResponseModel";
 
 @Resolver()
 export class AuthenticationResolver {

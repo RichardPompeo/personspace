@@ -130,6 +130,55 @@
       },
       "common": {
         "loading": "Loading..."
+      },
+      "notes": {
+        "title": "Notes",
+        "yourNotes": "Your Notes",
+        "sharedNotes": "Shared Notes",
+        "noNotes": "No notes yet. Create your first note!",
+        "noSharedNotes": "No shared notes yet.",
+        "refresh": "Refresh",
+        "refreshing": "Refreshing...",
+        "sharedBy": "Shared by",
+        "createNote": {
+          "title": "Create Note",
+          "titlePlaceholder": "Note title",
+          "descriptionPlaceholder": "Note description",
+          "color": "Color",
+          "create": "Create",
+          "creating": "Creating..."
+        },
+        "expandedNote": {
+          "edit": "Edit",
+          "delete": "Delete",
+          "share": "Share",
+          "close": "Close",
+          "created": "Created",
+          "save": "Save",
+          "saving": "Saving...",
+          "sending": "Sending...",
+          "deleting": "Deleting...",
+          "comments": "Comments",
+          "noComments": "No comments yet",
+          "addComment": "Add comment",
+          "commentPlaceholder": "Write a comment...",
+          "send": "Send",
+          "shareWith": "Share with",
+          "emailPlaceholder": "Enter email address",
+          "sharedWith": "Shared with",
+          "removeShare": "Remove",
+          "deleteConfirm": "Are you sure you want to delete this note?",
+          "cancel": "Cancel"
+        },
+        "notifications": {
+          "noteCreated": "Note created successfully!",
+          "noteUpdated": "Note updated successfully!",
+          "noteDeleted": "Note deleted successfully!",
+          "commentAdded": "Comment added successfully!",
+          "noteShared": "Note shared successfully!",
+          "shareRemoved": "Share removed successfully!",
+          "error": "An error occurred. Please try again."
+        }
       }
     }
   }
