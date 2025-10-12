@@ -2,7 +2,7 @@
 builder = "NIXPACKS"
 
 [deploy]
-startCommand = "npm start"
+startCommand = "npx prisma generate && npm start"
 healthcheckPath = "/graphql"
 healthcheckTimeout = 300
 restartPolicyType = "ON_FAILURE"
