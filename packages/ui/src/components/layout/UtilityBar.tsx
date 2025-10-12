@@ -1,18 +1,20 @@
 import { Fragment, useState } from "react";
 import { BsGearFill, BsFillBoxFill } from "react-icons/bs";
-import { RiAccountBoxFill, RiGlobeFill } from "react-icons/ri";
 import { FaSignOutAlt } from "react-icons/fa";
 
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { LanguageSelector } from "../ui/language-selector";
 
 export interface UtilityBarLabels {
   signIn: string;
   signUp: string;
   popoverTitle: string;
   popoverProfile: string;
-  popoverAccount: string;
   popoverLogout: string;
+  openUserActions?: string;
+  openProfileMenu?: string;
+  changeLanguage?: string;
 }
 
 export interface UtilityBarProps {
@@ -20,6 +22,7 @@ export interface UtilityBarProps {
   onSignInClick: () => void;
   onSignUpClick: () => void;
   onLogout?: () => void;
+  onProfileClick?: () => void;
   userName?: string | null;
   userEmail?: string | null;
   labels: UtilityBarLabels;
@@ -30,6 +33,7 @@ export const UtilityBar = ({
   onSignInClick,
   onSignUpClick,
   onLogout,
+  onProfileClick,
   userName,
   userEmail,
   labels,
@@ -53,6 +57,13 @@ export const UtilityBar = ({
               <p className="text-xs text-text/70">{userEmail}</p>
             </div>
           </div>
+          <Button
+            variant="secondary"
+            onClick={() => onProfileClick?.()}
+            className="w-full justify-center"
+          >
+            {labels.popoverProfile}
+          </Button>
           <Button
             variant="destructive"
             onClick={() => onLogout?.()}
@@ -79,25 +90,20 @@ export const UtilityBar = ({
   );
 
   const desktopPopoverContent = (
-    <div className="flex w-52 flex-col gap-4 text-sm text-text">
+    <div className="flex w-52 flex-col gap-1 text-sm text-text">
       <Button
         variant="ghost"
-        className="h-auto justify-start gap-3 rounded-xl bg-transparent px-3 py-2 text-left hover:bg-accent/10"
+        onClick={() => onProfileClick?.()}
+        className="h-auto justify-start gap-3 rounded-xl bg-transparent px-3 py-3 text-left hover:bg-accent/10 transition-colors duration-200"
       >
         <BsFillBoxFill size={18} className="text-accent" />
         <span>{labels.popoverProfile}</span>
       </Button>
-      <Button
-        variant="ghost"
-        className="h-auto justify-start gap-3 rounded-xl bg-transparent px-3 py-2 text-left hover:bg-accent/10"
-      >
-        <RiAccountBoxFill size={18} className="text-accent" />
-        <span>{labels.popoverAccount}</span>
-      </Button>
+      <div className="my-2 h-px bg-border" />
       <Button
         variant="ghost"
         onClick={() => onLogout?.()}
-        className="h-auto justify-start gap-3 rounded-xl bg-transparent px-3 py-2 text-left text-danger hover:bg-danger/10"
+        className="h-auto justify-start gap-3 rounded-xl bg-transparent px-3 py-3 text-left text-danger hover:bg-danger/10 transition-colors duration-200"
       >
         <FaSignOutAlt size={18} />
         <span>{labels.popoverLogout}</span>
@@ -107,14 +113,10 @@ export const UtilityBar = ({
 
   return (
     <header className="relative flex items-center justify-end gap-4">
-      <Button
-        variant="default"
-        size="icon"
-        className="hidden h-12 w-12 rounded-full shadow-[0_10px_25px_-12px_rgba(142,181,240,0.6)] hover:shadow-[0_14px_28px_-12px_rgba(142,181,240,0.7)] md:inline-flex"
-        aria-label="Change language"
-      >
-        <RiGlobeFill size={22} />
-      </Button>
+      <LanguageSelector
+        className="hidden md:inline-flex"
+        changeLanguageLabel={labels.changeLanguage}
+      />
 
       <Popover>
         <PopoverTrigger asChild>
@@ -122,7 +124,7 @@ export const UtilityBar = ({
             variant="default"
             size="icon"
             className="md:hidden h-12 w-12 rounded-2xl shadow-[0_10px_25px_-12px_rgba(142,181,240,0.6)] hover:shadow-[0_14px_28px_-12px_rgba(142,181,240,0.7)]"
-            aria-label="Open user actions"
+            aria-label={labels.openUserActions || "Open user actions"}
           >
             <BsGearFill size={20} />
           </Button>
@@ -141,35 +143,41 @@ export const UtilityBar = ({
 
       <div className="hidden items-center gap-3 md:flex">
         {isLoggedIn ? (
-          <Popover
-            open={desktopPopoverOpen}
-            onOpenChange={setDesktopPopoverOpen}
+          <div
+            className="relative"
+            onMouseEnter={() => setDesktopPopoverOpen(true)}
+            onMouseLeave={() => setDesktopPopoverOpen(false)}
           >
-            <PopoverTrigger asChild>
-              <Button
-                variant="default"
-                size="icon"
-                className="h-12 w-12 rounded-full shadow-[0_10px_25px_-12px_rgba(142,181,240,0.6)] hover:shadow-[0_14px_28px_-12px_rgba(142,181,240,0.7)]"
-                aria-label="Open profile menu"
+            <Popover
+              open={desktopPopoverOpen}
+              onOpenChange={setDesktopPopoverOpen}
+            >
+              <PopoverTrigger asChild>
+                <Button
+                  variant="default"
+                  size="icon"
+                  className="h-12 w-12 rounded-full shadow-[0_10px_25px_-12px_rgba(142,181,240,0.6)] hover:shadow-[0_14px_28px_-12px_rgba(142,181,240,0.7)] transition-shadow duration-200"
+                  aria-label={labels.openProfileMenu || "Open profile menu"}
+                >
+                  <span className="text-lg font-bold uppercase">
+                    {initials}
+                  </span>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent
+                align="end"
+                side="bottom"
+                className="w-64 rounded-2xl border border-white/10 bg-surface/95 p-4 shadow-2xl backdrop-blur"
                 onMouseEnter={() => setDesktopPopoverOpen(true)}
                 onMouseLeave={() => setDesktopPopoverOpen(false)}
               >
-                <span className="text-lg font-bold uppercase">{initials}</span>
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent
-              align="end"
-              side="bottom"
-              className="w-64 rounded-2xl border border-white/10 bg-surface/95 p-5 shadow-2xl backdrop-blur"
-              onMouseEnter={() => setDesktopPopoverOpen(true)}
-              onMouseLeave={() => setDesktopPopoverOpen(false)}
-            >
-              <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-text/60">
-                {labels.popoverTitle}
-              </div>
-              {desktopPopoverContent}
-            </PopoverContent>
-          </Popover>
+                <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-text/60">
+                  {labels.popoverTitle}
+                </div>
+                {desktopPopoverContent}
+              </PopoverContent>
+            </Popover>
+          </div>
         ) : (
           <Fragment>
             <Button variant="secondary" onClick={onSignInClick}>

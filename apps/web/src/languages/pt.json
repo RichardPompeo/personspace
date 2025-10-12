@@ -12,7 +12,9 @@
         "contacts": "Contatos",
         "schedule": "Agenda",
         "central": "Central",
-        "helpMe": "Ajuda"
+        "helpMe": "Ajuda",
+        "hideMenu": "Fechar navegação",
+        "showMenu": "Abrir navegação"
       },
       "home": {
         "title": "Tenha seu próprio <0>espaço pessoal</0> e use-o como quiser.",
@@ -25,7 +27,6 @@
         "loading": "Carregando",
         "popover": {
           "title": "Configurações",
-          "account": "Conta",
           "profile": "Perfil",
           "logoutButton": "Sair"
         },
@@ -61,7 +62,74 @@
           }
         },
         "emailPlaceholder": "Email",
-        "passwordPlaceholder": "Senha"
+        "passwordPlaceholder": "Senha",
+        "language": {
+          "title": "Idioma",
+          "english": "English",
+          "portuguese": "Português",
+          "changeLanguage": "Alterar idioma"
+        },
+        "accessibility": {
+          "openUserActions": "Abrir ações do usuário",
+          "openProfileMenu": "Abrir menu do perfil"
+        }
+      },
+      "auth": {
+        "signIn": "Entrar",
+        "signUp": "Criar conta",
+        "email": "Email",
+        "password": "Senha",
+        "displayName": "Nome de exibição",
+        "confirmPassword": "Confirmar senha",
+        "forgotPassword": "Esqueceu sua senha?",
+        "dontHaveAccount": "Não tem uma conta?",
+        "alreadyHaveAccount": "Já tem uma conta?",
+        "signingIn": "Entrando...",
+        "creatingAccount": "Criando conta...",
+        "bySigningUp": "Ao se inscrever, você concorda com nossos",
+        "termsOfService": "Termos de Serviço",
+        "and": "e",
+        "privacyPolicy": "Política de Privacidade",
+        "errors": {
+          "displayNameRequired": "Nome de exibição é obrigatório",
+          "emailRequired": "Email é obrigatório",
+          "passwordTooShort": "A senha deve ter pelo menos 6 caracteres",
+          "passwordsDoNotMatch": "As senhas não coincidem",
+          "invalidCredentials": "Email ou senha inválidos",
+          "invalidEmail": "Por favor, insira um email válido",
+          "userDisabled": "Esta conta foi desabilitada",
+          "tooManyRequests": "Muitas tentativas de login falharam. Tente novamente mais tarde",
+          "loginFailed": "Falha no login. Tente novamente",
+          "emailAlreadyInUse": "Já existe uma conta com este email",
+          "operationNotAllowed": "Criação de conta está atualmente desabilitada",
+          "weakPassword": "A senha é muito fraca",
+          "registrationFailed": "Falha no registro. Tente novamente"
+        }
+      },
+      "profile": {
+        "title": "Perfil",
+        "subtitle": "Gerencie as configurações e preferências da sua conta",
+        "accountInformation": "Informações da Conta",
+        "displayName": "Nome de Exibição",
+        "email": "Email",
+        "accountCreated": "Conta Criada",
+        "notSet": "Não definido",
+        "notAvailable": "Não disponível",
+        "actions": "Ações",
+        "signOutTitle": "Sair",
+        "signOutDescription": "Sair da sua conta neste dispositivo",
+        "signOutButton": "Sair"
+      },
+      "pages": {
+        "welcomeBack": "Bem-vindo de volta,",
+        "readyToExplore": "Pronto para explorar seu espaço pessoal? Acesse seus dados salvos e continue de onde parou.",
+        "viewProfile": "Ver Perfil",
+        "exploreFeatures": "Explorar Recursos",
+        "getStarted": "Começar",
+        "user": "Usuário"
+      },
+      "common": {
+        "loading": "Carregando..."
       }
     }
   }

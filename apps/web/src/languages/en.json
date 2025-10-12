@@ -12,7 +12,9 @@
         "contacts": "Contacts",
         "schedule": "Schedule",
         "central": "Central",
-        "helpMe": "Help me"
+        "helpMe": "Help me",
+        "hideMenu": "Close navigation",
+        "showMenu": "Open navigation"
       },
       "home": {
         "title": "Have your own <0>person space</0>, and use it however your want.",
@@ -25,7 +27,6 @@
         "loading": "Loading",
         "popover": {
           "title": "Settings",
-          "account": "Account",
           "profile": "Profile",
           "logoutButton": "Logout"
         },
@@ -61,7 +62,17 @@
           }
         },
         "emailPlaceholder": "Email",
-        "passwordPlaceholder": "Password"
+        "passwordPlaceholder": "Password",
+        "language": {
+          "title": "Language",
+          "english": "English",
+          "portuguese": "Português",
+          "changeLanguage": "Change language"
+        },
+        "accessibility": {
+          "openUserActions": "Open user actions",
+          "openProfileMenu": "Open profile menu"
+        }
       },
       "auth": {
         "signIn": "Sign in",
@@ -94,6 +105,28 @@
           "weakPassword": "Password is too weak",
           "registrationFailed": "Registration failed. Please try again"
         }
+      },
+      "profile": {
+        "title": "Profile",
+        "subtitle": "Manage your account settings and preferences",
+        "accountInformation": "Account Information",
+        "displayName": "Display Name",
+        "email": "Email",
+        "accountCreated": "Account Created",
+        "notSet": "Not set",
+        "notAvailable": "Not available",
+        "actions": "Actions",
+        "signOutTitle": "Sign Out",
+        "signOutDescription": "Sign out of your account on this device",
+        "signOutButton": "Sign Out"
+      },
+      "pages": {
+        "welcomeBack": "Welcome back,",
+        "readyToExplore": "Ready to explore your personal space? Access your saved data and continue where you left off.",
+        "viewProfile": "View Profile",
+        "exploreFeatures": "Explore Features",
+        "getStarted": "Get Started",
+        "user": "User"
       },
       "common": {
         "loading": "Loading..."

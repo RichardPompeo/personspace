@@ -25,21 +25,23 @@ const HomePage = () => {
         <div className="pointer-events-none absolute inset-0 bg-grid-radial opacity-25" />
         <div className="relative z-10 max-w-xl space-y-8 text-center lg:text-left">
           <h1 className="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-            Welcome back,{" "}
-            <span className="text-accent">{user?.displayName || "User"}</span>!
+            {t("pages.welcomeBack")}{" "}
+            <span className="text-accent">
+              {user?.displayName || t("pages.user")}
+            </span>
+            !
           </h1>
           <p className="text-lg text-text-dim sm:text-xl">
-            Ready to explore your personal space? Access your saved data and
-            continue where you left off.
+            {t("pages.readyToExplore")}
           </p>
           <div className="flex w-full flex-col items-center gap-4 sm:flex-row sm:justify-start">
             <Link to="/profile">
               <Button size="lg" className="w-full sm:w-auto">
-                View Profile
+                {t("pages.viewProfile")}
               </Button>
             </Link>
             <Button size="lg" variant="secondary" className="w-full sm:w-auto">
-              Explore Features
+              {t("pages.exploreFeatures")}
             </Button>
           </div>
         </div>
@@ -72,12 +74,12 @@ const HomePage = () => {
         <div className="flex w-full flex-col items-center gap-4 sm:flex-row sm:justify-start">
           <Link to="/register">
             <Button size="lg" className="w-full sm:w-auto">
-              Get Started
+              {t("pages.getStarted")}
             </Button>
           </Link>
           <Link to="/login">
             <Button size="lg" variant="secondary" className="w-full sm:w-auto">
-              Sign In
+              {t("auth.signIn")}
             </Button>
           </Link>
         </div>

@@ -93,15 +93,15 @@ const RootLayout = () => {
       signUp: t("utility.signUpButton"),
       popoverTitle: t("utility.popover.title"),
       popoverProfile: t("utility.popover.profile"),
-      popoverAccount: t("utility.popover.account"),
       popoverLogout: t("utility.popover.logoutButton"),
+      openUserActions: t("utility.accessibility.openUserActions"),
+      openProfileMenu: t("utility.accessibility.openProfileMenu"),
+      changeLanguage: t("utility.language.changeLanguage"),
     }),
     [t],
   );
 
-  const toggleLabel = isMenuOpen
-    ? t("navbar.hideMenu", { defaultValue: "Close navigation" })
-    : t("navbar.showMenu", { defaultValue: "Open navigation" });
+  const toggleLabel = isMenuOpen ? t("navbar.hideMenu") : t("navbar.showMenu");
 
   const handleSignInClick = () => {
     navigate("/login");
@@ -118,6 +118,10 @@ const RootLayout = () => {
     } catch (error) {
       console.error("Failed to logout:", error);
     }
+  };
+
+  const handleProfileClick = () => {
+    navigate("/profile");
   };
 
   return (
@@ -142,18 +146,19 @@ const RootLayout = () => {
           isMenuOpen ? "md:pl-[18rem]" : "md:pl-8",
         )}
       >
-        <div className="sticky top-0 z-30 flex items-center justify-end bg-background/95 px-4 py-4 backdrop-blur md:px-8">
+        <div className="sticky top-0 z-30 flex items-center justify-end bg-background px-4 py-4 md:px-8">
           <UtilityBar
             isLoggedIn={isLogged}
             onSignInClick={handleSignInClick}
             onSignUpClick={handleSignUpClick}
             onLogout={handleLogout}
+            onProfileClick={handleProfileClick}
             userName={user?.displayName ?? null}
             userEmail={user?.email ?? null}
             labels={utilityLabels}
           />
         </div>
-        <main className="flex-1 overflow-hidden">
+        <main className="flex-1 overflow-hidden bg-background">
           <div className="h-full w-full overflow-hidden">
             <Outlet />
           </div>

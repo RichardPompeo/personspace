@@ -17,13 +17,18 @@ void i18n
   .init({
     fallbackLng: "en",
     resources: {
-      ...en,
-      ...pt,
+      en: en.en,
+      pt: pt.pt,
     },
     interpolation: {
       escapeValue: false,
     },
     returnNull: false,
+    detection: {
+      order: ["localStorage", "navigator", "htmlTag"],
+      lookupLocalStorage: "i18nextLng",
+      caches: ["localStorage"],
+    },
   });
 
 export default i18n;
