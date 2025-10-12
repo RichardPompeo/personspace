@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "0.1.0",
-  "main": "server.js",
+  "main": "dist/server.js",
   "license": "MIT",
   "scripts": {
     "dev": "tsnd --respawn --transpile-only src/server.ts",

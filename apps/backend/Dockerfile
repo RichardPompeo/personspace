@@ -1,37 +1,40 @@
-# Use the official Node.js 18 Alpine image
+# Use Node.js 18 Alpine for smaller image
 FROM node:18-alpine
+
+# Install system dependencies
+RUN apk add --no-cache libc6-compat
+
+# Enable yarn
+RUN corepack enable yarn
 
 # Set working directory
 WORKDIR /app
 
-# Install yarn globally if not present
-RUN corepack enable
+# Copy package files from root (needed for workspace)
+COPY ../../package.json ../../yarn.lock ../../.yarnrc ./
+COPY ../../packages ./packages
+COPY package.json ./backend/
 
-# Copy root package.json and yarn.lock for workspace setup
-COPY package.json yarn.lock ./
-COPY .yarnrc ./
-
-# Copy workspace package.json files
-COPY apps/backend/package.json ./apps/backend/
-COPY packages/*/package.json ./packages/*/
-
-# Install all dependencies
+# Install dependencies
 RUN yarn install --frozen-lockfile
 
-# Copy source code
-COPY . .
+# Copy backend source
+COPY . ./backend
+
+# Set working directory to backend
+WORKDIR /app/backend
 
 # Generate Prisma client
-RUN yarn workspace backend prisma:generate
+RUN npx prisma generate
 
-# Build the backend
-RUN yarn workspace backend build
+# Build TypeScript
+RUN yarn build
 
-# Expose the port that the app runs on
+# Expose port
 EXPOSE $PORT
 
-# Set environment variables
+# Set production environment
 ENV NODE_ENV=production
 
-# Start the application
-CMD ["yarn", "workspace", "backend", "deploy"]
+# Start with migrations
+CMD npx prisma migrate deploy && node dist/server.js
