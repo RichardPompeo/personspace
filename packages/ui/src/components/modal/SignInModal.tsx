@@ -25,7 +25,10 @@ export interface SignInModalLabels {
 export interface SignInModalProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: (payload: { email: string; password: string }) => Promise<void> | void;
+  onSubmit: (payload: {
+    email: string;
+    password: string;
+  }) => Promise<void> | void;
   loading?: boolean;
   labels: SignInModalLabels;
 }
@@ -71,7 +74,7 @@ export const SignInModal = ({
           <DialogTitle className="text-3xl font-extrabold text-accent">
             {labels.title}
           </DialogTitle>
-          <DialogDescription className="text-base text-text-dim">
+          <DialogDescription className="text-base text-text-dim pb-6">
             {labels.subtitle}
           </DialogDescription>
         </DialogHeader>

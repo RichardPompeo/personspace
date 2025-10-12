@@ -26,9 +26,11 @@ export interface SignUpModalLabels {
 export interface SignUpModalProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: (
-    payload: { displayName: string; email: string; password: string }
-  ) => Promise<void> | void;
+  onSubmit: (payload: {
+    displayName: string;
+    email: string;
+    password: string;
+  }) => Promise<void> | void;
   loading?: boolean;
   labels: SignUpModalLabels;
 }
@@ -76,7 +78,7 @@ export const SignUpModal = ({
           <DialogTitle className="text-3xl font-extrabold text-accent">
             {labels.title}
           </DialogTitle>
-          <DialogDescription className="text-base text-text-dim">
+          <DialogDescription className="text-base text-text-dim pb-6">
             {labels.subtitle}
           </DialogDescription>
         </DialogHeader>
