@@ -1,0 +1,136 @@
+{
+  "pt": {
+    "translation": {
+      "navbar": {
+        "personspace": "Personspace",
+        "pages": "Páginas",
+        "home": "Início",
+        "about": "Sobre",
+        "personal": "Pessoal",
+        "annotation": "Anotações",
+        "calendar": "Calendário",
+        "contacts": "Contatos",
+        "schedule": "Agenda",
+        "central": "Central",
+        "helpMe": "Ajuda",
+        "hideMenu": "Fechar navegação",
+        "showMenu": "Abrir navegação"
+      },
+      "home": {
+        "title": "Tenha seu próprio <0>espaço pessoal</0> e use-o como quiser.",
+        "subtitle": "Crie sua conta para salvar e armazenar tudo que você fizer.",
+        "aboutTheSiteButton": "Sobre esse site"
+      },
+      "utility": {
+        "signInButton": "Entrar",
+        "signUpButton": "Inscrever-se",
+        "loading": "Carregando",
+        "popover": {
+          "title": "Configurações",
+          "profile": "Perfil",
+          "logoutButton": "Sair"
+        },
+        "signUpModal": {
+          "title": "Inscrever-se",
+          "subTitle": "Ao se registrar, você poderá armazenar seus dados.",
+          "namePlaceholder": "Nome",
+          "registerButton": "Criar conta",
+          "notification": {
+            "success": {
+              "title": "Registrado com sucesso!",
+              "description": "Conta criada com sucesso, não se esqueça de fazer o login."
+            },
+            "error": {
+              "title": "Erro ao cadastrar!",
+              "description": "Infelizmente houve um erro no seu cadastro, revise seus dados e tente novamente."
+            }
+          }
+        },
+        "signInModal": {
+          "title": "Entrar",
+          "subTitle": "Depois de se registrar, continue acessando sua conta.",
+          "loginButton": "Continuar",
+          "notification": {
+            "success": {
+              "title": "Logado com sucesso!",
+              "description": "Pronto! Você foi logado com sucesso, aproveite."
+            },
+            "error": {
+              "title": "Erro ao logar!",
+              "description": "Infelizmente houve um erro ao se logar, tente novamente."
+            }
+          }
+        },
+        "emailPlaceholder": "Email",
+        "passwordPlaceholder": "Senha",
+        "language": {
+          "title": "Idioma",
+          "english": "English",
+          "portuguese": "Português",
+          "changeLanguage": "Alterar idioma"
+        },
+        "accessibility": {
+          "openUserActions": "Abrir ações do usuário",
+          "openProfileMenu": "Abrir menu do perfil"
+        }
+      },
+      "auth": {
+        "signIn": "Entrar",
+        "signUp": "Criar conta",
+        "email": "Email",
+        "password": "Senha",
+        "displayName": "Nome de exibição",
+        "confirmPassword": "Confirmar senha",
+        "forgotPassword": "Esqueceu sua senha?",
+        "dontHaveAccount": "Não tem uma conta?",
+        "alreadyHaveAccount": "Já tem uma conta?",
+        "signingIn": "Entrando...",
+        "creatingAccount": "Criando conta...",
+        "bySigningUp": "Ao se inscrever, você concorda com nossos",
+        "termsOfService": "Termos de Serviço",
+        "and": "e",
+        "privacyPolicy": "Política de Privacidade",
+        "errors": {
+          "displayNameRequired": "Nome de exibição é obrigatório",
+          "emailRequired": "Email é obrigatório",
+          "passwordTooShort": "A senha deve ter pelo menos 6 caracteres",
+          "passwordsDoNotMatch": "As senhas não coincidem",
+          "invalidCredentials": "Email ou senha inválidos",
+          "invalidEmail": "Por favor, insira um email válido",
+          "userDisabled": "Esta conta foi desabilitada",
+          "tooManyRequests": "Muitas tentativas de login falharam. Tente novamente mais tarde",
+          "loginFailed": "Falha no login. Tente novamente",
+          "emailAlreadyInUse": "Já existe uma conta com este email",
+          "operationNotAllowed": "Criação de conta está atualmente desabilitada",
+          "weakPassword": "A senha é muito fraca",
+          "registrationFailed": "Falha no registro. Tente novamente"
+        }
+      },
+      "profile": {
+        "title": "Perfil",
+        "subtitle": "Gerencie as configurações e preferências da sua conta",
+        "accountInformation": "Informações da Conta",
+        "displayName": "Nome de Exibição",
+        "email": "Email",
+        "accountCreated": "Conta Criada",
+        "notSet": "Não definido",
+        "notAvailable": "Não disponível",
+        "actions": "Ações",
+        "signOutTitle": "Sair",
+        "signOutDescription": "Sair da sua conta neste dispositivo",
+        "signOutButton": "Sair"
+      },
+      "pages": {
+        "welcomeBack": "Bem-vindo de volta,",
+        "readyToExplore": "Pronto para explorar seu espaço pessoal? Acesse seus dados salvos e continue de onde parou.",
+        "viewProfile": "Ver Perfil",
+        "exploreFeatures": "Explorar Recursos",
+        "getStarted": "Começar",
+        "user": "Usuário"
+      },
+      "common": {
+        "loading": "Carregando..."
+      }
+    }
+  }
+}

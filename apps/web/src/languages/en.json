@@ -1,0 +1,136 @@
+{
+  "en": {
+    "translation": {
+      "navbar": {
+        "personspace": "Personspace",
+        "pages": "Pages",
+        "home": "Home",
+        "about": "About",
+        "personal": "Personal",
+        "annotation": "Annotation",
+        "calendar": "Calendar",
+        "contacts": "Contacts",
+        "schedule": "Schedule",
+        "central": "Central",
+        "helpMe": "Help me",
+        "hideMenu": "Close navigation",
+        "showMenu": "Open navigation"
+      },
+      "home": {
+        "title": "Have your own <0>person space</0>, and use it however your want.",
+        "subtitle": "Create an account to save and store everything you do on the site.",
+        "aboutTheSiteButton": "About the site"
+      },
+      "utility": {
+        "signInButton": "Sign in",
+        "signUpButton": "Sign up",
+        "loading": "Loading",
+        "popover": {
+          "title": "Settings",
+          "profile": "Profile",
+          "logoutButton": "Logout"
+        },
+        "signUpModal": {
+          "title": "Sign up",
+          "subTitle": "By registering, will be able to store your data.",
+          "namePlaceholder": "Name",
+          "registerButton": "Create account",
+          "notification": {
+            "success": {
+              "title": "Registered successfully!",
+              "description": "Account created successfully, don't forget to login."
+            },
+            "error": {
+              "title": "Error in registering!",
+              "description": "Unfortunately there was an error in your registration, review your data and try again."
+            }
+          }
+        },
+        "signInModal": {
+          "title": "Sign in",
+          "subTitle": "After registering, continue to access your account.",
+          "loginButton": "Continue",
+          "notification": {
+            "success": {
+              "title": "Logged in successfully!",
+              "description": "Done! You have been successfully logged in, enjoy."
+            },
+            "error": {
+              "title": "Login error!",
+              "description": "Sorry, there was an error logging in, please try again."
+            }
+          }
+        },
+        "emailPlaceholder": "Email",
+        "passwordPlaceholder": "Password",
+        "language": {
+          "title": "Language",
+          "english": "English",
+          "portuguese": "Português",
+          "changeLanguage": "Change language"
+        },
+        "accessibility": {
+          "openUserActions": "Open user actions",
+          "openProfileMenu": "Open profile menu"
+        }
+      },
+      "auth": {
+        "signIn": "Sign in",
+        "signUp": "Sign up",
+        "email": "Email",
+        "password": "Password",
+        "displayName": "Display Name",
+        "confirmPassword": "Confirm Password",
+        "forgotPassword": "Forgot your password?",
+        "dontHaveAccount": "Don't have an account?",
+        "alreadyHaveAccount": "Already have an account?",
+        "signingIn": "Signing in...",
+        "creatingAccount": "Creating account...",
+        "bySigningUp": "By signing up, you agree to our",
+        "termsOfService": "Terms of Service",
+        "and": "and",
+        "privacyPolicy": "Privacy Policy",
+        "errors": {
+          "displayNameRequired": "Display name is required",
+          "emailRequired": "Email is required",
+          "passwordTooShort": "Password must be at least 6 characters",
+          "passwordsDoNotMatch": "Passwords do not match",
+          "invalidCredentials": "Invalid email or password",
+          "invalidEmail": "Please enter a valid email address",
+          "userDisabled": "This account has been disabled",
+          "tooManyRequests": "Too many failed login attempts. Please try again later",
+          "loginFailed": "Login failed. Please try again",
+          "emailAlreadyInUse": "An account with this email already exists",
+          "operationNotAllowed": "Account creation is currently disabled",
+          "weakPassword": "Password is too weak",
+          "registrationFailed": "Registration failed. Please try again"
+        }
+      },
+      "profile": {
+        "title": "Profile",
+        "subtitle": "Manage your account settings and preferences",
+        "accountInformation": "Account Information",
+        "displayName": "Display Name",
+        "email": "Email",
+        "accountCreated": "Account Created",
+        "notSet": "Not set",
+        "notAvailable": "Not available",
+        "actions": "Actions",
+        "signOutTitle": "Sign Out",
+        "signOutDescription": "Sign out of your account on this device",
+        "signOutButton": "Sign Out"
+      },
+      "pages": {
+        "welcomeBack": "Welcome back,",
+        "readyToExplore": "Ready to explore your personal space? Access your saved data and continue where you left off.",
+        "viewProfile": "View Profile",
+        "exploreFeatures": "Explore Features",
+        "getStarted": "Get Started",
+        "user": "User"
+      },
+      "common": {
+        "loading": "Loading..."
+      }
+    }
+  }
+}

@@ -2,17 +2,15 @@ import { AuthChecker } from "type-graphql";
 
 import { Authorization } from "./authorization";
 
-interface ContextType {
-  bearerToken: string;
-}
+import { GraphQLContext } from "../types/context";
 
-export const authChecker: AuthChecker<ContextType> = async ({
+export const authChecker: AuthChecker<GraphQLContext> = async ({
   context: { bearerToken },
 }) => {
   try {
-    await Authorization.verify(bearerToken);
+    const result = await Authorization.verify(bearerToken);
 
-    return true;
+    return result.success;
   } catch {
     return false;
   }

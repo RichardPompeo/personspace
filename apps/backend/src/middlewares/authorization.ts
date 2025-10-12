@@ -8,7 +8,7 @@ interface AuthorizationResponse {
 }
 
 export class Authorization {
-  static async verify(bearerToken): Promise<AuthorizationResponse> {
+  static async verify(bearerToken: string): Promise<AuthorizationResponse> {
     return new Promise((resolve) => {
       if (
         (!bearerToken &&
