@@ -5,9 +5,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsnd --respawn --transpile-only src/server.ts",
-    "build": "tsc --project ./ && npx prisma generate",
+    "build": "tsc --project ./ && npm run prisma:generate",
     "start": "node dist/server.js",
-    "deploy": "npx prisma migrate deploy && yarn start",
+    "deploy": "npx prisma migrate deploy && npm start",
     "prisma:generate": "npx prisma generate",
     "prisma:pull": "npx prisma db pull",
     "prisma:push": "npx prisma db push",

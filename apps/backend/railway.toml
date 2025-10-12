@@ -1,9 +1,8 @@
 [build]
 builder = "NIXPACKS"
-buildCommand = "yarn build"
 
 [deploy]
-startCommand = "yarn start"
+startCommand = "npm start"
 healthcheckPath = "/graphql"
 healthcheckTimeout = 300
 restartPolicyType = "ON_FAILURE"
