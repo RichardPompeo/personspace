@@ -7,12 +7,13 @@ import { LayoutProvider } from "@/contexts/LayoutProvider";
 import { AuthProvider } from "@/contexts/AuthProvider";
 import AppRouter from "./Router";
 import { Toaster } from "ui";
+import { GRAPHQL_URI } from "@/config/apollo";
 
 import "./index.css";
 import "./i18n";
 
 const client = new ApolloClient({
-  link: createHttpLink({ uri: "http://localhost:4000" }),
+  link: createHttpLink({ uri: GRAPHQL_URI }),
   cache: new InMemoryCache(),
 });
 
@@ -29,6 +30,6 @@ if (root) {
           </AuthProvider>
         </LayoutProvider>
       </ApolloProvider>
-    </React.StrictMode>
+    </React.StrictMode>,
   );
 }
