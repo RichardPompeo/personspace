@@ -1,6 +1,6 @@
 [build]
 builder = "NIXPACKS"
-buildCommand = "npm run build"
+buildCommand = "yarn run build"
 
 [deploy]
 startCommand = "npx prisma migrate deploy && npm start"

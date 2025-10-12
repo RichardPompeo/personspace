@@ -21,14 +21,5 @@
         }
       ]
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "build": {
-    "env": {
-      "TURBO_TOKEN": "",
-      "TURBO_TEAM": ""
-    }
-  }
+  ]
 }
