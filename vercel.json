@@ -5,8 +5,6 @@
   "outputDirectory": "apps/web/dist",
   "installCommand": "yarn install --frozen-lockfile",
   "framework": null,
-  "nodeVersion": "20.x",
-  "functions": {},
   "rewrites": [
     {
       "source": "/(.*)",
