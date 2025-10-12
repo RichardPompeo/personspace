@@ -15,24 +15,24 @@ type AuthenticationUserResponse {
   uid: String!
 }
 
+input CreateUserInput {
+  displayName: String!
+  firebaseId: String!
+}
+
 type ErrorModel {
   code: String!
   message: String!
 }
 
 type Mutation {
-  signInWithEmailAndPassword(input: SignInWithEmailAndPasswordInput!): AuthenticationResponseModel!
+  createUser(input: CreateUserInput!): UserModel!
   signUpWithEmailAndPassword(input: SignUpWithEmailAndPasswordInput!): AuthenticationResponseModel!
 }
 
 type Query {
   getUser: UserModel!
   helloWorld: String!
-}
-
-input SignInWithEmailAndPasswordInput {
-  email: String!
-  password: String!
 }
 
 input SignUpWithEmailAndPasswordInput {
@@ -43,6 +43,6 @@ input SignUpWithEmailAndPasswordInput {
 
 type UserModel {
   displayName: String!
-  email: String!
+  email: String
   id: String!
 }

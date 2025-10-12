@@ -62,6 +62,41 @@
         },
         "emailPlaceholder": "Email",
         "passwordPlaceholder": "Password"
+      },
+      "auth": {
+        "signIn": "Sign in",
+        "signUp": "Sign up",
+        "email": "Email",
+        "password": "Password",
+        "displayName": "Display Name",
+        "confirmPassword": "Confirm Password",
+        "forgotPassword": "Forgot your password?",
+        "dontHaveAccount": "Don't have an account?",
+        "alreadyHaveAccount": "Already have an account?",
+        "signingIn": "Signing in...",
+        "creatingAccount": "Creating account...",
+        "bySigningUp": "By signing up, you agree to our",
+        "termsOfService": "Terms of Service",
+        "and": "and",
+        "privacyPolicy": "Privacy Policy",
+        "errors": {
+          "displayNameRequired": "Display name is required",
+          "emailRequired": "Email is required",
+          "passwordTooShort": "Password must be at least 6 characters",
+          "passwordsDoNotMatch": "Passwords do not match",
+          "invalidCredentials": "Invalid email or password",
+          "invalidEmail": "Please enter a valid email address",
+          "userDisabled": "This account has been disabled",
+          "tooManyRequests": "Too many failed login attempts. Please try again later",
+          "loginFailed": "Login failed. Please try again",
+          "emailAlreadyInUse": "An account with this email already exists",
+          "operationNotAllowed": "Account creation is currently disabled",
+          "weakPassword": "Password is too weak",
+          "registrationFailed": "Registration failed. Please try again"
+        }
+      },
+      "common": {
+        "loading": "Loading..."
       }
     }
   }

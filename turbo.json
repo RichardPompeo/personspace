@@ -1,11 +1,30 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
-  "globalEnv": ["PORT"],
+  "globalEnv": [
+    "PORT",
+    "API_KEY",
+    "AUTH_DOMAIN",
+    "PROJECT_ID",
+    "STORAGE_BUCKET",
+    "MESSAGING_SENDER_ID",
+    "APP_ID",
+    "MEASUREMENT_ID"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**"],
+      "env": [
+        "PORT",
+        "API_KEY",
+        "AUTH_DOMAIN",
+        "PROJECT_ID",
+        "STORAGE_BUCKET",
+        "MESSAGING_SENDER_ID",
+        "APP_ID",
+        "MEASUREMENT_ID"
+      ]
     },
     "lint": {},
     "dev": {

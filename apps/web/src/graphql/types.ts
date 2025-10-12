@@ -47,3 +47,18 @@ export interface GetUserData {
     email: string;
   };
 }
+
+export interface CreateUserData {
+  createUser: {
+    id: string;
+    displayName: string;
+    email: string | null;
+  };
+}
+
+export interface CreateUserVariables {
+  input: {
+    firebaseId: string;
+    displayName: string;
+  };
+}

@@ -8,9 +8,9 @@ export const authChecker: AuthChecker<GraphQLContext> = async ({
   context: { bearerToken },
 }) => {
   try {
-    await Authorization.verify(bearerToken);
+    const result = await Authorization.verify(bearerToken);
 
-    return true;
+    return result.success;
   } catch {
     return false;
   }
