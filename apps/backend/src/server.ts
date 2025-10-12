@@ -43,6 +43,7 @@ const bootstrap = async () => {
     "/graphql",
     cors<cors.CorsRequest>({
       origin: [
+        "http://localhost:5173",
         "https://personspace.vercel.app",
         "https://*.personspace.vercel.app",
       ],
