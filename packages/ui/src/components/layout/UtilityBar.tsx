@@ -38,7 +38,7 @@ export const UtilityBar = ({
   const [desktopPopoverOpen, setDesktopPopoverOpen] = useState(false);
 
   const mobilePopoverContent = (
-    <div className="flex w-60 max-w-[85vw] flex-col items-stretch gap-3 text-sm text-text">
+    <div className="flex w-52 flex-col items-stretch gap-3 text-sm text-text">
       {isLoggedIn ? (
         <Fragment>
           <div className="flex items-center gap-3">
@@ -62,7 +62,7 @@ export const UtilityBar = ({
           </Button>
         </Fragment>
       ) : (
-        <Fragment>
+        <div className="flex flex-col gap-3 w-52">
           <Button
             variant="secondary"
             onClick={onSignInClick}
@@ -73,7 +73,7 @@ export const UtilityBar = ({
           <Button onClick={onSignUpClick} className="w-full justify-center">
             {labels.signUp}
           </Button>
-        </Fragment>
+        </div>
       )}
     </div>
   );
@@ -132,14 +132,19 @@ export const UtilityBar = ({
           side="bottom"
           className="flex w-60 max-w-[85vw] flex-col gap-4 rounded-2xl border border-white/10 bg-surface/95 p-4 shadow-xl backdrop-blur"
         >
-          <div className="mb-2 text-sm font-semibold text-text">{labels.popoverTitle}</div>
+          <div className="mb-2 text-sm font-semibold text-text">
+            {labels.popoverTitle}
+          </div>
           {mobilePopoverContent}
         </PopoverContent>
       </Popover>
 
       <div className="hidden items-center gap-3 md:flex">
         {isLoggedIn ? (
-          <Popover open={desktopPopoverOpen} onOpenChange={setDesktopPopoverOpen}>
+          <Popover
+            open={desktopPopoverOpen}
+            onOpenChange={setDesktopPopoverOpen}
+          >
             <PopoverTrigger asChild>
               <Button
                 variant="default"
