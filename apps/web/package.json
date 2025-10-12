@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@apollo/client": "^4.0.7",
+    "@vercel/analytics": "^1.5.0",
+    "@vercel/speed-insights": "^1.2.0",
     "firebase": "^12.4.0",
     "graphql": "^16.11.0",
     "i18next": "^25.5.3",

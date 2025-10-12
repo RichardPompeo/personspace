@@ -3,11 +3,15 @@ import ReactDOM from "react-dom/client";
 import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
 import { ApolloProvider } from "@apollo/client/react";
 
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
+
 import { LayoutProvider } from "@/contexts/LayoutProvider";
 import { AuthProvider } from "@/contexts/AuthProvider";
+import { GRAPHQL_URI } from "@/config/apollo";
+
 import AppRouter from "./Router";
 import { Toaster } from "ui";
-import { GRAPHQL_URI } from "@/config/apollo";
 
 import "./index.css";
 import "./i18n";
@@ -30,6 +34,8 @@ if (root) {
           </AuthProvider>
         </LayoutProvider>
       </ApolloProvider>
+      <SpeedInsights />
+      <Analytics />
     </React.StrictMode>,
   );
 }
