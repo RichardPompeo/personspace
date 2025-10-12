@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:verify": "vite build && echo 'Build completed successfully' && ls -la dist/",
     "preview": "vite preview",
     "lint": "eslint --ext .ts,.tsx src"
   },
