@@ -41,6 +41,7 @@ const bootstrap = async () => {
   });
 
   console.log(`🚀 HTTP server running on ${url}`);
+  console.log(`🔍 GraphQL endpoint available at ${url}graphql`);
 };
 
 bootstrap().catch((error) => {

@@ -1,21 +1,28 @@
-FROM --platform=linux/amd64 node:16-alpine 
+FROM --platform=linux/amd64 node:18-alpine
 
 WORKDIR /usr/src/app
 
+# Copy package files
 COPY package*.json ./
+COPY yarn.lock ./
 
-RUN npm install -g typescript
-RUN npm install -g prisma
-RUN npm install
+# Install dependencies
+RUN yarn install --frozen-lockfile
 
-COPY .env ./.env
+# Copy prisma schema first
 COPY prisma ./prisma/
 
+# Generate Prisma client
+RUN yarn prisma:generate
+
+# Copy source code
 COPY . .
 
-RUN npm run build
-RUN npm run prisma:generate
+# Build the application
+RUN yarn build
 
+# Expose port (Railway will provide PORT via environment variable)
 EXPOSE 4000
 
-CMD [ "yarn", "start" ]
+# Start the application
+CMD ["yarn", "start"]

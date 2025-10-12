@@ -5,11 +5,13 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsnd --respawn --transpile-only src/server.ts",
-    "build": "tsc --project ./",
+    "build": "tsc --project ./ && npx prisma generate",
     "start": "node dist/server.js",
+    "deploy": "npx prisma migrate deploy && yarn start",
     "prisma:generate": "npx prisma generate",
     "prisma:pull": "npx prisma db pull",
-    "prisma:push": "npx prisma db push"
+    "prisma:push": "npx prisma db push",
+    "prisma:migrate": "npx prisma migrate deploy"
   },
   "dependencies": {
     "@apollo/server": "^5.0.0",
