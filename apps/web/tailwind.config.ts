@@ -10,28 +10,47 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#1c1c21",
-        surface: "#26262c",
-        "surface-muted": "#212126",
-        accent: "#8eb5f0",
-        "accent-muted": "#8eb5f0cc",
-        text: "#ffffff",
-        "text-dim": "#e5e5e5",
-        danger: "#c92121",
-        success: "#2ea043",
-        border: "rgba(255,255,255,0.12)",
-        input: "rgba(255,255,255,0.08)",
-        ring: "#8eb5f0",
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
         sans: ['"Supreme"', "sans-serif"],
-      },
-      boxShadow: {
-        card: "0 25px 45px -20px rgba(8, 15, 52, 0.35)",
-      },
-      backgroundImage: {
-        "grid-radial":
-          "radial-gradient(circle at center, rgba(255,255,255,0.08) 0, rgba(255,255,255,0.02) 55%, rgba(0,0,0,0) 100%)",
       },
     },
   },

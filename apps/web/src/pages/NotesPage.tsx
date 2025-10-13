@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ImFilesEmpty } from "react-icons/im";
-import { AiOutlineSync } from "react-icons/ai";
+import { FileText, RefreshCw } from "lucide-react";
 import { useNavigate } from "react-router";
 import { useQuery } from "@apollo/client/react";
 
@@ -108,15 +107,18 @@ export default function NotesPage() {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <h1 className="text-3xl font-bold text-text md:text-2xl">
+          <h1 className="text-3xl font-bold text-foreground md:text-2xl">
             {t("notes.title", "Notes")}
           </h1>
           <button
             onClick={handleRefresh}
             disabled={isRefreshing}
-            className="flex items-center gap-2 rounded-lg border-none bg-accent px-4 py-2 text-sm text-black transition-all hover:opacity-80 disabled:cursor-not-allowed disabled:bg-border disabled:opacity-60"
+            className="flex items-center gap-2 rounded-lg border-none bg-primary text-primary-foreground px-4 py-2 text-sm transition-all hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            <AiOutlineSync className={isRefreshing ? "animate-spin" : ""} />
+            <RefreshCw
+              size={"16px"}
+              className={isRefreshing ? "animate-spin" : ""}
+            />
             {isRefreshing
               ? t("notes.refreshing", "Refreshing...")
               : t("notes.refresh", "Refresh")}
@@ -128,8 +130,8 @@ export default function NotesPage() {
           <button
             className={`cursor-pointer whitespace-nowrap border-none px-4 py-2 text-sm transition-all hover:opacity-80 ${
               type === "your"
-                ? "bg-accent text-black"
-                : "bg-transparent text-text"
+                ? "bg-primary text-primary-foreground"
+                : "bg-transparent text-foreground"
             }`}
             onClick={() => setType("your")}
           >
@@ -138,8 +140,8 @@ export default function NotesPage() {
           <button
             className={`cursor-pointer whitespace-nowrap border-none px-4 py-2 text-sm transition-all hover:opacity-80 ${
               type === "shared"
-                ? "bg-accent text-black"
-                : "bg-transparent text-text"
+                ? "bg-primary text-primary-foreground"
+                : "bg-transparent text-foreground"
             }`}
             onClick={() => setType("shared")}
           >
@@ -158,8 +160,8 @@ export default function NotesPage() {
           </div>
         ) : displayNotes.length === 0 ? (
           <div className="col-span-full flex flex-col items-center justify-center gap-4 p-16">
-            <ImFilesEmpty className="text-6xl text-border" />
-            <p className="text-xl text-text-dim">
+            <FileText className="h-16 w-16 text-muted-foreground" />
+            <p className="text-xl text-muted-foreground">
               {type === "your"
                 ? t("notes.noNotes", "No notes yet. Create your first note!")
                 : t("notes.noSharedNotes", "No shared notes yet.")}
@@ -170,10 +172,10 @@ export default function NotesPage() {
             {type === "shared"
               ? sharedNotes.map((sharedNote) => (
                   <div key={sharedNote.id} className="flex flex-col gap-2">
-                    <div className="rounded-lg border-l-4 border-accent bg-background-secondary px-3 py-2">
-                      <p className="m-0 text-xs text-text-dim">
+                    <div className="rounded-lg border-l-4 border-primary bg-card px-3 py-2">
+                      <p className="m-0 text-xs text-muted-foreground">
                         {t("notes.sharedBy", "Shared by")}{" "}
-                        <strong className="text-text">
+                        <strong className="text-foreground">
                           {sharedNote.note.author.displayName}
                         </strong>
                       </p>
@@ -199,6 +201,7 @@ export default function NotesPage() {
       {selectedNote && (
         <ExpandedNoteModal
           note={selectedNote}
+          open={!!selectedNote}
           onClose={() => setSelectedNote(null)}
           onNoteUpdated={handleRefresh}
           isOwner={selectedNote.authorId === user?.id}

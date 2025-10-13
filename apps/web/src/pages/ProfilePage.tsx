@@ -1,5 +1,12 @@
 import { useTranslation } from "react-i18next";
-import { Button } from "ui";
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "ui";
 import { useAuth } from "@/hooks/useAuth";
 
 const ProfilePage = () => {
@@ -18,40 +25,42 @@ const ProfilePage = () => {
     <div className="min-h-screen bg-background px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-text">{t("profile.title")}</h1>
-          <p className="mt-2 text-text-dim">{t("profile.subtitle")}</p>
+          <h1 className="text-3xl font-bold text-foreground">
+            {t("profile.title")}
+          </h1>
+          <p className="mt-2 text-muted-foreground">{t("profile.subtitle")}</p>
         </div>
 
         <div className="space-y-6">
           {/* User Information Card */}
-          <div className="rounded-lg border border-border bg-background p-6 shadow-sm">
-            <h2 className="mb-4 text-xl font-semibold text-text">
-              {t("profile.accountInformation")}
-            </h2>
-            <div className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>{t("profile.accountInformation")}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
               <div>
-                <div className="block text-sm font-medium text-text">
+                <div className="block text-sm font-medium">
                   {t("profile.displayName")}
                 </div>
-                <p className="mt-1 text-text-dim">
+                <p className="mt-1 text-muted-foreground">
                   {user?.displayName || t("profile.notSet")}
                 </p>
               </div>
               <div>
-                <div className="block text-sm font-medium text-text">
+                <div className="block text-sm font-medium">
                   {t("profile.email")}
                 </div>
-                <p className="mt-1 text-text-dim">
+                <p className="mt-1 text-muted-foreground">
                   {user?.email ||
                     firebaseUser?.email ||
                     t("profile.notAvailable")}
                 </p>
               </div>
               <div>
-                <div className="block text-sm font-medium text-text">
+                <div className="block text-sm font-medium">
                   {t("profile.accountCreated")}
                 </div>
-                <p className="mt-1 text-text-dim">
+                <p className="mt-1 text-muted-foreground">
                   {firebaseUser?.metadata.creationTime
                     ? new Date(
                         firebaseUser.metadata.creationTime,
@@ -59,22 +68,22 @@ const ProfilePage = () => {
                     : t("profile.notAvailable")}
                 </p>
               </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
 
           {/* Actions */}
-          <div className="rounded-lg border border-border bg-background p-6 shadow-sm">
-            <h2 className="mb-4 text-xl font-semibold text-text">
-              {t("profile.actions")}
-            </h2>
-            <div className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>{t("profile.actions")}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
               <div>
-                <h3 className="text-sm font-medium text-text">
+                <h3 className="text-sm font-medium">
                   {t("profile.signOutTitle")}
                 </h3>
-                <p className="mt-1 text-sm text-text-dim">
+                <CardDescription className="mt-1">
                   {t("profile.signOutDescription")}
-                </p>
+                </CardDescription>
                 <Button
                   onClick={handleLogout}
                   variant="secondary"
@@ -83,8 +92,8 @@ const ProfilePage = () => {
                   {t("profile.signOutButton")}
                 </Button>
               </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

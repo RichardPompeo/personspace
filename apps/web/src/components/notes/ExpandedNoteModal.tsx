@@ -1,17 +1,26 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { useTranslation } from "react-i18next";
-import { IoMdClose } from "react-icons/io";
-import { MdDelete, MdEdit } from "react-icons/md";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+  DialogHeader,
+  Badge,
+} from "ui";
+import { Calendar, Clock } from "lucide-react";
 
 import { NoteType } from "../../types/NoteType";
-import { NoteCommentType } from "../../types/NoteCommentType";
 import DELETE_NOTE_MUTATION from "../../graphql/notes/deleteNoteMutation";
 import UPDATE_NOTE_MUTATION from "../../graphql/notes/updateNoteMutation";
-import CREATE_NOTE_COMMENT_MUTATION from "../../graphql/notes/createNoteCommentMutation";
+import NoteModalHeader from "./expanded-note/NoteModalHeader";
+import NoteContent from "./expanded-note/NoteContent";
+import NoteComments from "./expanded-note/NoteComments";
 
 interface ExpandedNoteModalProps {
   note: NoteType;
+  open: boolean;
   onClose: () => void;
   onNoteUpdated: () => void;
   isOwner: boolean;
@@ -41,19 +50,9 @@ interface UpdateNoteVariables {
   };
 }
 
-interface CreateCommentData {
-  createNoteComment: NoteCommentType;
-}
-
-interface CreateCommentVariables {
-  input: {
-    noteId: string;
-    message: string;
-  };
-}
-
 export default function ExpandedNoteModal({
   note,
+  open,
   onClose,
   onNoteUpdated,
   isOwner,
@@ -61,7 +60,6 @@ export default function ExpandedNoteModal({
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(note.title);
   const [editDescription, setEditDescription] = useState(note.description);
-  const [commentMessage, setCommentMessage] = useState("");
 
   const { t } = useTranslation();
   const token = localStorage.getItem("idToken");
@@ -104,25 +102,6 @@ export default function ExpandedNoteModal({
     },
   });
 
-  const [createComment, { loading: commentLoading }] = useMutation<
-    CreateCommentData,
-    CreateCommentVariables
-  >(CREATE_NOTE_COMMENT_MUTATION, {
-    context: {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-    onCompleted: () => {
-      setCommentMessage("");
-      onNoteUpdated();
-    },
-    onError: (error) => {
-      console.error("Error creating comment:", error);
-      alert(t("notes.notifications.error"));
-    },
-  });
-
   const handleDelete = () => {
     if (
       window.confirm(
@@ -140,8 +119,7 @@ export default function ExpandedNoteModal({
     }
   };
 
-  const handleUpdate = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleUpdate = () => {
     if (!editTitle.trim() || !editDescription.trim()) {
       return;
     }
@@ -157,20 +135,10 @@ export default function ExpandedNoteModal({
     });
   };
 
-  const handleAddComment = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!commentMessage.trim()) {
-      return;
-    }
-
-    createComment({
-      variables: {
-        input: {
-          noteId: note.id,
-          message: commentMessage.trim(),
-        },
-      },
-    });
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+    setEditTitle(note.title);
+    setEditDescription(note.description);
   };
 
   const formatDate = (dateString: string) => {
@@ -179,175 +147,88 @@ export default function ExpandedNoteModal({
       year: "numeric",
       month: "long",
       day: "numeric",
+    });
+  };
+
+  const formatTime = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleTimeString(undefined, {
       hour: "2-digit",
       minute: "2-digit",
     });
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div
-        className="relative flex max-h-[90vh] w-full max-w-3xl flex-col overflow-hidden rounded-lg bg-background shadow-2xl"
-        style={{ borderLeftColor: note.color, borderLeftWidth: "6px" }}
-      >
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent className="max-w-4xl max-h-[90vh] p-0 gap-0 overflow-hidden">
+        <DialogHeader className="sr-only">
+          <DialogTitle>{note.title}</DialogTitle>
+          <DialogDescription>{note.description}</DialogDescription>
+        </DialogHeader>
+
+        {/* Color accent bar */}
+        <div className="h-2 w-full" style={{ backgroundColor: note.color }} />
+
         {/* Header */}
-        <div className="flex items-start justify-between border-b border-border p-6">
-          <div className="flex-1">
-            {isEditing ? (
-              <input
-                type="text"
-                value={editTitle}
-                onChange={(e) => setEditTitle(e.target.value)}
-                className="w-full border-none bg-transparent text-2xl font-bold text-text outline-none"
-                disabled={updateLoading}
-              />
-            ) : (
-              <h2 className="text-2xl font-bold text-text">{note.title}</h2>
-            )}
-          </div>
+        <div className="px-6 pt-6 pb-4">
+          <NoteModalHeader
+            title={note.title}
+            isOwner={isOwner}
+            isEditing={isEditing}
+            editTitle={editTitle}
+            updateLoading={updateLoading}
+            deleteLoading={deleteLoading}
+            onEditTitleChange={setEditTitle}
+            onEditClick={() => setIsEditing(true)}
+            onSaveClick={handleUpdate}
+            onCancelClick={handleCancelEdit}
+            onDeleteClick={handleDelete}
+            onClose={onClose}
+          />
 
-          <div className="flex items-center gap-3">
-            {isOwner && (
-              <>
-                {isEditing ? (
-                  <>
-                    <button
-                      onClick={handleUpdate}
-                      disabled={updateLoading}
-                      className="flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-black transition-all hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-60"
-                    >
-                      {updateLoading
-                        ? t("notes.expandedNote.saving", "Saving...")
-                        : t("notes.expandedNote.save", "Save")}
-                    </button>
-                    <button
-                      onClick={() => {
-                        setIsEditing(false);
-                        setEditTitle(note.title);
-                        setEditDescription(note.description);
-                      }}
-                      disabled={updateLoading}
-                      className="rounded-lg border border-border bg-transparent px-4 py-2 text-sm font-medium text-text transition-all hover:bg-background-secondary disabled:cursor-not-allowed disabled:opacity-60"
-                    >
-                      {t("notes.expandedNote.cancel", "Cancel")}
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button
-                      onClick={() => setIsEditing(true)}
-                      className="flex items-center gap-2 rounded-lg border border-border bg-transparent px-4 py-2 text-sm font-medium text-text transition-all hover:bg-background-secondary"
-                    >
-                      <MdEdit size={16} />
-                      {t("notes.expandedNote.edit", "Edit")}
-                    </button>
-                  </>
-                )}
-
-                {!isEditing && (
-                  <button
-                    onClick={handleDelete}
-                    disabled={deleteLoading}
-                    className="flex items-center gap-2 rounded-lg border-none bg-red-500 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-60"
-                  >
-                    <MdDelete size={16} />
-                    {deleteLoading
-                      ? t("notes.expandedNote.deleting", "Deleting...")
-                      : t("notes.expandedNote.delete", "Delete")}
-                  </button>
-                )}
-              </>
+          {/* Metadata */}
+          <div className="flex items-center gap-4 mt-4 text-xs text-muted-foreground">
+            <div className="flex items-center gap-1.5">
+              <Calendar className="h-3.5 w-3.5" />
+              <span>{formatDate(note.createdAt)}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Clock className="h-3.5 w-3.5" />
+              <span>{formatTime(note.createdAt)}</span>
+            </div>
+            {note.comments && note.comments.length > 0 && (
+              <Badge variant="secondary" className="ml-auto">
+                {note.comments.length}{" "}
+                {note.comments.length === 1
+                  ? t("notes.expandedNote.comment", "comment")
+                  : t("notes.expandedNote.comments", "comments")}
+              </Badge>
             )}
-            <button
-              onClick={onClose}
-              className="ml-4 rounded-lg p-2 text-text-dim transition-colors hover:bg-background-secondary hover:text-text"
-            >
-              <IoMdClose size={24} />
-            </button>
           </div>
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-6">
-          {isEditing ? (
-            <textarea
-              value={editDescription}
-              onChange={(e) => setEditDescription(e.target.value)}
-              className="min-h-[120px] w-full resize-none border-none bg-transparent text-text outline-none"
-              disabled={updateLoading}
+        <div className="flex-1 overflow-y-auto px-6 pb-6">
+          <div className="border-t border-border pt-6">
+            <NoteContent
+              description={note.description}
+              isEditing={isEditing}
+              editDescription={editDescription}
+              updateLoading={updateLoading}
+              onEditDescriptionChange={setEditDescription}
             />
-          ) : (
-            <p className="whitespace-pre-wrap text-text">{note.description}</p>
-          )}
+          </div>
 
           {/* Comments Section */}
-          <div className="mt-8">
-            <h3 className="mb-4 text-lg font-semibold text-text">
-              {t("notes.expandedNote.comments", "Comments")} (
-              {note.comments?.length || 0})
-            </h3>
-
-            {note.comments && note.comments.length > 0 ? (
-              <div className="space-y-4">
-                {note.comments.map((comment) => (
-                  <div
-                    key={comment.id}
-                    className="rounded-lg border border-border bg-background-secondary p-4"
-                  >
-                    <div className="mb-2 flex items-center justify-between">
-                      <span className="font-medium text-text">
-                        {comment.author.displayName}
-                      </span>
-                      <span className="text-xs text-text-dim">
-                        {formatDate(comment.createdAt)}
-                      </span>
-                    </div>
-                    <p className="text-sm text-text">{comment.message}</p>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm text-text-dim">
-                {t("notes.expandedNote.noComments", "No comments yet")}
-              </p>
-            )}
-
-            {/* Add Comment Form */}
-            <form onSubmit={handleAddComment} className="mt-4">
-              <textarea
-                value={commentMessage}
-                onChange={(e) => setCommentMessage(e.target.value)}
-                placeholder={t(
-                  "notes.expandedNote.commentPlaceholder",
-                  "Write a comment...",
-                )}
-                className="w-full resize-none rounded-lg border border-border bg-background p-3 text-sm text-text outline-none focus:border-accent"
-                rows={3}
-                disabled={commentLoading}
-              />
-              <button
-                type="submit"
-                disabled={commentLoading || !commentMessage.trim()}
-                className="mt-2 rounded-lg border-none bg-accent px-4 py-2 text-sm font-medium text-black transition-all hover:opacity-80 disabled:cursor-not-allowed disabled:bg-border disabled:opacity-60"
-              >
-                {commentLoading
-                  ? t("notes.expandedNote.sending", "Sending...")
-                  : t("notes.expandedNote.send", "Send")}
-              </button>
-            </form>
+          <div className="mt-8 border-t border-border pt-6">
+            <NoteComments
+              noteId={note.id}
+              comments={note.comments}
+              onCommentAdded={onNoteUpdated}
+            />
           </div>
         </div>
-
-        {/* Footer Actions */}
-        <div className="flex items-center justify-between border-t border-border p-4">
-          <div className="flex gap-2">
-            <p className="mt-1 text-sm text-text-dim">
-              {t("notes.expandedNote.created", "Created")}{" "}
-              {formatDate(note.createdAt)}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }

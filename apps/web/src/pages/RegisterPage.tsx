@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useLocation } from "react-router";
 import { FirebaseError } from "firebase/app";
 
-import { Button } from "ui";
+import { Button, Input, Label, Alert, AlertDescription } from "ui";
 import { useAuth } from "@/hooks/useAuth";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
@@ -118,14 +118,14 @@ const RegisterPage = () => {
     <div className="min-h-screen flex items-center justify-center bg-background px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-text">
+          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-foreground">
             {t("auth.signUp")}
           </h2>
-          <p className="mt-2 text-center text-sm text-text-dim">
+          <p className="mt-2 text-center text-sm text-muted-foreground">
             {t("auth.alreadyHaveAccount")}{" "}
             <Link
               to="/login"
-              className="font-medium text-accent hover:text-accent/80"
+              className="font-medium text-primary hover:text-primary/80"
             >
               {t("auth.signIn")}
             </Link>
@@ -135,16 +135,15 @@ const RegisterPage = () => {
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
             <div>
-              <label htmlFor="displayName" className="sr-only">
+              <Label htmlFor="displayName" className="sr-only">
                 {t("auth.displayName")}
-              </label>
-              <input
+              </Label>
+              <Input
                 id="displayName"
                 name="displayName"
                 type="text"
                 autoComplete="name"
                 required
-                className="relative block w-full rounded-lg border border-border bg-background px-3 py-3 text-text placeholder-text-dim focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent sm:text-sm"
                 placeholder={t("auth.displayName")}
                 value={formData.displayName}
                 onChange={handleInputChange}
@@ -152,16 +151,15 @@ const RegisterPage = () => {
               />
             </div>
             <div>
-              <label htmlFor="email" className="sr-only">
+              <Label htmlFor="email" className="sr-only">
                 {t("auth.email")}
-              </label>
-              <input
+              </Label>
+              <Input
                 id="email"
                 name="email"
                 type="email"
                 autoComplete="email"
                 required
-                className="relative block w-full rounded-lg border border-border bg-background px-3 py-3 text-text placeholder-text-dim focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent sm:text-sm"
                 placeholder={t("auth.email")}
                 value={formData.email}
                 onChange={handleInputChange}
@@ -169,16 +167,15 @@ const RegisterPage = () => {
               />
             </div>
             <div>
-              <label htmlFor="password" className="sr-only">
+              <Label htmlFor="password" className="sr-only">
                 {t("auth.password")}
-              </label>
-              <input
+              </Label>
+              <Input
                 id="password"
                 name="password"
                 type="password"
                 autoComplete="new-password"
                 required
-                className="relative block w-full rounded-lg border border-border bg-background px-3 py-3 text-text placeholder-text-dim focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent sm:text-sm"
                 placeholder={t("auth.password")}
                 value={formData.password}
                 onChange={handleInputChange}
@@ -186,16 +183,15 @@ const RegisterPage = () => {
               />
             </div>
             <div>
-              <label htmlFor="confirmPassword" className="sr-only">
+              <Label htmlFor="confirmPassword" className="sr-only">
                 {t("auth.confirmPassword")}
-              </label>
-              <input
+              </Label>
+              <Input
                 id="confirmPassword"
                 name="confirmPassword"
                 type="password"
                 autoComplete="new-password"
                 required
-                className="relative block w-full rounded-lg border border-border bg-background px-3 py-3 text-text placeholder-text-dim focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent sm:text-sm"
                 placeholder={t("auth.confirmPassword")}
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
@@ -205,9 +201,9 @@ const RegisterPage = () => {
           </div>
 
           {error && (
-            <div className="rounded-lg bg-red-50 border border-red-200 p-4">
-              <div className="text-sm text-red-800">{error}</div>
-            </div>
+            <Alert variant="destructive">
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
           )}
 
           <div>
@@ -227,13 +223,13 @@ const RegisterPage = () => {
             </Button>
           </div>
 
-          <div className="text-sm text-text-dim text-center">
+          <div className="text-sm text-muted-foreground text-center">
             {t("auth.bySigningUp")}{" "}
-            <Link to="/terms" className="text-accent hover:text-accent/80">
+            <Link to="/terms" className="text-primary hover:text-primary/80">
               {t("auth.termsOfService")}
             </Link>{" "}
             {t("auth.and")}{" "}
-            <Link to="/privacy" className="text-accent hover:text-accent/80">
+            <Link to="/privacy" className="text-primary hover:text-primary/80">
               {t("auth.privacyPolicy")}
             </Link>
           </div>

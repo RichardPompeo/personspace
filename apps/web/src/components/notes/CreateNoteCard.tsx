@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client/react";
 import { useTranslation } from "react-i18next";
-import { AiOutlinePlus } from "react-icons/ai";
+import { Plus } from "lucide-react";
+import { Card, CardContent, Input, Textarea, Button, Label } from "ui";
 
 import CREATE_NOTE_MUTATION from "../../graphql/notes/createNoteMutation";
 import { NoteType } from "../../types/NoteType";
@@ -88,91 +89,105 @@ export default function CreateNoteCard({ onNoteCreated }: CreateNoteCardProps) {
 
   if (!isExpanded) {
     return (
-      <button
+      <Card
         onClick={() => setIsExpanded(true)}
-        className="flex min-h-[200px] w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed border-border bg-background-secondary transition-all hover:border-accent hover:bg-background"
+        className="flex min-h-[200px] w-full cursor-pointer flex-col items-center justify-center border-2 border-dashed transition-all hover:border-primary bg-accent/5"
       >
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-black">
-          <AiOutlinePlus size={24} />
-        </div>
-        <span className="text-sm font-medium text-text">
-          {t("notes.createNote.title", "Create Note")}
-        </span>
-      </button>
+        <CardContent className="flex flex-col items-center justify-center gap-3 p-6">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
+            <Plus className="h-6 w-6" />
+          </div>
+          <span className="text-sm font-medium">
+            {t("notes.createNote.title", "Create Note")}
+          </span>
+        </CardContent>
+      </Card>
     );
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex min-h-[200px] w-full flex-col gap-4 rounded-lg border border-border bg-background-secondary p-4"
-      style={{ borderLeftColor: selectedColor, borderLeftWidth: "4px" }}
+    <Card
+      className="min-h-[200px] border-l-4"
+      style={{ borderLeftColor: selectedColor }}
     >
-      <input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder={t("notes.createNote.titlePlaceholder", "Note title")}
-        className="w-full border-none bg-transparent text-lg font-semibold text-text outline-none placeholder:text-text-dim"
-        disabled={loading}
-      />
-      <textarea
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        placeholder={t(
-          "notes.createNote.descriptionPlaceholder",
-          "Note description",
-        )}
-        className="min-h-[40px] w-full resize-none border-none bg-transparent text-sm text-text outline-none placeholder:text-text-dim"
-        disabled={loading}
-      />
+      <CardContent className="p-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <div className="space-y-2">
+            <Input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder={t("notes.createNote.titlePlaceholder", "Note title")}
+              className="text-lg font-semibold"
+              disabled={loading}
+            />
+          </div>
 
-      <div className="flex flex-col gap-2">
-        <label className="text-xs font-medium text-text-dim">
-          {t("notes.createNote.color", "Color")}
-        </label>
-        <div className="flex flex-wrap gap-2">
-          {PRESET_COLORS.map((color) => (
-            <button
-              key={color}
+          <div className="space-y-2">
+            <Textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder={t(
+                "notes.createNote.descriptionPlaceholder",
+                "Note description",
+              )}
+              className="min-h-[80px] resize-none"
+              disabled={loading}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label className="text-xs font-medium text-muted-foreground">
+              {t("notes.createNote.color", "Color")}
+            </Label>
+            <div className="flex flex-wrap gap-2">
+              {PRESET_COLORS.map((color) => (
+                <button
+                  key={color}
+                  type="button"
+                  onClick={() => setSelectedColor(color)}
+                  className="h-8 w-8 rounded-full border-2 transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                  style={{
+                    backgroundColor: color,
+                    borderColor:
+                      selectedColor === color
+                        ? "hsl(var(--foreground))"
+                        : "transparent",
+                  }}
+                  disabled={loading}
+                  aria-label={`Select color ${color}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-2 pt-2">
+            <Button
+              type="submit"
+              disabled={loading || !title.trim() || !description.trim()}
+              className="w-full"
+            >
+              {loading
+                ? t("notes.createNote.creating", "Creating...")
+                : t("notes.createNote.create", "Create")}
+            </Button>
+            <Button
               type="button"
-              onClick={() => setSelectedColor(color)}
-              className="h-6 w-6 rounded-full border-2 transition-all hover:scale-110"
-              style={{
-                backgroundColor: color,
-                borderColor: selectedColor === color ? "#000" : "transparent",
+              variant="outline"
+              onClick={() => {
+                setTitle("");
+                setDescription("");
+                setSelectedColor(PRESET_COLORS[0]);
+                setIsExpanded(false);
               }}
               disabled={loading}
-              aria-label={`Select color ${color}`}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div className="flex gap-2 flex-col">
-        <button
-          type="submit"
-          disabled={loading || !title.trim() || !description.trim()}
-          className="flex-1 rounded-lg border-none bg-accent px-4 py-2 text-sm font-medium text-black transition-all hover:opacity-80 disabled:cursor-not-allowed disabled:bg-border disabled:opacity-60"
-        >
-          {loading
-            ? t("notes.createNote.creating", "Creating...")
-            : t("notes.createNote.create", "Create")}
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            setTitle("");
-            setDescription("");
-            setSelectedColor(PRESET_COLORS[0]);
-            setIsExpanded(false);
-          }}
-          disabled={loading}
-          className="rounded-lg border border-border bg-transparent px-4 py-2 text-sm font-medium text-text transition-all hover:bg-background disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          {t("notes.expandedNote.cancel", "Cancel")}
-        </button>
-      </div>
-    </form>
+              className="w-full"
+            >
+              {t("notes.expandedNote.cancel", "Cancel")}
+            </Button>
+          </div>
+        </form>
+      </CardContent>
+    </Card>
   );
 }

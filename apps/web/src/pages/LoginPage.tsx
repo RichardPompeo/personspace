@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useLocation } from "react-router";
 import { FirebaseError } from "firebase/app";
 
-import { Button } from "ui";
+import { Button, Input, Label, Alert, AlertDescription } from "ui";
 import { useAuth } from "@/hooks/useAuth";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
@@ -88,14 +88,14 @@ const LoginPage = () => {
     <div className="min-h-screen flex items-center justify-center bg-background px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-text">
+          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-foreground">
             {t("auth.signIn")}
           </h2>
-          <p className="mt-2 text-center text-sm text-text-dim">
+          <p className="mt-2 text-center text-sm text-muted-foreground">
             {t("auth.dontHaveAccount")}{" "}
             <Link
               to="/register"
-              className="font-medium text-accent hover:text-accent/80"
+              className="font-medium text-primary hover:text-primary/80"
             >
               {t("auth.signUp")}
             </Link>
@@ -105,16 +105,15 @@ const LoginPage = () => {
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
             <div>
-              <label htmlFor="email" className="sr-only">
+              <Label htmlFor="email" className="sr-only">
                 {t("auth.email")}
-              </label>
-              <input
+              </Label>
+              <Input
                 id="email"
                 name="email"
                 type="email"
                 autoComplete="email"
                 required
-                className="relative block w-full rounded-lg border border-border bg-background px-3 py-3 text-text placeholder-text-dim focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent sm:text-sm"
                 placeholder={t("auth.email")}
                 value={formData.email}
                 onChange={handleInputChange}
@@ -122,16 +121,15 @@ const LoginPage = () => {
               />
             </div>
             <div>
-              <label htmlFor="password" className="sr-only">
+              <Label htmlFor="password" className="sr-only">
                 {t("auth.password")}
-              </label>
-              <input
+              </Label>
+              <Input
                 id="password"
                 name="password"
                 type="password"
                 autoComplete="current-password"
                 required
-                className="relative block w-full rounded-lg border border-border bg-background px-3 py-3 text-text placeholder-text-dim focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent sm:text-sm"
                 placeholder={t("auth.password")}
                 value={formData.password}
                 onChange={handleInputChange}
@@ -141,9 +139,9 @@ const LoginPage = () => {
           </div>
 
           {error && (
-            <div className="rounded-lg bg-red-50 border border-red-200 p-4">
-              <div className="text-sm text-red-800">{error}</div>
-            </div>
+            <Alert variant="destructive">
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
           )}
 
           <div>
@@ -166,7 +164,7 @@ const LoginPage = () => {
           <div className="text-center">
             <Link
               to="/forgot-password"
-              className="text-sm text-accent hover:text-accent/80"
+              className="text-sm text-primary hover:text-primary/80"
             >
               {t("auth.forgotPassword")}
             </Link>
