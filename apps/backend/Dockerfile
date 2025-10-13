@@ -24,7 +24,7 @@ COPY . ./backend
 # Set working directory to backend
 WORKDIR /app/backend
 
-# Generate Prisma client
+# Generate Prisma client for builds
 RUN npx prisma generate
 
 # Build TypeScript
@@ -36,5 +36,5 @@ EXPOSE $PORT
 # Set production environment
 ENV NODE_ENV=production
 
-# Start with migrations
-CMD npx prisma migrate deploy && node dist/server.js
+# Sync Prisma schema before starting the server
+CMD npx prisma db push && node dist/server.js
