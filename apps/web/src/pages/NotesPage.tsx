@@ -9,9 +9,9 @@ import { AuthContext } from "../contexts/AuthProvider";
 import { NoteType } from "../types/NoteType";
 import { NoteShareType } from "../types/NoteShareType";
 import LoadingSpinner from "../components/LoadingSpinner";
-import CreateNoteCard from "../components/CreateNoteCard";
-import NoteCard from "../components/NoteCard";
-import ExpandedNoteModal from "../components/ExpandedNoteModal";
+import CreateNoteCard from "../components/notes/CreateNoteCard";
+import NoteCard from "../components/notes/NoteCard";
+import ExpandedNoteModal from "../components/notes/ExpandedNoteModal";
 
 import GET_NOTES_QUERY from "../graphql/notes/getNotesQuery";
 import GET_SHARED_NOTES_QUERY from "../graphql/notes/getSharedNotes";
@@ -114,7 +114,7 @@ export default function NotesPage() {
           <button
             onClick={handleRefresh}
             disabled={isRefreshing}
-            className="flex items-center gap-2 rounded-lg border-none bg-accent px-4 py-2 text-sm text-white transition-all hover:opacity-80 disabled:cursor-not-allowed disabled:bg-border disabled:opacity-60"
+            className="flex items-center gap-2 rounded-lg border-none bg-accent px-4 py-2 text-sm text-black transition-all hover:opacity-80 disabled:cursor-not-allowed disabled:bg-border disabled:opacity-60"
           >
             <AiOutlineSync className={isRefreshing ? "animate-spin" : ""} />
             {isRefreshing
@@ -128,7 +128,7 @@ export default function NotesPage() {
           <button
             className={`cursor-pointer whitespace-nowrap border-none px-4 py-2 text-sm transition-all hover:opacity-80 ${
               type === "your"
-                ? "bg-accent text-white"
+                ? "bg-accent text-black"
                 : "bg-transparent text-text"
             }`}
             onClick={() => setType("your")}
@@ -138,7 +138,7 @@ export default function NotesPage() {
           <button
             className={`cursor-pointer whitespace-nowrap border-none px-4 py-2 text-sm transition-all hover:opacity-80 ${
               type === "shared"
-                ? "bg-accent text-white"
+                ? "bg-accent text-black"
                 : "bg-transparent text-text"
             }`}
             onClick={() => setType("shared")}

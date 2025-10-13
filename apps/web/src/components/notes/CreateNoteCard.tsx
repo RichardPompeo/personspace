@@ -3,8 +3,8 @@ import { useMutation } from "@apollo/client/react";
 import { useTranslation } from "react-i18next";
 import { AiOutlinePlus } from "react-icons/ai";
 
-import CREATE_NOTE_MUTATION from "../graphql/notes/createNoteMutation";
-import { NoteType } from "../types/NoteType";
+import CREATE_NOTE_MUTATION from "../../graphql/notes/createNoteMutation";
+import { NoteType } from "../../types/NoteType";
 
 interface CreateNoteCardProps {
   onNoteCreated?: () => void;
@@ -92,7 +92,7 @@ export default function CreateNoteCard({ onNoteCreated }: CreateNoteCardProps) {
         onClick={() => setIsExpanded(true)}
         className="flex min-h-[200px] w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed border-border bg-background-secondary transition-all hover:border-accent hover:bg-background"
       >
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-white">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-black">
           <AiOutlinePlus size={24} />
         </div>
         <span className="text-sm font-medium text-text">
@@ -116,7 +116,6 @@ export default function CreateNoteCard({ onNoteCreated }: CreateNoteCardProps) {
         className="w-full border-none bg-transparent text-lg font-semibold text-text outline-none placeholder:text-text-dim"
         disabled={loading}
       />
-
       <textarea
         value={description}
         onChange={(e) => setDescription(e.target.value)}
@@ -124,7 +123,7 @@ export default function CreateNoteCard({ onNoteCreated }: CreateNoteCardProps) {
           "notes.createNote.descriptionPlaceholder",
           "Note description",
         )}
-        className="min-h-[80px] w-full resize-none border-none bg-transparent text-sm text-text outline-none placeholder:text-text-dim"
+        className="min-h-[40px] w-full resize-none border-none bg-transparent text-sm text-text outline-none placeholder:text-text-dim"
         disabled={loading}
       />
 
@@ -138,7 +137,7 @@ export default function CreateNoteCard({ onNoteCreated }: CreateNoteCardProps) {
               key={color}
               type="button"
               onClick={() => setSelectedColor(color)}
-              className="h-8 w-8 rounded-full border-2 transition-all hover:scale-110"
+              className="h-6 w-6 rounded-full border-2 transition-all hover:scale-110"
               style={{
                 backgroundColor: color,
                 borderColor: selectedColor === color ? "#000" : "transparent",
@@ -150,11 +149,11 @@ export default function CreateNoteCard({ onNoteCreated }: CreateNoteCardProps) {
         </div>
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex gap-2 flex-col">
         <button
           type="submit"
           disabled={loading || !title.trim() || !description.trim()}
-          className="flex-1 rounded-lg border-none bg-accent px-4 py-2 text-sm font-medium text-white transition-all hover:opacity-80 disabled:cursor-not-allowed disabled:bg-border disabled:opacity-60"
+          className="flex-1 rounded-lg border-none bg-accent px-4 py-2 text-sm font-medium text-black transition-all hover:opacity-80 disabled:cursor-not-allowed disabled:bg-border disabled:opacity-60"
         >
           {loading
             ? t("notes.createNote.creating", "Creating...")

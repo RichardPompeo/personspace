@@ -4,11 +4,11 @@ import { useTranslation } from "react-i18next";
 import { IoMdClose } from "react-icons/io";
 import { MdDelete, MdEdit } from "react-icons/md";
 
-import { NoteType } from "../types/NoteType";
-import { NoteCommentType } from "../types/NoteCommentType";
-import DELETE_NOTE_MUTATION from "../graphql/notes/deleteNoteMutation";
-import UPDATE_NOTE_MUTATION from "../graphql/notes/updateNoteMutation";
-import CREATE_NOTE_COMMENT_MUTATION from "../graphql/notes/createNoteCommentMutation";
+import { NoteType } from "../../types/NoteType";
+import { NoteCommentType } from "../../types/NoteCommentType";
+import DELETE_NOTE_MUTATION from "../../graphql/notes/deleteNoteMutation";
+import UPDATE_NOTE_MUTATION from "../../graphql/notes/updateNoteMutation";
+import CREATE_NOTE_COMMENT_MUTATION from "../../graphql/notes/createNoteCommentMutation";
 
 interface ExpandedNoteModalProps {
   note: NoteType;
@@ -188,7 +188,7 @@ export default function ExpandedNoteModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
       <div
         className="relative flex max-h-[90vh] w-full max-w-3xl flex-col overflow-hidden rounded-lg bg-background shadow-2xl"
-        style={{ borderTopColor: note.color, borderTopWidth: "6px" }}
+        style={{ borderLeftColor: note.color, borderLeftWidth: "6px" }}
       >
         {/* Header */}
         <div className="flex items-start justify-between border-b border-border p-6">
@@ -204,18 +204,67 @@ export default function ExpandedNoteModal({
             ) : (
               <h2 className="text-2xl font-bold text-text">{note.title}</h2>
             )}
-            <p className="mt-1 text-sm text-text-dim">
-              {t("notes.expandedNote.created", "Created")}{" "}
-              {formatDate(note.createdAt)}
-            </p>
           </div>
 
-          <button
-            onClick={onClose}
-            className="ml-4 rounded-lg p-2 text-text-dim transition-colors hover:bg-background-secondary hover:text-text"
-          >
-            <IoMdClose size={24} />
-          </button>
+          <div className="flex items-center gap-3">
+            {isOwner && (
+              <>
+                {isEditing ? (
+                  <>
+                    <button
+                      onClick={handleUpdate}
+                      disabled={updateLoading}
+                      className="flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-black transition-all hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      {updateLoading
+                        ? t("notes.expandedNote.saving", "Saving...")
+                        : t("notes.expandedNote.save", "Save")}
+                    </button>
+                    <button
+                      onClick={() => {
+                        setIsEditing(false);
+                        setEditTitle(note.title);
+                        setEditDescription(note.description);
+                      }}
+                      disabled={updateLoading}
+                      className="rounded-lg border border-border bg-transparent px-4 py-2 text-sm font-medium text-text transition-all hover:bg-background-secondary disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      {t("notes.expandedNote.cancel", "Cancel")}
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => setIsEditing(true)}
+                      className="flex items-center gap-2 rounded-lg border border-border bg-transparent px-4 py-2 text-sm font-medium text-text transition-all hover:bg-background-secondary"
+                    >
+                      <MdEdit size={16} />
+                      {t("notes.expandedNote.edit", "Edit")}
+                    </button>
+                  </>
+                )}
+
+                {!isEditing && (
+                  <button
+                    onClick={handleDelete}
+                    disabled={deleteLoading}
+                    className="flex items-center gap-2 rounded-lg border-none bg-red-500 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    <MdDelete size={16} />
+                    {deleteLoading
+                      ? t("notes.expandedNote.deleting", "Deleting...")
+                      : t("notes.expandedNote.delete", "Delete")}
+                  </button>
+                )}
+              </>
+            )}
+            <button
+              onClick={onClose}
+              className="ml-4 rounded-lg p-2 text-text-dim transition-colors hover:bg-background-secondary hover:text-text"
+            >
+              <IoMdClose size={24} />
+            </button>
+          </div>
         </div>
 
         {/* Content */}
@@ -279,7 +328,7 @@ export default function ExpandedNoteModal({
               <button
                 type="submit"
                 disabled={commentLoading || !commentMessage.trim()}
-                className="mt-2 rounded-lg border-none bg-accent px-4 py-2 text-sm font-medium text-white transition-all hover:opacity-80 disabled:cursor-not-allowed disabled:bg-border disabled:opacity-60"
+                className="mt-2 rounded-lg border-none bg-accent px-4 py-2 text-sm font-medium text-black transition-all hover:opacity-80 disabled:cursor-not-allowed disabled:bg-border disabled:opacity-60"
               >
                 {commentLoading
                   ? t("notes.expandedNote.sending", "Sending...")
@@ -290,59 +339,14 @@ export default function ExpandedNoteModal({
         </div>
 
         {/* Footer Actions */}
-        {isOwner && (
-          <div className="flex items-center justify-between border-t border-border p-4">
-            <div className="flex gap-2">
-              {isEditing ? (
-                <>
-                  <button
-                    onClick={handleUpdate}
-                    disabled={updateLoading}
-                    className="flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white transition-all hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-60"
-                  >
-                    {updateLoading
-                      ? t("notes.expandedNote.saving", "Saving...")
-                      : t("notes.expandedNote.save", "Save")}
-                  </button>
-                  <button
-                    onClick={() => {
-                      setIsEditing(false);
-                      setEditTitle(note.title);
-                      setEditDescription(note.description);
-                    }}
-                    disabled={updateLoading}
-                    className="rounded-lg border border-border bg-transparent px-4 py-2 text-sm font-medium text-text transition-all hover:bg-background-secondary disabled:cursor-not-allowed disabled:opacity-60"
-                  >
-                    {t("notes.expandedNote.cancel", "Cancel")}
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button
-                    onClick={() => setIsEditing(true)}
-                    className="flex items-center gap-2 rounded-lg border border-border bg-transparent px-4 py-2 text-sm font-medium text-text transition-all hover:bg-background-secondary"
-                  >
-                    <MdEdit size={16} />
-                    {t("notes.expandedNote.edit", "Edit")}
-                  </button>
-                </>
-              )}
-            </div>
-
-            {!isEditing && (
-              <button
-                onClick={handleDelete}
-                disabled={deleteLoading}
-                className="flex items-center gap-2 rounded-lg border-none bg-red-500 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                <MdDelete size={16} />
-                {deleteLoading
-                  ? t("notes.expandedNote.deleting", "Deleting...")
-                  : t("notes.expandedNote.delete", "Delete")}
-              </button>
-            )}
+        <div className="flex items-center justify-between border-t border-border p-4">
+          <div className="flex gap-2">
+            <p className="mt-1 text-sm text-text-dim">
+              {t("notes.expandedNote.created", "Created")}{" "}
+              {formatDate(note.createdAt)}
+            </p>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
