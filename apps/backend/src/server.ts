@@ -53,6 +53,7 @@ const bootstrap = async () => {
     cors<cors.CorsRequest>({
       origin: [
         "http://localhost:5173",
+        "http://localhost:4173",
         "https://personspace.vercel.app",
         "https://*.personspace.vercel.app",
       ],
