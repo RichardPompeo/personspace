@@ -138,10 +138,19 @@ const RootLayout = () => {
 
   return (
     <div className="relative flex min-h-screen bg-background text-foreground">
+      {/* Overlay for mobile */}
+      {isMenuOpen && (
+        <div
+          className="fixed inset-0 z-30 bg-black/50 md:hidden"
+          onClick={toggleMenu}
+          aria-hidden="true"
+        />
+      )}
       <SidebarNav
         isOpen={isMenuOpen}
         brand={{ logoSrc: logo, label: t("navbar.personspace") }}
         sections={navSections}
+        onClose={toggleMenu}
       />
       <div
         className={clsx(
