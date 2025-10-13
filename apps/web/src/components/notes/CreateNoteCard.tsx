@@ -30,7 +30,7 @@ const PRESET_COLORS = [
   "#FFA07A",
   "#98D8C8",
   "#F7DC6F",
-  "#BB8FCE",
+  "#8eb5f0",
   "#85C1E2",
 ];
 
