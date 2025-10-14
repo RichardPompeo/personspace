@@ -4,6 +4,7 @@ const GET_SHARED_NOTES_QUERY = gql`
   query GetSharedNotes {
     getSharedNotes {
       id
+      sharedAt
       note {
         authorId
         author {
@@ -12,11 +13,9 @@ const GET_SHARED_NOTES_QUERY = gql`
           id
         }
         color
-        createdAt
         description
         id
         title
-        updatedAt
         comments {
           author {
             displayName
@@ -29,19 +28,7 @@ const GET_SHARED_NOTES_QUERY = gql`
           message
           noteId
         }
-        shares {
-          id
-          noteId
-          personId
-        }
       }
-      noteId
-      person {
-        displayName
-        email
-        id
-      }
-      personId
     }
   }
 `;

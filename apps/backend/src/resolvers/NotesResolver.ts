@@ -171,25 +171,22 @@ export class NotesResolver {
       include: {
         person: true,
         note: {
-          include: {
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            color: true,
+            authorId: true,
             author: true,
             comments: {
               include: {
                 author: true,
               },
             },
-            shares: {
-              include: {
-                person: true,
-              },
-              where: {
-                personId: user.id,
-              },
-              take: 1,
-            },
           },
         },
       },
+      orderBy: { sharedAt: "desc" },
     });
 
     return notes;
@@ -197,7 +194,20 @@ export class NotesResolver {
 
   @Authorized()
   @Query(() => NoteModel)
-  async getNoteById(@Arg("id", () => String) id: string) {
+  async getNoteById(
+    @Ctx() context: { bearerToken: string },
+    @Arg("id", () => String) id: string,
+  ) {
+    const payload = await Authorization.verify(context.bearerToken);
+
+    const user = await prisma.users.findUnique({
+      where: { firebaseId: payload.uid },
+    });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
     const note = await prisma.note.findUnique({
       where: { id },
       include: {
@@ -215,10 +225,58 @@ export class NotesResolver {
       },
     });
 
+    if (user.id !== note.authorId) {
+      throw new Error("Unauthorized");
+    }
+
     if (!note) {
       throw new Error("Note not found");
     }
 
     return note;
+  }
+
+  @Authorized()
+  @Query(() => NoteShareModel)
+  async getSharedNoteById(
+    @Ctx() context: { bearerToken: string },
+    @Arg("id", () => String) id: string,
+  ) {
+    const payload = await Authorization.verify(context.bearerToken);
+
+    const user = await prisma.users.findUnique({
+      where: { firebaseId: payload.uid },
+    });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const noteShare = await prisma.noteShare.findFirst({
+      where: { noteId: id, personId: user.id },
+      include: {
+        person: true,
+        note: {
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            color: true,
+            authorId: true,
+            author: true,
+          },
+        },
+      },
+    });
+
+    if (!noteShare) {
+      throw new Error("Note share not found");
+    }
+
+    if (user.id !== noteShare.personId) {
+      throw new Error("Unauthorized");
+    }
+
+    return noteShare;
   }
 }

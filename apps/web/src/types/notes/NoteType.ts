@@ -1,4 +1,4 @@
-import { UserType } from "./UserType";
+import { UserType } from "../UserType";
 import { NoteCommentType } from "./NoteCommentType";
 import { NoteShareType } from "./NoteShareType";
 

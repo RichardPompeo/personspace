@@ -5,7 +5,7 @@ import { Plus } from "lucide-react";
 import { Card, CardContent, Input, Textarea, Button, Label } from "ui";
 
 import CREATE_NOTE_MUTATION from "../../graphql/notes/createNoteMutation";
-import { NoteType } from "../../types/NoteType";
+import { NoteType } from "../../types/notes/NoteType";
 
 interface CreateNoteCardProps {
   onNoteCreated?: () => void;
@@ -91,7 +91,7 @@ export default function CreateNoteCard({ onNoteCreated }: CreateNoteCardProps) {
     return (
       <Card
         onClick={() => setIsExpanded(true)}
-        className="flex min-h-[200px] w-full cursor-pointer flex-col items-center justify-center border-2 border-dashed transition-all hover:border-primary bg-accent/5"
+        className="flex w-full cursor-pointer flex-col items-center justify-center border-2 border-dashed transition-all hover:border-primary bg-accent/5"
       >
         <CardContent className="flex flex-col items-center justify-center gap-3 p-6">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-black">
@@ -106,10 +106,7 @@ export default function CreateNoteCard({ onNoteCreated }: CreateNoteCardProps) {
   }
 
   return (
-    <Card
-      className="min-h-[200px] border-l-4"
-      style={{ borderLeftColor: selectedColor }}
-    >
+    <Card className="border-l-4" style={{ borderLeftColor: selectedColor }}>
       <CardContent className="p-4">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="space-y-2">

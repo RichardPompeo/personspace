@@ -1,5 +1,5 @@
 import { NoteType } from "./NoteType";
-import { UserType } from "./UserType";
+import { UserType } from "../UserType";
 
 export interface NoteShareType {
   id: string;
@@ -8,4 +8,5 @@ export interface NoteShareType {
   person: UserType;
   noteId: string;
   note: NoteType;
+  sharedAt: Date;
 }

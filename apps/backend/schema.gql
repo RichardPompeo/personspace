@@ -104,6 +104,7 @@ type NoteShareModel {
   noteId: String!
   person: UserModel
   personId: String!
+  sharedAt: DateTimeISO!
 }
 
 type NoteShareResponseModel {
@@ -120,6 +121,7 @@ type Query {
   getNoteById(id: String!): NoteModel!
   getNoteComments(noteId: String!): [NoteCommentModel!]!
   getNotes: [NoteModel!]!
+  getSharedNoteById(id: String!): NoteShareModel!
   getSharedNotes: [NoteShareModel!]!
   getUser: UserModel!
   getUserByEmail(input: GetUserByEmailInput!): GetUserByEmailModel!

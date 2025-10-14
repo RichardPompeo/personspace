@@ -4,19 +4,18 @@ import { FileText, RefreshCw } from "lucide-react";
 import { useNavigate } from "react-router";
 import { useQuery } from "@apollo/client/react";
 
-import { NoteType } from "../../types/notes/NoteType";
+import { NoteShareType } from "../../types/notes/NoteShareType";
 import LoadingSpinner from "../../components/LoadingSpinner";
-import CreateNoteCard from "../../components/notes/CreateNoteCard";
-import NoteCard from "../../components/notes/NoteCard";
+import NoteShareCard from "@/components/notes/NoteShareCard";
 
-import GET_NOTES_QUERY from "../../graphql/notes/getNotesQuery";
+import GET_SHARED_NOTES_QUERY from "../../graphql/notes/getSharedNotesQuery";
 
-interface GetNotesData {
-  getNotes: NoteType[];
+interface GetSharedNotesData {
+  getSharedNotes: NoteShareType[];
 }
 
-export default function NotesPage() {
-  const [notes, setNotes] = useState<NoteType[]>([]);
+export default function SharedNotesPage() {
+  const [sharedNotes, setSharedNotes] = useState<NoteShareType[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const navigate = useNavigate();
@@ -24,7 +23,11 @@ export default function NotesPage() {
 
   const token = localStorage.getItem("idToken");
 
-  const { data, loading, refetch } = useQuery<GetNotesData>(GET_NOTES_QUERY, {
+  const {
+    data: sharedNotesData,
+    loading: sharedNotesLoading,
+    refetch: sharedNotesRefetch,
+  } = useQuery<GetSharedNotesData>(GET_SHARED_NOTES_QUERY, {
     context: {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -36,18 +39,18 @@ export default function NotesPage() {
   });
 
   useEffect(() => {
-    if (data?.getNotes) {
-      setNotes(data.getNotes);
+    if (sharedNotesData?.getSharedNotes) {
+      setSharedNotes(sharedNotesData.getSharedNotes);
     }
-  }, [data]);
+  }, [sharedNotesData]);
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
 
     try {
-      await refetch();
+      await sharedNotesRefetch();
     } catch (err) {
-      console.error("Error refreshing notes:", err);
+      console.error("Error refreshing shared notes:", err);
     } finally {
       setTimeout(() => setIsRefreshing(false), 1000);
     }
@@ -59,7 +62,7 @@ export default function NotesPage() {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <h1 className="text-3xl font-bold text-foreground md:text-2xl">
-            {t("notes.title", "Notes")}
+            {t("notes.sharedNotes", "Shared Notes")}
           </h1>
           <button
             onClick={handleRefresh}
@@ -79,27 +82,24 @@ export default function NotesPage() {
 
       {/* Content */}
       <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-[repeat(auto-fill,minmax(280px,1fr))]">
-        <CreateNoteCard onNoteCreated={handleRefresh} />
-
-        {loading ? (
+        {sharedNotesLoading ? (
           <div className="col-span-full flex items-center justify-center p-16">
             <LoadingSpinner size="lg" />
           </div>
-        ) : notes.length === 0 ? (
+        ) : sharedNotes.length === 0 ? (
           <div className="col-span-full flex flex-col items-center justify-center gap-4 p-16">
             <FileText className="h-16 w-16 text-muted-foreground" />
             <p className="text-xl text-muted-foreground">
-              {t("notes.noNotes", "No notes yet. Create your first note!")}
+              {t("notes.noSharedNotes", "No shared notes yet.")}
             </p>
           </div>
         ) : (
           <>
-            {notes.map((note) => (
-              <NoteCard
-                key={note.id}
-                note={note}
-                onClick={() => navigate(`/notes/${note.id}`)}
-                onRefetch={() => refetch()}
+            {sharedNotes.map((sharedNote) => (
+              <NoteShareCard
+                key={sharedNote.id}
+                sharedNote={sharedNote}
+                onClick={() => navigate(`/shared-notes/${sharedNote.note.id}`)}
               />
             ))}
           </>

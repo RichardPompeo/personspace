@@ -19,4 +19,7 @@ export class NoteShareModel {
 
   @Field(() => NoteModel, { nullable: true })
   note: NoteModel;
+
+  @Field(() => Date)
+  sharedAt: Date;
 }

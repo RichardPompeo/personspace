@@ -44,9 +44,10 @@ model NoteComment {
 }
 
 model NoteShare {
-  id       String @id @unique
-  note     Note   @relation(fields: [noteId], references: [id])
+  id       String   @id @unique
+  note     Note     @relation(fields: [noteId], references: [id])
   noteId   String
-  person   Users  @relation(fields: [personId], references: [id])
+  person   Users    @relation(fields: [personId], references: [id])
   personId String
+  sharedAt DateTime @default(now())
 }

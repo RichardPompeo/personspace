@@ -6,7 +6,9 @@ import LoginPage from "@/pages/account/LoginPage";
 import RegisterPage from "@/pages/account/RegisterPage";
 import ProfilePage from "@/pages/account/ProfilePage";
 import NotesPage from "@/pages/notes/NotesPage";
+import SharedNotesPage from "@/pages/notes/SharedNotesPage";
 import ExpandedNotePage from "@/pages/notes/ExpandedNotePage";
+import ExpandedSharedNotePage from "@/pages/notes/ExpandedSharedNotePage";
 
 import ProtectedRoute from "@/components/ProtectedRoute";
 
@@ -48,6 +50,22 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <ExpandedNotePage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/shared-notes",
+        element: (
+          <ProtectedRoute>
+            <SharedNotesPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/shared-notes/:id",
+        element: (
+          <ProtectedRoute>
+            <ExpandedSharedNotePage />
           </ProtectedRoute>
         ),
       },

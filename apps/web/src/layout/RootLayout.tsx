@@ -13,6 +13,7 @@ import {
   Home,
   Menu,
   Languages,
+  Share2,
 } from "lucide-react";
 
 import { SidebarNav, UtilityBar, Button, type NavSection } from "ui";
@@ -63,6 +64,12 @@ const RootLayout = () => {
             label: t("navbar.annotation"),
             icon: <Edit size={18} />,
             to: "/notes",
+          },
+          {
+            id: "shared-notes",
+            label: t("navbar.sharedNotes"),
+            icon: <Share2 size={18} />,
+            to: "/shared-notes",
           },
           {
             id: "calendar",
