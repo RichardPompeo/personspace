@@ -19,6 +19,9 @@
   },
   "name": "personspace",
   "packageManager": "yarn@1.22.22",
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "workspaces": [
     "apps/*",
     "packages/*"
