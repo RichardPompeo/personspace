@@ -18,13 +18,13 @@ import {
 import { useLazyQuery, useMutation } from "@apollo/client/react";
 
 import { auth } from "@/config/firebase";
-import GET_USER_QUERY from "@/graphql/getUserQuery";
-import CREATE_USER_MUTATION from "@/graphql/createUser";
+import GET_USER_QUERY from "@/graphql/users/getUserQuery";
+import CREATE_USER_MUTATION from "@/graphql/users/createUser";
 import type {
   GetUserData,
   CreateUserData,
   CreateUserVariables,
-} from "@/graphql/types";
+} from "@/graphql/users/types";
 
 export interface AuthContextValue {
   isLogged: boolean;
@@ -91,6 +91,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
             input: {
               firebaseId: userCredential.user.uid,
               displayName,
+              email,
             },
           },
         });

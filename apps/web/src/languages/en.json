@@ -1,13 +1,18 @@
 {
   "en": {
     "translation": {
+      "general": {
+        "back": "Back"
+      },
       "navbar": {
         "personspace": "Personspace",
         "pages": "Pages",
         "home": "Home",
         "about": "About",
         "personal": "Personal",
-        "annotation": "Annotation",
+        "notes": "Notes",
+        "annotation": "Your Notes",
+        "sharedNotes": "Shared Notes",
         "calendar": "Calendar",
         "contacts": "Contacts",
         "schedule": "Schedule",
@@ -118,7 +123,18 @@
         "actions": "Actions",
         "signOutTitle": "Sign Out",
         "signOutDescription": "Sign out of your account on this device",
-        "signOutButton": "Sign Out"
+        "signOutButton": "Sign Out",
+        "profilePicture": "Profile Picture",
+        "changeProfilePicture": "Change Profile Picture",
+        "uploadPicture": "Upload Picture",
+        "uploadingPicture": "Uploading...",
+        "removePicture": "Remove Picture",
+        "dragDropImage": "Drag and drop an image here, or click to select",
+        "supportedFormats": "Supported formats: JPG, PNG, WebP (max 5MB)",
+        "pictureUpdated": "Profile picture updated successfully",
+        "pictureRemoved": "Profile picture removed successfully",
+        "uploadError": "Failed to upload profile picture. Please try again.",
+        "updateError": "Failed to update profile. Please try again."
       },
       "pages": {
         "welcomeBack": "Welcome back,",
@@ -130,6 +146,109 @@
       },
       "common": {
         "loading": "Loading..."
+      },
+      "notes": {
+        "title": "Notes",
+        "yourNotes": "Your Notes",
+        "sharedNotes": "Shared Notes",
+        "noNotes": "No notes yet. Create your first note!",
+        "noSharedNotes": "No shared notes yet.",
+        "refresh": "Refresh",
+        "refreshing": "Refreshing...",
+        "sharedBy": "Shared by",
+        "createNote": {
+          "title": "Create Note",
+          "titlePlaceholder": "Note title",
+          "descriptionPlaceholder": "Note description",
+          "color": "Color",
+          "create": "Create",
+          "creating": "Creating..."
+        },
+        "expandedNote": {
+          "edit": "Edit",
+          "delete": "Delete",
+          "share": "Share",
+          "close": "Close",
+          "created": "Created",
+          "save": "Save",
+          "saving": "Saving...",
+          "sending": "Sending...",
+          "deleting": "Deleting...",
+          "comments": "Comments",
+          "noComments": "No comments yet",
+          "addComment": "Add comment",
+          "commentPlaceholder": "Write a comment...",
+          "send": "Send",
+          "shareWith": "Share with",
+          "emailPlaceholder": "Enter email address",
+          "sharedWith": "Shared with",
+          "removeShare": "Remove",
+          "deleteConfirm": "Are you sure you want to delete this note?",
+          "cancel": "Cancel",
+          "sharingWith": "Sharing with",
+          "actions": "Actions"
+        },
+        "notifications": {
+          "noteCreated": "Note created successfully!",
+          "noteUpdated": "Note updated successfully!",
+          "noteDeleted": "Note deleted successfully!",
+          "commentAdded": "Comment added successfully!",
+          "noteShared": "Note shared successfully!",
+          "shareRemoved": "Share removed successfully!",
+          "error": "An error occurred. Please try again."
+        },
+        "deleteDialog": {
+          "title": "Delete Note",
+          "description": "Are you sure you want to delete this note?",
+          "cancel": "Cancel",
+          "delete": "Delete",
+          "deleting": "Deleting...",
+          "success": "Note deleted successfully",
+          "error": "An error occurred while deleting the note"
+        },
+        "shareDialog": {
+          "title": "Share Note",
+          "email": "Email",
+          "emailPlaceholder": "Enter email address",
+          "noUserFound": "No user found",
+          "invite": "Invite",
+          "inviting": "Inviting...",
+          "success": "Note shared successfully",
+          "successDescription": "The note has been shared with {{displayName}}",
+          "error": "An error occurred while sharing the note",
+          "cannotShareWithSelf": "You cannot share a note with yourself",
+          "alreadyShared": "You have already shared this note with this user"
+        }
+      },
+      "date": {
+        "justNow": "just now",
+        "minuteAgo": "1 minute ago",
+        "minutesAgo": "{{count}} minutes ago",
+        "hourAgo": "1 hour ago",
+        "hoursAgo": "{{count}} hours ago",
+        "yesterday": "yesterday",
+        "dayAgo": "1 day ago",
+        "daysAgo": "{{count}} days ago",
+        "weekAgo": "1 week ago",
+        "weeksAgo": "{{count}} weeks ago",
+        "monthAgo": "1 month ago",
+        "monthsAgo": "{{count}} months ago",
+        "yearAgo": "1 year ago",
+        "yearsAgo": "{{count}} years ago"
+      },
+      "editNoteDialog": {
+        "title": "Edit Note",
+        "titleLabel": "Title",
+        "titlePlaceholder": "Title",
+        "descriptionLabel": "Description",
+        "descriptionPlaceholder": "Description",
+        "colorLabel": "Color",
+        "selectColor": "Select color {{color}}",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving...",
+        "updateSuccess": "Note updated successfully",
+        "updateError": "Failed to update note"
       }
     }
   }

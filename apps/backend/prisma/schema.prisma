@@ -11,7 +11,44 @@ datasource db {
 }
 
 model Users {
-  id          String @id @unique
-  displayName String
-  firebaseId  String @unique
+  id           String        @id @unique
+  displayName  String
+  firebaseId   String        @unique
+  email        String?       @unique
+  avatarUrl    String?
+  notes        Note[]
+  noteComments NoteComment[]
+  noteShares   NoteShare[]
+}
+
+model Note {
+  id          String        @id @unique
+  author      Users         @relation(fields: [authorId], references: [id])
+  authorId    String
+  title       String
+  description String
+  color       String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime?     @updatedAt
+  comments    NoteComment[]
+  shares      NoteShare[]
+}
+
+model NoteComment {
+  id        String   @id @unique
+  author    Users    @relation(fields: [authorId], references: [id])
+  authorId  String
+  note      Note     @relation(fields: [noteId], references: [id])
+  noteId    String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model NoteShare {
+  id       String   @id @unique
+  note     Note     @relation(fields: [noteId], references: [id])
+  noteId   String
+  person   Users    @relation(fields: [personId], references: [id])
+  personId String
+  sharedAt DateTime @default(now())
 }

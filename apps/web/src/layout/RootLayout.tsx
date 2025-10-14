@@ -2,12 +2,18 @@ import { useContext, useMemo } from "react";
 import clsx from "clsx";
 import { Outlet, useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
-import { AiFillBulb } from "react-icons/ai";
-import { IoCalendar } from "react-icons/io5";
-import { IoMdClose } from "react-icons/io";
-import { MdHelpCenter, MdViewAgenda } from "react-icons/md";
-import { RiContactsBook2Fill, RiEdit2Fill, RiHome3Fill } from "react-icons/ri";
-import { TfiMenuAlt } from "react-icons/tfi";
+import {
+  Lightbulb,
+  Calendar,
+  X,
+  HelpCircle,
+  LayoutGrid,
+  BookOpen,
+  Home,
+  Menu,
+  Languages,
+  FileText,
+} from "lucide-react";
 
 import { SidebarNav, UtilityBar, Button, type NavSection } from "ui";
 
@@ -18,8 +24,15 @@ import logo from "@/assets/personspace-logo.svg";
 const RootLayout = () => {
   const { isMenuOpen, toggleMenu } = useContext(LayoutContext);
   const { isLogged, user, logout } = useAuth();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+
+  const toggleLanguage = () => {
+    const newLang = i18n.language === "en" ? "pt" : "en";
+    i18n.changeLanguage(newLang);
+  };
+
+  const currentLanguage = i18n.language === "en" ? "EN" : "PT";
 
   const navSections = useMemo<NavSection[]>(
     () => [
@@ -30,13 +43,13 @@ const RootLayout = () => {
           {
             id: "home",
             label: t("navbar.home"),
-            icon: <RiHome3Fill size={18} />,
+            icon: <Home size={18} />,
             to: "/",
           },
           {
             id: "about",
             label: t("navbar.about"),
-            icon: <AiFillBulb size={18} />,
+            icon: <Lightbulb size={18} />,
             to: "#about",
           },
         ],
@@ -46,27 +59,38 @@ const RootLayout = () => {
         title: t("navbar.personal"),
         items: [
           {
-            id: "annotation",
-            label: t("navbar.annotation"),
-            icon: <RiEdit2Fill size={18} />,
-            to: "#annotation",
+            id: "notes",
+            label: t("navbar.notes"),
+            icon: <FileText size={18} />,
+            children: [
+              {
+                id: "annotation",
+                label: t("navbar.annotation"),
+                to: "/notes",
+              },
+              {
+                id: "shared-notes",
+                label: t("navbar.sharedNotes"),
+                to: "/shared-notes",
+              },
+            ],
           },
           {
             id: "calendar",
             label: t("navbar.calendar"),
-            icon: <IoCalendar size={18} />,
+            icon: <Calendar size={18} />,
             to: "#calendar",
           },
           {
             id: "contacts",
             label: t("navbar.contacts"),
-            icon: <RiContactsBook2Fill size={18} />,
+            icon: <BookOpen size={18} />,
             to: "#contacts",
           },
           {
             id: "schedule",
             label: t("navbar.schedule"),
-            icon: <MdViewAgenda size={18} />,
+            icon: <LayoutGrid size={18} />,
             to: "#schedule",
           },
         ],
@@ -78,7 +102,7 @@ const RootLayout = () => {
           {
             id: "help",
             label: t("navbar.helpMe"),
-            icon: <MdHelpCenter size={18} />,
+            icon: <HelpCircle size={18} />,
             to: "#help",
           },
         ],
@@ -96,7 +120,6 @@ const RootLayout = () => {
       popoverLogout: t("utility.popover.logoutButton"),
       openUserActions: t("utility.accessibility.openUserActions"),
       openProfileMenu: t("utility.accessibility.openProfileMenu"),
-      changeLanguage: t("utility.language.changeLanguage"),
     }),
     [t],
   );
@@ -125,38 +148,60 @@ const RootLayout = () => {
   };
 
   return (
-    <div className="relative flex min-h-screen bg-background text-text">
-      <Button
-        variant="default"
-        size="icon"
-        aria-label={toggleLabel}
-        onClick={toggleMenu}
-        className="fixed left-4 top-4 z-50 h-11 w-11 rounded-full shadow-[0_12px_28px_-12px_rgba(142,181,240,0.65)] hover:shadow-[0_16px_32px_-12px_rgba(142,181,240,0.75)]"
-      >
-        {isMenuOpen ? <IoMdClose size={20} /> : <TfiMenuAlt size={20} />}
-      </Button>
+    <div className="relative flex min-h-screen bg-background text-foreground">
+      {/* Overlay for mobile */}
+      {isMenuOpen && (
+        <div
+          className="fixed inset-0 z-30 bg-black/50 md:hidden"
+          onClick={toggleMenu}
+          aria-hidden="true"
+        />
+      )}
       <SidebarNav
         isOpen={isMenuOpen}
         brand={{ logoSrc: logo, label: t("navbar.personspace") }}
         sections={navSections}
+        onClose={toggleMenu}
       />
       <div
         className={clsx(
           "flex min-h-screen w-full flex-col transition-all duration-300",
-          isMenuOpen ? "md:pl-[18rem]" : "md:pl-8",
+          isMenuOpen ? "md:pl-72" : "md:pl-0",
         )}
       >
-        <div className="sticky top-0 z-30 flex items-center justify-end bg-background px-4 py-4 md:px-8">
-          <UtilityBar
-            isLoggedIn={isLogged}
-            onSignInClick={handleSignInClick}
-            onSignUpClick={handleSignUpClick}
-            onLogout={handleLogout}
-            onProfileClick={handleProfileClick}
-            userName={user?.displayName ?? null}
-            userEmail={user?.email ?? null}
-            labels={utilityLabels}
-          />
+        <div className="sticky top-0 z-30 flex items-center justify-between bg-background border-b border-border px-4 py-3 md:px-8">
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label={toggleLabel}
+            onClick={toggleMenu}
+            className="h-10 w-10"
+          >
+            {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleLanguage}
+              className="flex items-center gap-2"
+              aria-label={t("utility.language.changeLanguage")}
+            >
+              <Languages className="h-4 w-4" />
+              <span className="hidden sm:inline">{currentLanguage}</span>
+            </Button>
+            <UtilityBar
+              isLoggedIn={isLogged}
+              onSignInClick={handleSignInClick}
+              onSignUpClick={handleSignUpClick}
+              onLogout={handleLogout}
+              onProfileClick={handleProfileClick}
+              userName={user?.displayName ?? null}
+              userEmail={user?.email ?? null}
+              avatarUrl={user?.avatarUrl ?? null}
+              labels={utilityLabels}
+            />
+          </div>
         </div>
         <main className="flex-1 overflow-hidden bg-background">
           <div className="h-full w-full overflow-hidden">

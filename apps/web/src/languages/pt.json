@@ -1,13 +1,18 @@
 {
   "pt": {
     "translation": {
+      "general": {
+        "back": "Voltar"
+      },
       "navbar": {
         "personspace": "Personspace",
         "pages": "Páginas",
         "home": "Início",
         "about": "Sobre",
         "personal": "Pessoal",
-        "annotation": "Anotações",
+        "notes": "Anotações",
+        "annotation": "Suas Anotações",
+        "sharedNotes": "Anotações Compartilhadas",
         "calendar": "Calendário",
         "contacts": "Contatos",
         "schedule": "Agenda",
@@ -118,7 +123,18 @@
         "actions": "Ações",
         "signOutTitle": "Sair",
         "signOutDescription": "Sair da sua conta neste dispositivo",
-        "signOutButton": "Sair"
+        "signOutButton": "Sair",
+        "profilePicture": "Foto de Perfil",
+        "changeProfilePicture": "Alterar Foto de Perfil",
+        "uploadPicture": "Enviar Foto",
+        "uploadingPicture": "Enviando...",
+        "removePicture": "Remover Foto",
+        "dragDropImage": "Arraste e solte uma imagem aqui, ou clique para selecionar",
+        "supportedFormats": "Formatos suportados: JPG, PNG, WebP (máx 5MB)",
+        "pictureUpdated": "Foto de perfil atualizada com sucesso",
+        "pictureRemoved": "Foto de perfil removida com sucesso",
+        "uploadError": "Falha ao enviar foto de perfil. Tente novamente.",
+        "updateError": "Falha ao atualizar perfil. Tente novamente."
       },
       "pages": {
         "welcomeBack": "Bem-vindo de volta,",
@@ -130,6 +146,109 @@
       },
       "common": {
         "loading": "Carregando..."
+      },
+      "notes": {
+        "title": "Anotações",
+        "yourNotes": "Suas Anotações",
+        "sharedNotes": "Anotações Compartilhadas",
+        "noNotes": "Nenhuma anotação ainda. Crie sua primeira anotação!",
+        "noSharedNotes": "Nenhuma anotação compartilhada ainda.",
+        "refresh": "Atualizar",
+        "refreshing": "Atualizando...",
+        "sharedBy": "Compartilhado por",
+        "createNote": {
+          "title": "Criar Anotação",
+          "titlePlaceholder": "Título da anotação",
+          "descriptionPlaceholder": "Descrição da anotação",
+          "color": "Cor",
+          "create": "Criar",
+          "creating": "Criando..."
+        },
+        "expandedNote": {
+          "edit": "Editar",
+          "delete": "Excluir",
+          "share": "Compartilhar",
+          "close": "Fechar",
+          "created": "Criado em",
+          "save": "Salvar",
+          "saving": "Salvando...",
+          "sending": "Enviando...",
+          "deleting": "Excluindo...",
+          "comments": "Comentários",
+          "noComments": "Nenhum comentário ainda",
+          "addComment": "Adicionar comentário",
+          "commentPlaceholder": "Escreva um comentário...",
+          "send": "Enviar",
+          "shareWith": "Compartilhar com",
+          "emailPlaceholder": "Digite o endereço de email",
+          "sharedWith": "Compartilhado com",
+          "removeShare": "Remover",
+          "deleteConfirm": "Tem certeza que deseja excluir esta anotação?",
+          "cancel": "Cancelar",
+          "sharingWith": "Compartilhando com",
+          "actions": "Ações"
+        },
+        "notifications": {
+          "noteCreated": "Anotação criada com sucesso!",
+          "noteUpdated": "Anotação atualizada com sucesso!",
+          "noteDeleted": "Anotação excluída com sucesso!",
+          "commentAdded": "Comentário adicionado com sucesso!",
+          "noteShared": "Anotação compartilhada com sucesso!",
+          "shareRemoved": "Compartilhamento removido com sucesso!",
+          "error": "Ocorreu um erro. Por favor, tente novamente."
+        },
+        "deleteDialog": {
+          "title": "Excluir Anotação",
+          "description": "Tem certeza que deseja excluir esta anotação?",
+          "cancel": "Cancelar",
+          "delete": "Excluir",
+          "deleting": "Excluindo...",
+          "success": "Anotação excluída com sucesso",
+          "error": "Ocorreu um erro ao excluir a anotação"
+        },
+        "shareDialog": {
+          "title": "Compartilhar Anotação",
+          "email": "Email",
+          "emailPlaceholder": "Digite o endereço de email",
+          "noUserFound": "Nenhum usuário encontrado",
+          "invite": "Convidar",
+          "inviting": "Convidando...",
+          "success": "Anotação compartilhada com sucesso",
+          "successDescription": "A anotação foi compartilhada com {{displayName}}",
+          "error": "Ocorreu um erro ao compartilhar a anotação",
+          "cannotShareWithSelf": "Você não pode compartilhar uma anotação consigo mesmo",
+          "alreadyShared": "Você já compartilhou esta anotação com este usuário"
+        }
+      },
+      "date": {
+        "justNow": "agora mesmo",
+        "minuteAgo": "1 minuto atrás",
+        "minutesAgo": "{{count}} minutos atrás",
+        "hourAgo": "1 hora atrás",
+        "hoursAgo": "{{count}} horas atrás",
+        "yesterday": "ontem",
+        "dayAgo": "1 dia atrás",
+        "daysAgo": "{{count}} dias atrás",
+        "weekAgo": "1 semana atrás",
+        "weeksAgo": "{{count}} semanas atrás",
+        "monthAgo": "1 mês atrás",
+        "monthsAgo": "{{count}} meses atrás",
+        "yearAgo": "1 ano atrás",
+        "yearsAgo": "{{count}} anos atrás"
+      },
+      "editNoteDialog": {
+        "title": "Editar Anotação",
+        "titleLabel": "Título",
+        "titlePlaceholder": "Título",
+        "descriptionLabel": "Descrição",
+        "descriptionPlaceholder": "Descrição",
+        "colorLabel": "Cor",
+        "selectColor": "Selecionar cor {{color}}",
+        "cancel": "Cancelar",
+        "save": "Salvar",
+        "saving": "Salvando...",
+        "updateSuccess": "Anotação atualizada com sucesso",
+        "updateError": "Falha ao atualizar anotação"
       }
     }
   }

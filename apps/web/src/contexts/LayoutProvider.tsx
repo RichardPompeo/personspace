@@ -20,14 +20,40 @@ export const LayoutContext = createContext<LayoutContextValue>({
 
 export const LayoutProvider = ({ children }: PropsWithChildren) => {
   const [isMenuOpen, setIsMenuOpen] = useState(() => {
-    if (typeof window !== "undefined") {
-      return window.matchMedia("(min-width: 768px)").matches;
+    if (typeof window === "undefined") {
+      return true;
     }
+
+    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+
+    // No mobile, sempre começa fechado
+    if (!isDesktop) {
+      return false;
+    }
+
+    // No desktop, recupera do localStorage ou usa true como padrão
+    const savedState = localStorage.getItem("sidebar-open");
+    if (savedState !== null) {
+      return savedState === "true";
+    }
+
     return true;
   });
 
   const toggleMenu = useCallback(() => {
-    setIsMenuOpen((previous) => !previous);
+    setIsMenuOpen((previous) => {
+      const newState = !previous;
+
+      // Salva o estado apenas no desktop
+      if (
+        typeof window !== "undefined" &&
+        window.matchMedia("(min-width: 768px)").matches
+      ) {
+        localStorage.setItem("sidebar-open", String(newState));
+      }
+
+      return newState;
+    });
   }, []);
 
   useEffect(() => {
@@ -38,7 +64,14 @@ export const LayoutProvider = ({ children }: PropsWithChildren) => {
     const mediaQuery = window.matchMedia("(min-width: 768px)");
 
     const syncMenuState = (event: MediaQueryListEvent | MediaQueryList) => {
-      setIsMenuOpen(event.matches);
+      if (event.matches) {
+        // Desktop: recupera do localStorage ou usa true
+        const savedState = localStorage.getItem("sidebar-open");
+        setIsMenuOpen(savedState !== null ? savedState === "true" : true);
+      } else {
+        // Mobile: sempre fecha
+        setIsMenuOpen(false);
+      }
     };
 
     syncMenuState(mediaQuery);
@@ -57,8 +90,10 @@ export const LayoutProvider = ({ children }: PropsWithChildren) => {
       isMenuOpen,
       toggleMenu,
     }),
-    [isMenuOpen, toggleMenu]
+    [isMenuOpen, toggleMenu],
   );
 
-  return <LayoutContext.Provider value={value}>{children}</LayoutContext.Provider>;
+  return (
+    <LayoutContext.Provider value={value}>{children}</LayoutContext.Provider>
+  );
 };
