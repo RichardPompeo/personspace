@@ -181,6 +181,37 @@
           "noteShared": "Note shared successfully!",
           "shareRemoved": "Share removed successfully!",
           "error": "An error occurred. Please try again."
+        },
+        "expandedNote": {
+          "share": "Share",
+          "edit": "Edit",
+          "delete": "Delete",
+          "sharingWith": "Sharing with",
+          "comments": "Comments",
+          "noComments": "No comments yet...",
+          "commentPlaceholder": "Write comment..."
+        },
+        "deleteDialog": {
+          "title": "Delete Note",
+          "description": "Are you sure you want to delete this note?",
+          "cancel": "Cancel",
+          "delete": "Delete",
+          "deleting": "Deleting...",
+          "success": "Note deleted successfully",
+          "error": "An error occurred while deleting the note"
+        },
+        "shareDialog": {
+          "title": "Share Note",
+          "email": "Email",
+          "emailPlaceholder": "Enter email address",
+          "noUserFound": "No user found",
+          "invite": "Invite",
+          "inviting": "Inviting...",
+          "success": "Note shared successfully",
+          "successDescription": "The note has been shared with {{displayName}}",
+          "error": "An error occurred while sharing the note",
+          "cannotShareWithSelf": "You cannot share a note with yourself",
+          "alreadyShared": "You have already shared this note with this user"
         }
       },
       "date": {

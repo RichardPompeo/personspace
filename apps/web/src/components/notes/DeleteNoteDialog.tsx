@@ -1,5 +1,6 @@
 import { Trash } from "lucide-react";
 import { useMutation } from "@apollo/client/react";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import {
   Dialog,
@@ -31,6 +32,7 @@ export default function DeleteNoteDialog({
   onClose,
   onDelete,
 }: DeleteNoteDialogProps) {
+  const { t } = useTranslation();
   const token = localStorage.getItem("idToken");
 
   const [handleDeleteNote, { loading: isDeleting }] =
@@ -47,10 +49,10 @@ export default function DeleteNoteDialog({
       },
       onCompleted: () => {
         onDelete();
-        toast.success("Note deleted successfully");
+        toast.success(t("notes.deleteDialog.success"));
       },
       onError: () => {
-        toast.error("An error occurred while deleting the note");
+        toast.error(t("notes.deleteDialog.error"));
       },
     });
 
@@ -58,14 +60,14 @@ export default function DeleteNoteDialog({
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Delete Note</DialogTitle>
+          <DialogTitle>{t("notes.deleteDialog.title")}</DialogTitle>
         </DialogHeader>
         <DialogDescription>
-          Are you sure you want to delete this note?
+          {t("notes.deleteDialog.description")}
         </DialogDescription>
         <DialogFooter>
           <Button onClick={onClose} variant="outline" disabled={isDeleting}>
-            Cancel
+            {t("notes.deleteDialog.cancel")}
           </Button>
           <Button
             onClick={() => handleDeleteNote()}
@@ -73,7 +75,9 @@ export default function DeleteNoteDialog({
             disabled={isDeleting}
           >
             <Trash size={16} />
-            {isDeleting ? "Deleting..." : "Delete"}
+            {isDeleting
+              ? t("notes.deleteDialog.deleting")
+              : t("notes.deleteDialog.delete")}
           </Button>
         </DialogFooter>
       </DialogContent>

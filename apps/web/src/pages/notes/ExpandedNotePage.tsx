@@ -224,18 +224,18 @@ export default function ExpandedNotePage() {
                   onClick={() => setIsShareDialogOpen(true)}
                 >
                   <UserRoundPlus size={16} />
-                  Share
+                  {t("notes.expandedNote.share")}
                 </Button>
                 <Button variant="outline">
                   <Pencil size={16} />
-                  Edit
+                  {t("notes.expandedNote.edit")}
                 </Button>
                 <Button
                   variant="destructive"
                   onClick={() => setIsDeleteDialogOpen(true)}
                 >
                   <Trash size={16} />
-                  Delete
+                  {t("notes.expandedNote.delete")}
                 </Button>
               </div>
             </CardHeader>
@@ -243,7 +243,9 @@ export default function ExpandedNotePage() {
             {note.shares && note.shares.length > 0 && (
               <CardFooter className="mt-auto flex gap-1">
                 <Users className="w-3 h-3 text-muted-foreground" />
-                <p className="text-muted-foreground text-xs">Sharing with </p>
+                <p className="text-muted-foreground text-xs">
+                  {t("notes.expandedNote.sharingWith")}{" "}
+                </p>
                 <p className="text-xs">
                   {note.shares
                     .map((share) => share.person.displayName)
@@ -256,13 +258,16 @@ export default function ExpandedNotePage() {
           <Card className="w-full xl:w-2/6 h-96 flex flex-col">
             <CardHeader className="pb-3 flex justify-between items-left flex-col">
               <CardTitle className="line-clamp-2 text-lg">
-                Comments ({commentsData?.getNoteComments?.length || 0})
+                {t("notes.expandedNote.comments")} (
+                {commentsData?.getNoteComments?.length || 0})
               </CardTitle>
             </CardHeader>
             <CardContent>
               {!commentsData?.getNoteComments ||
               commentsData.getNoteComments.length === 0 ? (
-                <p className="text-muted-foreground">No comments yet...</p>
+                <p className="text-muted-foreground">
+                  {t("notes.expandedNote.noComments")}
+                </p>
               ) : (
                 <ScrollArea className="h-60" data-auto-scroll="comments">
                   <div className="flex flex-col gap-3">
@@ -282,7 +287,7 @@ export default function ExpandedNotePage() {
                 <InputGroupInput
                   disabled={createCommentLoading}
                   ref={inputRef}
-                  placeholder="Write comment..."
+                  placeholder={t("notes.expandedNote.commentPlaceholder")}
                 />
                 <InputGroupAddon align="inline-end">
                   <Kbd>

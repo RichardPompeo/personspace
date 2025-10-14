@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/client/react";
+import { useTranslation } from "react-i18next";
 import { Search, Forward } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -52,6 +53,7 @@ export default function ShareNoteDialog({
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const { t } = useTranslation();
   const { user: currentUser } = useAuth();
 
   const token = localStorage.getItem("idToken");
@@ -83,14 +85,16 @@ export default function ShareNoteDialog({
         },
       });
 
-      toast.success("Note shared successfully", {
-        description: `The note has been shared with ${user.displayName}`,
+      toast.success(t("notes.shareDialog.success"), {
+        description: t("notes.shareDialog.successDescription", {
+          displayName: user.displayName,
+        }),
       });
 
       setUser(null);
       onShare();
     } catch {
-      toast.error("An error occurred while sharing the note");
+      toast.error(t("notes.shareDialog.error"));
     }
   };
 
@@ -115,7 +119,7 @@ export default function ShareNoteDialog({
         inputRef.current.value = "";
 
         if (data.getUserByEmail.user.id === currentUser?.id) {
-          return toast.warning("You cannot share a note with yourself");
+          return toast.warning(t("notes.shareDialog.cannotShareWithSelf"));
         }
 
         if (
@@ -124,16 +128,14 @@ export default function ShareNoteDialog({
               share.personId === data.getUserByEmail.user?.id,
           )
         ) {
-          return toast.warning(
-            "You have already shared this note with this user",
-          );
+          return toast.warning(t("notes.shareDialog.alreadyShared"));
         }
 
         setError(null);
         setUser(data.getUserByEmail.user);
       } else {
         setUser(null);
-        setError("No user found");
+        setError(t("notes.shareDialog.noUserFound"));
       }
     } catch (error) {
       console.error(error);
@@ -162,9 +164,9 @@ export default function ShareNoteDialog({
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Share Note</DialogTitle>
+          <DialogTitle>{t("notes.shareDialog.title")}</DialogTitle>
         </DialogHeader>
-        <Label htmlFor="email">Email</Label>
+        <Label htmlFor="email">{t("notes.shareDialog.email")}</Label>
         <InputGroup>
           <InputGroupAddon>
             <Search />
@@ -173,7 +175,7 @@ export default function ShareNoteDialog({
             disabled={loading}
             id="email"
             ref={inputRef}
-            placeholder="Enter email address"
+            placeholder={t("notes.shareDialog.emailPlaceholder")}
           />
           <InputGroupAddon align="inline-end">
             <Kbd>
@@ -199,7 +201,9 @@ export default function ShareNoteDialog({
               disabled={shareLoading}
               variant="outline"
             >
-              {shareLoading ? "Inviting..." : "Invite"}
+              {shareLoading
+                ? t("notes.shareDialog.inviting")
+                : t("notes.shareDialog.invite")}
             </Button>
           </Card>
         )}

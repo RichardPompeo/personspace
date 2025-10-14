@@ -181,6 +181,37 @@
           "noteShared": "Anotação compartilhada com sucesso!",
           "shareRemoved": "Compartilhamento removido com sucesso!",
           "error": "Ocorreu um erro. Por favor, tente novamente."
+        },
+        "expandedNote": {
+          "share": "Compartilhar",
+          "edit": "Editar",
+          "delete": "Excluir",
+          "sharingWith": "Compartilhando com",
+          "comments": "Comentários",
+          "noComments": "Nenhum comentário ainda...",
+          "commentPlaceholder": "Escreva um comentário..."
+        },
+        "deleteDialog": {
+          "title": "Excluir Anotação",
+          "description": "Tem certeza que deseja excluir esta anotação?",
+          "cancel": "Cancelar",
+          "delete": "Excluir",
+          "deleting": "Excluindo...",
+          "success": "Anotação excluída com sucesso",
+          "error": "Ocorreu um erro ao excluir a anotação"
+        },
+        "shareDialog": {
+          "title": "Compartilhar Anotação",
+          "email": "Email",
+          "emailPlaceholder": "Digite o endereço de email",
+          "noUserFound": "Nenhum usuário encontrado",
+          "invite": "Convidar",
+          "inviting": "Convidando...",
+          "success": "Anotação compartilhada com sucesso",
+          "successDescription": "A anotação foi compartilhada com {{displayName}}",
+          "error": "Ocorreu um erro ao compartilhar a anotação",
+          "cannotShareWithSelf": "Você não pode compartilhar uma anotação consigo mesmo",
+          "alreadyShared": "Você já compartilhou esta anotação com este usuário"
         }
       },
       "date": {
