@@ -35,6 +35,7 @@ export class AuthenticationResolver {
           await userResolver.createUser({
             displayName: input.displayName,
             firebaseId: user.uid,
+            email: input.email,
           });
 
           resolve({
