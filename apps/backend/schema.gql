@@ -74,6 +74,7 @@ type Mutation {
   deleteNoteShare(input: DeleteNoteShareInput!): ResponseModel!
   signUpWithEmailAndPassword(input: SignUpWithEmailAndPasswordInput!): AuthenticationResponseModel!
   updateNote(input: UpdateNoteInput!): NoteModel!
+  updateUser(input: UpdateUserInput!): UserModel!
 }
 
 type NoteCommentModel {
@@ -146,7 +147,13 @@ input UpdateNoteInput {
   title: String!
 }
 
+input UpdateUserInput {
+  avatarUrl: String
+  displayName: String
+}
+
 type UserModel {
+  avatarUrl: String
   displayName: String!
   email: String
   id: String!

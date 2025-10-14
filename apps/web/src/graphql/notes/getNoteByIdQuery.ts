@@ -10,6 +10,7 @@ const GET_NOTE_BY_ID_QUERY = gql`
       author {
         id
         displayName
+        avatarUrl
       }
       shares {
         id
@@ -18,6 +19,7 @@ const GET_NOTE_BY_ID_QUERY = gql`
           id
           displayName
           email
+          avatarUrl
         }
       }
       createdAt

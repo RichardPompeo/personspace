@@ -14,6 +14,7 @@ const GET_NOTES_QUERY = gql`
         displayName
         id
         email
+        avatarUrl
       }
       comments {
         createdAt
@@ -25,6 +26,7 @@ const GET_NOTES_QUERY = gql`
           displayName
           id
           email
+          avatarUrl
         }
       }
       shares {
@@ -35,6 +37,7 @@ const GET_NOTES_QUERY = gql`
           displayName
           id
           email
+          avatarUrl
         }
       }
     }

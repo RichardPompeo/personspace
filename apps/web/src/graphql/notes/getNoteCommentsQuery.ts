@@ -8,6 +8,7 @@ const GET_NOTE_COMMENTS_QUERY = gql`
       author {
         id
         displayName
+        avatarUrl
       }
       createdAt
     }

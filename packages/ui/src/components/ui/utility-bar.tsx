@@ -1,5 +1,5 @@
 import * as React from "react";
-import { User, ChevronDown, LogOut, UserCircle } from "lucide-react";
+import { ChevronDown, LogOut, UserCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "./button";
 import {
@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./dialog";
+import { Avatar, AvatarImage, AvatarFallback } from "./avatar";
 
 export interface UtilityBarProps {
   isLoggedIn: boolean;
@@ -18,6 +19,7 @@ export interface UtilityBarProps {
   onProfileClick: () => void;
   userName?: string | null;
   userEmail?: string | null;
+  avatarUrl?: string | null;
   labels: {
     signIn: string;
     signUp: string;
@@ -41,12 +43,23 @@ const UtilityBar = React.forwardRef<HTMLDivElement, UtilityBarProps>(
       onProfileClick,
       userName,
       userEmail,
+      avatarUrl,
       labels,
       className,
     },
     ref,
   ) => {
     const [isOpen, setIsOpen] = React.useState(false);
+
+    const getInitials = (name: string | null | undefined) => {
+      if (!name) return "U";
+      return name
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2);
+    };
 
     if (!isLoggedIn) {
       return (
@@ -71,9 +84,15 @@ const UtilityBar = React.forwardRef<HTMLDivElement, UtilityBarProps>(
               className="flex items-center gap-2"
               aria-label={labels.openUserActions}
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                <User className="h-4 w-4" />
-              </div>
+              <Avatar className="h-8 w-8">
+                <AvatarImage
+                  src={avatarUrl || undefined}
+                  alt={userName || "User"}
+                />
+                <AvatarFallback className="text-xs">
+                  {getInitials(userName)}
+                </AvatarFallback>
+              </Avatar>
               <span className="hidden md:inline-block">
                 {userName || userEmail || "User"}
               </span>
@@ -87,9 +106,15 @@ const UtilityBar = React.forwardRef<HTMLDivElement, UtilityBarProps>(
             <div className="space-y-4 py-4">
               {userName && (
                 <div className="flex items-center gap-3 rounded-lg border border-border bg-muted/50 p-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                    <User className="h-6 w-6" />
-                  </div>
+                  <Avatar className="h-12 w-12">
+                    <AvatarImage
+                      src={avatarUrl || undefined}
+                      alt={userName || "User"}
+                    />
+                    <AvatarFallback className="text-lg">
+                      {getInitials(userName)}
+                    </AvatarFallback>
+                  </Avatar>
                   <div className="flex-1 overflow-hidden">
                     <p className="truncate font-medium">{userName}</p>
                     {userEmail && (

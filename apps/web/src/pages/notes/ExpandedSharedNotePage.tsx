@@ -23,6 +23,7 @@ import {
   Kbd,
   Avatar,
   AvatarFallback,
+  AvatarImage,
 } from "ui";
 import { NoteCommentType } from "@/types/notes/NoteCommentType";
 import GET_SHARED_NOTE_BY_ID_QUERY from "@/graphql/notes/getSharedNoteByIdQuery";
@@ -202,6 +203,10 @@ export default function ExpandedSharedNotePage() {
             <CardFooter className="mt-auto flex gap-1">
               <span className="flex items-center gap-1.5">
                 <Avatar className="w-6 h-6">
+                  <AvatarImage
+                    src={note.author.avatarUrl || undefined}
+                    alt={note.author.displayName}
+                  />
                   <AvatarFallback>
                     <p className="text-xs">{note.author.displayName[0]}</p>
                   </AvatarFallback>

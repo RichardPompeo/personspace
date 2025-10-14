@@ -8,6 +8,7 @@ import {
   CardFooter,
   Avatar,
   AvatarFallback,
+  AvatarImage,
 } from "ui";
 import DateDisplay from "../DateDisplay";
 import { NoteShareType } from "@/types/notes/NoteShareType";
@@ -41,6 +42,10 @@ export default function NoteShareCard({ sharedNote, onClick }: NoteCardProps) {
           <div className="flex items-center gap-4 justify-between text-xs text-muted-foreground pt-2">
             <span className="flex items-center gap-1.5">
               <Avatar className="w-5 h-5">
+                <AvatarImage
+                  src={sharedNote.note.author.avatarUrl || undefined}
+                  alt={sharedNote.note.author.displayName}
+                />
                 <AvatarFallback>
                   <p className="text-xs">
                     {sharedNote.note.author.displayName[0]}

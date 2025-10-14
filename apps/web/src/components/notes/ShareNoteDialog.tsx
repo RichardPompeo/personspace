@@ -17,12 +17,13 @@ import {
   Card,
   Avatar,
   AvatarFallback,
+  AvatarImage,
 } from "ui";
 import GET_USER_BY_EMAIL_QUERY from "@/graphql/users/getUserByEmailQuery";
 import CREATE_NOTE_SHARE_MUTATION from "@/graphql/notes/createNoteShareMutation";
 import { UserType } from "@/types/UserType";
 import { useAuth } from "@/hooks/useAuth";
-import { NoteShareType } from "@/types/NoteShareType";
+import { NoteShareType } from "@/types/notes/NoteShareType";
 
 interface ShareNoteDialogProps {
   id: string;
@@ -189,6 +190,10 @@ export default function ShareNoteDialog({
           <Card className="p-4 flex gap-3 items-center justify-betweeen">
             <div className="flex gap-3 w-full">
               <Avatar>
+                <AvatarImage
+                  src={user.avatarUrl || undefined}
+                  alt={user.displayName}
+                />
                 <AvatarFallback>{user.displayName[0]}</AvatarFallback>
               </Avatar>
               <div>

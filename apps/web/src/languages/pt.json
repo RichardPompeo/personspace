@@ -123,7 +123,18 @@
         "actions": "Ações",
         "signOutTitle": "Sair",
         "signOutDescription": "Sair da sua conta neste dispositivo",
-        "signOutButton": "Sair"
+        "signOutButton": "Sair",
+        "profilePicture": "Foto de Perfil",
+        "changeProfilePicture": "Alterar Foto de Perfil",
+        "uploadPicture": "Enviar Foto",
+        "uploadingPicture": "Enviando...",
+        "removePicture": "Remover Foto",
+        "dragDropImage": "Arraste e solte uma imagem aqui, ou clique para selecionar",
+        "supportedFormats": "Formatos suportados: JPG, PNG, WebP (máx 5MB)",
+        "pictureUpdated": "Foto de perfil atualizada com sucesso",
+        "pictureRemoved": "Foto de perfil removida com sucesso",
+        "uploadError": "Falha ao enviar foto de perfil. Tente novamente.",
+        "updateError": "Falha ao atualizar perfil. Tente novamente."
       },
       "pages": {
         "welcomeBack": "Bem-vindo de volta,",

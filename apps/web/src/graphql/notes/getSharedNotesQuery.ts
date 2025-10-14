@@ -11,6 +11,7 @@ const GET_SHARED_NOTES_QUERY = gql`
           displayName
           email
           id
+          avatarUrl
         }
         color
         description
@@ -21,6 +22,7 @@ const GET_SHARED_NOTES_QUERY = gql`
             displayName
             email
             id
+            avatarUrl
           }
           authorId
           createdAt

@@ -3,4 +3,5 @@ export interface UserType {
   firebaseId?: string;
   displayName: string;
   email?: string;
+  avatarUrl?: string;
 }

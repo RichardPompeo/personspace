@@ -1,4 +1,6 @@
 import { useTranslation } from "react-i18next";
+import { useState, useRef, ChangeEvent, DragEvent } from "react";
+import { useMutation } from "@apollo/client/react";
 import {
   Button,
   Card,
@@ -6,12 +8,29 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
 } from "ui";
+import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
+import { uploadProfilePicture } from "@/lib/uploadProfilePicture";
+import UPDATE_USER_MUTATION from "@/graphql/users/updateUser";
+import type {
+  UpdateUserData,
+  UpdateUserVariables,
+} from "@/graphql/users/types";
 
 const ProfilePage = () => {
   const { t } = useTranslation();
-  const { user, firebaseUser, logout } = useAuth();
+  const { user, firebaseUser, logout, refresh } = useAuth();
+  const [isUploading, setIsUploading] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [updateUser] = useMutation<UpdateUserData, UpdateUserVariables>(
+    UPDATE_USER_MUTATION,
+  );
 
   const handleLogout = async () => {
     try {
@@ -19,6 +38,108 @@ const ProfilePage = () => {
     } catch (error) {
       console.error("Failed to logout:", error);
     }
+  };
+
+  const handleFileSelect = async (file: File | null) => {
+    if (!file || !user) return;
+
+    setIsUploading(true);
+    try {
+      // Upload to Firebase Storage
+      const avatarUrl = await uploadProfilePicture(file, user.id);
+
+      // Update user in database
+      const idToken = localStorage.getItem("idToken");
+      await updateUser({
+        variables: {
+          input: { avatarUrl },
+        },
+        context: {
+          headers: {
+            Authorization: `Bearer ${idToken}`,
+          },
+        },
+      });
+
+      // Refresh user data
+      await refresh();
+
+      toast.success(t("profile.pictureUpdated"));
+    } catch (error) {
+      console.error("Failed to upload profile picture:", error);
+      toast.error(
+        error instanceof Error ? error.message : t("profile.uploadError"),
+      );
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] || null;
+    handleFileSelect(file);
+    // Reset input so the same file can be selected again
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
+  const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsDragging(false);
+    const file = event.dataTransfer.files[0];
+    if (file && file.type.startsWith("image/")) {
+      handleFileSelect(file);
+    }
+  };
+
+  const handleRemovePicture = async () => {
+    if (!user) return;
+
+    setIsUploading(true);
+    try {
+      const idToken = localStorage.getItem("idToken");
+      await updateUser({
+        variables: {
+          input: { avatarUrl: null },
+        },
+        context: {
+          headers: {
+            Authorization: `Bearer ${idToken}`,
+          },
+        },
+      });
+
+      // Refresh user data
+      await refresh();
+
+      toast.success(t("profile.pictureRemoved"));
+    } catch (error) {
+      console.error("Failed to remove profile picture:", error);
+      toast.error(t("profile.updateError"));
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const getInitials = (name: string | undefined) => {
+    if (!name) return "U";
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
   };
 
   return (
@@ -32,6 +153,84 @@ const ProfilePage = () => {
         </div>
 
         <div className="space-y-6">
+          {/* Profile Picture Card */}
+          <Card>
+            <CardHeader>
+              <CardTitle>{t("profile.profilePicture")}</CardTitle>
+              <CardDescription>{t("profile.supportedFormats")}</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
+                {/* Avatar Display */}
+                <Avatar className="h-24 w-24">
+                  <AvatarImage
+                    src={user?.avatarUrl || undefined}
+                    alt={user?.displayName || "User"}
+                  />
+                  <AvatarFallback className="text-2xl">
+                    {getInitials(user?.displayName)}
+                  </AvatarFallback>
+                </Avatar>
+
+                <div className="flex-1 space-y-4">
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    onDrop={handleDrop}
+                    onClick={() => fileInputRef.current?.click()}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        fileInputRef.current?.click();
+                      }
+                    }}
+                    className={`cursor-pointer rounded-lg border-2 border-dashed p-6 text-center transition-colors ${
+                      isDragging
+                        ? "border-primary bg-primary/5"
+                        : "border-muted-foreground/25 hover:border-primary/50"
+                    }`}
+                  >
+                    <p className="text-sm text-muted-foreground">
+                      {t("profile.dragDropImage")}
+                    </p>
+                  </div>
+
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/jpeg,image/jpg,image/png,image/webp"
+                    onChange={handleInputChange}
+                    className="hidden"
+                  />
+
+                  {/* Action Buttons */}
+                  <div className="flex flex-wrap gap-2">
+                    <Button
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={isUploading}
+                      variant="default"
+                    >
+                      {isUploading
+                        ? t("profile.uploadingPicture")
+                        : t("profile.uploadPicture")}
+                    </Button>
+                    {user?.avatarUrl && (
+                      <Button
+                        onClick={handleRemovePicture}
+                        disabled={isUploading}
+                        variant="outline"
+                      >
+                        {t("profile.removePicture")}
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* User Information Card */}
           <Card>
             <CardHeader>

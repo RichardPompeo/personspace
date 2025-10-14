@@ -198,6 +198,7 @@ const RootLayout = () => {
               onProfileClick={handleProfileClick}
               userName={user?.displayName ?? null}
               userEmail={user?.email ?? null}
+              avatarUrl={user?.avatarUrl ?? null}
               labels={utilityLabels}
             />
           </div>

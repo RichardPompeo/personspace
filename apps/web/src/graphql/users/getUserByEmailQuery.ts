@@ -12,6 +12,7 @@ const GET_USER_BY_EMAIL_QUERY = gql`
         displayName
         email
         id
+        avatarUrl
       }
     }
   }

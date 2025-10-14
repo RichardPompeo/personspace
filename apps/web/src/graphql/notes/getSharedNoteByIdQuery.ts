@@ -14,6 +14,7 @@ const GET_SHARED_NOTE_BY_ID_QUERY = gql`
         author {
           id
           displayName
+          avatarUrl
         }
       }
       sharedAt

@@ -15,6 +15,7 @@ model Users {
   displayName  String
   firebaseId   String        @unique
   email        String?       @unique
+  avatarUrl    String?
   notes        Note[]
   noteComments NoteComment[]
   noteShares   NoteShare[]

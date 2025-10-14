@@ -45,6 +45,7 @@ export interface GetUserData {
     id: string;
     displayName: string;
     email: string;
+    avatarUrl: string | null;
   };
 }
 
@@ -61,5 +62,21 @@ export interface CreateUserVariables {
     firebaseId: string;
     displayName: string;
     email: string;
+  };
+}
+
+export interface UpdateUserData {
+  updateUser: {
+    id: string;
+    displayName: string;
+    email: string | null;
+    avatarUrl: string | null;
+  };
+}
+
+export interface UpdateUserVariables {
+  input: {
+    displayName?: string;
+    avatarUrl?: string | null;
   };
 }

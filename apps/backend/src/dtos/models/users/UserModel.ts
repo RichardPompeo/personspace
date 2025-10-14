@@ -10,4 +10,7 @@ export class UserModel {
 
   @Field({ nullable: true })
   email: string | null;
+
+  @Field({ nullable: true })
+  avatarUrl: string | null;
 }

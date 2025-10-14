@@ -123,7 +123,18 @@
         "actions": "Actions",
         "signOutTitle": "Sign Out",
         "signOutDescription": "Sign out of your account on this device",
-        "signOutButton": "Sign Out"
+        "signOutButton": "Sign Out",
+        "profilePicture": "Profile Picture",
+        "changeProfilePicture": "Change Profile Picture",
+        "uploadPicture": "Upload Picture",
+        "uploadingPicture": "Uploading...",
+        "removePicture": "Remove Picture",
+        "dragDropImage": "Drag and drop an image here, or click to select",
+        "supportedFormats": "Supported formats: JPG, PNG, WebP (max 5MB)",
+        "pictureUpdated": "Profile picture updated successfully",
+        "pictureRemoved": "Profile picture removed successfully",
+        "uploadError": "Failed to upload profile picture. Please try again.",
+        "updateError": "Failed to update profile. Please try again."
       },
       "pages": {
         "welcomeBack": "Welcome back,",
