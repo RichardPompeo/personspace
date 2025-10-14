@@ -28,6 +28,7 @@ interface ShareNoteDialogProps {
   shares: NoteShareType[];
   open: boolean;
   onClose: () => void;
+  onShare: () => void;
 }
 
 interface GetUserByEmail {
@@ -45,6 +46,7 @@ export default function ShareNoteDialog({
   shares,
   open,
   onClose,
+  onShare,
 }: ShareNoteDialogProps) {
   const [user, setUser] = useState<UserType | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -86,6 +88,7 @@ export default function ShareNoteDialog({
       });
 
       setUser(null);
+      onShare();
     } catch {
       toast.error("An error occurred while sharing the note");
     }

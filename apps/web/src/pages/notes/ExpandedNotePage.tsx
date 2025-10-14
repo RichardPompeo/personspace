@@ -62,18 +62,21 @@ export default function ExpandedNotePage() {
 
   const token = localStorage.getItem("idToken");
 
-  const { data, loading, error } = useQuery<GetNoteData>(GET_NOTE_BY_ID_QUERY, {
-    context: {
-      headers: {
-        Authorization: `Bearer ${token}`,
+  const { data, loading, error, refetch } = useQuery<GetNoteData>(
+    GET_NOTE_BY_ID_QUERY,
+    {
+      context: {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       },
+      variables: {
+        id: params.id,
+      },
+      skip: !token || !params.id,
+      fetchPolicy: "cache-and-network",
     },
-    variables: {
-      id: params.id,
-    },
-    skip: !token || !params.id,
-    fetchPolicy: "cache-and-network",
-  });
+  );
 
   const { data: commentsData, refetch: refetchComments } =
     useQuery<GetNoteCommentsData>(GET_NOTE_COMMENTS_QUERY, {
@@ -305,6 +308,7 @@ export default function ExpandedNotePage() {
         shares={note.shares}
         open={isShareDialogOpen}
         onClose={() => setIsShareDialogOpen(false)}
+        onShare={() => refetch()}
       />
     </>
   );
