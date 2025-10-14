@@ -168,6 +168,7 @@ export default function NotesPage() {
                     <NoteCard
                       note={sharedNote.note}
                       onClick={() => navigate(`/notes/${sharedNote.note.id}`)}
+                      onRefetch={() => refetch()}
                     />
                   </div>
                 ))
@@ -176,6 +177,7 @@ export default function NotesPage() {
                     key={note.id}
                     note={note}
                     onClick={() => navigate(`/notes/${note.id}`)}
+                    onRefetch={() => refetch()}
                   />
                 ))}
           </>

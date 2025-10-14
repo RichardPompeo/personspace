@@ -171,7 +171,9 @@
           "sharedWith": "Shared with",
           "removeShare": "Remove",
           "deleteConfirm": "Are you sure you want to delete this note?",
-          "cancel": "Cancel"
+          "cancel": "Cancel",
+          "sharingWith": "Sharing with",
+          "actions": "Actions"
         },
         "notifications": {
           "noteCreated": "Note created successfully!",
@@ -181,15 +183,6 @@
           "noteShared": "Note shared successfully!",
           "shareRemoved": "Share removed successfully!",
           "error": "An error occurred. Please try again."
-        },
-        "expandedNote": {
-          "share": "Share",
-          "edit": "Edit",
-          "delete": "Delete",
-          "sharingWith": "Sharing with",
-          "comments": "Comments",
-          "noComments": "No comments yet...",
-          "commentPlaceholder": "Write comment..."
         },
         "deleteDialog": {
           "title": "Delete Note",
@@ -229,6 +222,20 @@
         "monthsAgo": "{{count}} months ago",
         "yearAgo": "1 year ago",
         "yearsAgo": "{{count}} years ago"
+      },
+      "editNoteDialog": {
+        "title": "Edit Note",
+        "titleLabel": "Title",
+        "titlePlaceholder": "Title",
+        "descriptionLabel": "Description",
+        "descriptionPlaceholder": "Description",
+        "colorLabel": "Color",
+        "selectColor": "Select color {{color}}",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving...",
+        "updateSuccess": "Note updated successfully",
+        "updateError": "Failed to update note"
       }
     }
   }

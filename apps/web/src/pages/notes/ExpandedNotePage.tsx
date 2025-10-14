@@ -5,10 +5,9 @@ import {
   ArrowLeft,
   Calendar,
   Forward,
-  Pencil,
   PencilLine,
+  Share2,
   Trash,
-  UserRoundPlus,
   Users,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -22,7 +21,6 @@ import GET_NOTE_COMMENTS_QUERY from "@/graphql/notes/getNoteCommentsQuery";
 import CREATE_NOTE_COMMENT_MUTATION from "@/graphql/notes/createNoteCommentMutation";
 import { NoteType } from "@/types/NoteType";
 import {
-  Button,
   Card,
   CardContent,
   CardFooter,
@@ -33,10 +31,17 @@ import {
   ScrollArea,
   InputGroup,
   Kbd,
+  Menubar,
+  MenubarMenu,
+  MenubarTrigger,
+  MenubarContent,
+  MenubarItem,
+  MenubarSeparator,
 } from "ui";
 import DeleteNoteDialog from "@/components/notes/DeleteNoteDialog";
 import ShareNoteDialog from "@/components/notes/ShareNoteDialog";
 import { NoteCommentType } from "@/types/NoteCommentType";
+import EditNoteDialog from "@/components/notes/EditNoteDialog";
 
 interface GetNoteData {
   getNoteById: NoteType;
@@ -59,6 +64,7 @@ export default function ExpandedNotePage() {
   const scrollAnchorRef = useRef<HTMLDivElement>(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   const token = localStorage.getItem("idToken");
 
@@ -218,26 +224,31 @@ export default function ExpandedNotePage() {
               <CardTitle className="line-clamp-2 text-lg">
                 {note.title}
               </CardTitle>
-              <div className="flex items-center gap-3 flex-row">
-                <Button
-                  variant="outline"
-                  onClick={() => setIsShareDialogOpen(true)}
-                >
-                  <UserRoundPlus size={16} />
-                  {t("notes.expandedNote.share")}
-                </Button>
-                <Button variant="outline">
-                  <Pencil size={16} />
-                  {t("notes.expandedNote.edit")}
-                </Button>
-                <Button
-                  variant="destructive"
-                  onClick={() => setIsDeleteDialogOpen(true)}
-                >
-                  <Trash size={16} />
-                  {t("notes.expandedNote.delete")}
-                </Button>
-              </div>
+              <Menubar>
+                <MenubarMenu>
+                  <MenubarTrigger>
+                    {t("notes.expandedNote.actions")}
+                  </MenubarTrigger>
+                  <MenubarContent align="end">
+                    <MenubarItem onClick={() => setIsEditDialogOpen(true)}>
+                      <PencilLine size={16} /> {t("notes.expandedNote.edit")}
+                    </MenubarItem>
+                    <MenubarSeparator />
+                    <MenubarItem onClick={() => setIsShareDialogOpen(true)}>
+                      <Share2 size={16} />
+                      {t("notes.expandedNote.share")}
+                    </MenubarItem>
+                    <MenubarSeparator />
+                    <MenubarItem
+                      className="text-destructive"
+                      onClick={() => setIsDeleteDialogOpen(true)}
+                    >
+                      <Trash className="text-destructive" size={16} />{" "}
+                      {t("notes.expandedNote.delete")}
+                    </MenubarItem>
+                  </MenubarContent>
+                </MenubarMenu>
+              </Menubar>
             </CardHeader>
             <CardContent className="space-y-4">{note.description}</CardContent>
             {note.shares && note.shares.length > 0 && (
@@ -314,6 +325,13 @@ export default function ExpandedNotePage() {
         open={isShareDialogOpen}
         onClose={() => setIsShareDialogOpen(false)}
         onShare={() => refetch()}
+      />
+
+      <EditNoteDialog
+        note={note}
+        isOpen={isEditDialogOpen}
+        onClose={() => setIsEditDialogOpen(false)}
+        onUpdate={() => refetch()}
       />
     </>
   );

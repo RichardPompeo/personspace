@@ -138,6 +138,7 @@ input SignUpWithEmailAndPasswordInput {
 }
 
 input UpdateNoteInput {
+  color: String!
   description: String!
   id: String!
   title: String!

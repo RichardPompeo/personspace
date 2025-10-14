@@ -171,7 +171,9 @@
           "sharedWith": "Compartilhado com",
           "removeShare": "Remover",
           "deleteConfirm": "Tem certeza que deseja excluir esta anotação?",
-          "cancel": "Cancelar"
+          "cancel": "Cancelar",
+          "sharingWith": "Compartilhando com",
+          "actions": "Ações"
         },
         "notifications": {
           "noteCreated": "Anotação criada com sucesso!",
@@ -181,15 +183,6 @@
           "noteShared": "Anotação compartilhada com sucesso!",
           "shareRemoved": "Compartilhamento removido com sucesso!",
           "error": "Ocorreu um erro. Por favor, tente novamente."
-        },
-        "expandedNote": {
-          "share": "Compartilhar",
-          "edit": "Editar",
-          "delete": "Excluir",
-          "sharingWith": "Compartilhando com",
-          "comments": "Comentários",
-          "noComments": "Nenhum comentário ainda...",
-          "commentPlaceholder": "Escreva um comentário..."
         },
         "deleteDialog": {
           "title": "Excluir Anotação",
@@ -229,6 +222,20 @@
         "monthsAgo": "{{count}} meses atrás",
         "yearAgo": "1 ano atrás",
         "yearsAgo": "{{count}} anos atrás"
+      },
+      "editNoteDialog": {
+        "title": "Editar Anotação",
+        "titleLabel": "Título",
+        "titlePlaceholder": "Título",
+        "descriptionLabel": "Descrição",
+        "descriptionPlaceholder": "Descrição",
+        "colorLabel": "Cor",
+        "selectColor": "Selecionar cor {{color}}",
+        "cancel": "Cancelar",
+        "save": "Salvar",
+        "saving": "Salvando...",
+        "updateSuccess": "Anotação atualizada com sucesso",
+        "updateError": "Falha ao atualizar anotação"
       }
     }
   }

@@ -20,8 +20,20 @@ export class NoteCommentsResolver {
       where: { firebaseId: payload.uid },
     });
 
-    if (!user) {
-      throw new Error("User not found");
+    const note = await prisma.note.findUnique({
+      where: { id: input.noteId },
+    });
+
+    if (!user || !note) {
+      throw new Error("User or note not found");
+    }
+
+    const noteShares = await prisma.noteShare.findMany({
+      where: { noteId: note.id },
+    });
+
+    if (!noteShares.some((share) => share.personId === user.id)) {
+      throw new Error("Unauthorized");
     }
 
     const data = await prisma.noteComment.create({

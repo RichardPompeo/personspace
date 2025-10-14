@@ -10,4 +10,7 @@ export class UpdateNoteInput {
 
   @Field()
   description: string;
+
+  @Field()
+  color: string;
 }

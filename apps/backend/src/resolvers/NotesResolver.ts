@@ -54,14 +54,23 @@ export class NotesResolver {
       where: { firebaseId: payload.uid },
     });
 
-    if (!user) {
-      throw new Error("User not found");
+    const note = await prisma.note.findUnique({
+      where: { id: input.id },
+    });
+
+    if (!user || !note) {
+      throw new Error("User or note not found");
     }
 
-    await prisma.note.updateMany({
+    if (note.authorId !== user.id) {
+      throw new Error("Unauthorized");
+    }
+
+    await prisma.note.update({
       data: {
         title: input.title,
         description: input.description,
+        color: input.color,
         updatedAt: new Date(),
       },
       where: { id: input.id, authorId: user.id },
@@ -88,13 +97,21 @@ export class NotesResolver {
       where: { firebaseId: payload.uid },
     });
 
-    if (!user) {
-      throw new Error("User not found");
+    const note = await prisma.note.findUnique({
+      where: { id: input.id },
+    });
+
+    if (!user || !note) {
+      throw new Error("User or note not found");
+    }
+
+    if (note.authorId !== user.id) {
+      throw new Error("Unauthorized");
     }
 
     await prisma.noteComment.deleteMany({ where: { noteId: input.id } });
     await prisma.noteShare.deleteMany({ where: { noteId: input.id } });
-    await prisma.note.deleteMany({
+    await prisma.note.delete({
       where: { id: input.id, authorId: user.id },
     });
 

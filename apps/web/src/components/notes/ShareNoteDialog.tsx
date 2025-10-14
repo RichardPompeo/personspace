@@ -140,7 +140,7 @@ export default function ShareNoteDialog({
     } catch (error) {
       console.error(error);
     }
-  }, [token, getUserByEmail, shares, currentUser?.id]);
+  }, [token, getUserByEmail, shares, currentUser?.id, t]);
 
   useEffect(() => {
     const handleKeyDown = async (event: KeyboardEvent) => {
