@@ -9,11 +9,10 @@ import {
   HelpCircle,
   LayoutGrid,
   BookOpen,
-  Edit,
   Home,
   Menu,
   Languages,
-  Share2,
+  FileText,
 } from "lucide-react";
 
 import { SidebarNav, UtilityBar, Button, type NavSection } from "ui";
@@ -60,16 +59,21 @@ const RootLayout = () => {
         title: t("navbar.personal"),
         items: [
           {
-            id: "annotation",
-            label: t("navbar.annotation"),
-            icon: <Edit size={18} />,
-            to: "/notes",
-          },
-          {
-            id: "shared-notes",
-            label: t("navbar.sharedNotes"),
-            icon: <Share2 size={18} />,
-            to: "/shared-notes",
+            id: "notes",
+            label: t("navbar.notes"),
+            icon: <FileText size={18} />,
+            children: [
+              {
+                id: "annotation",
+                label: t("navbar.annotation"),
+                to: "/notes",
+              },
+              {
+                id: "shared-notes",
+                label: t("navbar.sharedNotes"),
+                to: "/shared-notes",
+              },
+            ],
           },
           {
             id: "calendar",

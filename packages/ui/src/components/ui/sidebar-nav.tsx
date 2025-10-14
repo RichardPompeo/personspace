@@ -1,12 +1,14 @@
 import * as React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface NavItem {
   id: string;
   label: string;
   icon?: React.ReactNode;
-  to: string;
+  to?: string;
+  children?: NavItem[];
 }
 
 export interface NavSection {
@@ -29,6 +31,9 @@ export interface SidebarNavProps {
 const SidebarNav = React.forwardRef<HTMLElement, SidebarNavProps>(
   ({ isOpen, brand, sections, className, onClose }, ref) => {
     const location = useLocation();
+    const [expandedItems, setExpandedItems] = React.useState<Set<string>>(
+      new Set(),
+    );
 
     const isActiveLink = (to: string) => {
       // Exact match for home
@@ -40,6 +45,111 @@ const SidebarNav = React.forwardRef<HTMLElement, SidebarNavProps>(
         return true;
       }
       return false;
+    };
+
+    const hasActiveChild = (item: NavItem): boolean => {
+      if (item.to && isActiveLink(item.to)) {
+        return true;
+      }
+      if (item.children) {
+        return item.children.some(
+          (child) => child.to && isActiveLink(child.to),
+        );
+      }
+      return false;
+    };
+
+    const toggleExpanded = (itemId: string) => {
+      setExpandedItems((prev) => {
+        const next = new Set(prev);
+        if (next.has(itemId)) {
+          next.delete(itemId);
+        } else {
+          next.add(itemId);
+        }
+        return next;
+      });
+    };
+
+    const renderNavItem = (item: NavItem, isChild: boolean = false) => {
+      const hasChildren = item.children && item.children.length > 0;
+      const isExpanded = expandedItems.has(item.id);
+      const isActive = item.to ? isActiveLink(item.to) : false;
+      const hasActiveChildren = hasActiveChild(item);
+
+      if (hasChildren) {
+        return (
+          <li key={item.id}>
+            <button
+              onClick={() => toggleExpanded(item.id)}
+              className={cn(
+                "flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors relative",
+                hasActiveChildren
+                  ? "bg-primary/10 text-primary font-semibold"
+                  : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring focus-visible:ring-offset-2",
+                isChild && "pl-11",
+              )}
+            >
+              {hasActiveChildren && (
+                <span className="absolute left-0 top-1/2 -translate-y-1/2 h-8 w-1 bg-primary rounded-r-full" />
+              )}
+              <div className="flex items-center gap-3">
+                {item.icon && (
+                  <span className="flex h-5 w-5 items-center justify-center">
+                    {item.icon}
+                  </span>
+                )}
+                <span>{item.label}</span>
+              </div>
+              <ChevronDown
+                size={16}
+                className={cn(
+                  "transition-transform duration-200",
+                  isExpanded && "rotate-180",
+                )}
+              />
+            </button>
+            {isExpanded && (
+              <ul className="mt-1 space-y-1">
+                {item.children!.map((child) => renderNavItem(child, true))}
+              </ul>
+            )}
+          </li>
+        );
+      }
+
+      return (
+        <li key={item.id}>
+          <Link
+            to={item.to!}
+            onClick={() => {
+              // Fecha a sidebar no mobile ao clicar em um link
+              if (onClose && window.matchMedia("(max-width: 767px)").matches) {
+                onClose();
+              }
+            }}
+            className={cn(
+              "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors relative",
+              isActive
+                ? "bg-primary/10 text-primary font-semibold"
+                : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring focus-visible:ring-offset-2",
+              isChild && "pl-11",
+            )}
+          >
+            {isActive && (
+              <span className="absolute left-0 top-1/2 -translate-y-1/2 h-8 w-1 bg-primary rounded-r-full" />
+            )}
+            {item.icon && !isChild && (
+              <span className="flex h-5 w-5 items-center justify-center">
+                {item.icon}
+              </span>
+            )}
+            <span>{item.label}</span>
+          </Link>
+        </li>
+      );
     };
 
     return (
@@ -99,42 +209,7 @@ const SidebarNav = React.forwardRef<HTMLElement, SidebarNavProps>(
                   {section.title}
                 </h3>
                 <ul className="space-y-1">
-                  {section.items.map((item) => {
-                    const isActive = isActiveLink(item.to);
-                    return (
-                      <li key={item.id}>
-                        <Link
-                          to={item.to}
-                          onClick={() => {
-                            // Fecha a sidebar no mobile ao clicar em um link
-                            if (
-                              onClose &&
-                              window.matchMedia("(max-width: 767px)").matches
-                            ) {
-                              onClose();
-                            }
-                          }}
-                          className={cn(
-                            "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors relative",
-                            isActive
-                              ? "bg-primary/10 text-primary font-semibold"
-                              : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
-                            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring focus-visible:ring-offset-2",
-                          )}
-                        >
-                          {isActive && (
-                            <span className="absolute left-0 top-1/2 -translate-y-1/2 h-8 w-1 bg-primary rounded-r-full" />
-                          )}
-                          {item.icon && (
-                            <span className="flex h-5 w-5 items-center justify-center">
-                              {item.icon}
-                            </span>
-                          )}
-                          <span>{item.label}</span>
-                        </Link>
-                      </li>
-                    );
-                  })}
+                  {section.items.map((item) => renderNavItem(item))}
                 </ul>
               </div>
             ))}
