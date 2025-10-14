@@ -40,6 +40,7 @@ export default function NotesPage() {
     },
     skip: !token,
     notifyOnNetworkStatusChange: true,
+    fetchPolicy: "cache-and-network",
   });
 
   const {

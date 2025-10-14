@@ -60,5 +60,6 @@ export interface CreateUserVariables {
   input: {
     firebaseId: string;
     displayName: string;
+    email: string;
   };
 }

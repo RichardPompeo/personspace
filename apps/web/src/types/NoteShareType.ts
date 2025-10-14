@@ -3,6 +3,7 @@ import { UserType } from "./UserType";
 
 export interface NoteShareType {
   id: string;
+  email: string;
   personId: string;
   person: UserType;
   noteId: string;

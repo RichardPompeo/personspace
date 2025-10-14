@@ -13,9 +13,11 @@ const GET_NOTE_BY_ID_QUERY = gql`
       }
       shares {
         id
+        personId
         person {
           id
           displayName
+          email
         }
       }
       createdAt

@@ -20,6 +20,7 @@ export class UserResolver {
       id: randomUUID(),
       firebaseId: input.firebaseId,
       displayName: input.displayName,
+      email: input.email,
     };
 
     const createdUser = await prisma.users
@@ -33,7 +34,7 @@ export class UserResolver {
 
     return {
       id: createdUser.id,
-      email: null, // Email will be provided by Firebase context when needed
+      email: null,
       displayName: createdUser.displayName,
     };
   }

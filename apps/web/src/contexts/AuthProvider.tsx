@@ -91,6 +91,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
             input: {
               firebaseId: userCredential.user.uid,
               displayName,
+              email,
             },
           },
         });

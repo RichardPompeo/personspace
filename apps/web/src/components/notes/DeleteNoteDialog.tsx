@@ -1,5 +1,6 @@
 import { Trash } from "lucide-react";
 import { useMutation } from "@apollo/client/react";
+import { toast } from "sonner";
 import {
   Dialog,
   DialogTitle,
@@ -46,6 +47,10 @@ export default function DeleteNoteDialog({
       },
       onCompleted: () => {
         onDelete();
+        toast.success("Note deleted successfully");
+      },
+      onError: () => {
+        toast.error("An error occurred while deleting the note");
       },
     });
 

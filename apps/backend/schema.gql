@@ -33,6 +33,7 @@ input CreateNoteShareInput {
 
 input CreateUserInput {
   displayName: String!
+  email: String!
   firebaseId: String!
 }
 

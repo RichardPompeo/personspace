@@ -9,6 +9,7 @@ import {
   PencilLine,
   Trash,
   UserRoundPlus,
+  Users,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -34,6 +35,7 @@ import {
   Kbd,
 } from "ui";
 import DeleteNoteDialog from "@/components/notes/DeleteNoteDialog";
+import ShareNoteDialog from "@/components/notes/ShareNoteDialog";
 import { NoteCommentType } from "@/types/NoteCommentType";
 
 interface GetNoteData {
@@ -56,6 +58,7 @@ export default function ExpandedNotePage() {
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollAnchorRef = useRef<HTMLDivElement>(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
 
   const token = localStorage.getItem("idToken");
 
@@ -69,6 +72,7 @@ export default function ExpandedNotePage() {
       id: params.id,
     },
     skip: !token || !params.id,
+    fetchPolicy: "cache-and-network",
   });
 
   const { data: commentsData, refetch: refetchComments } =
@@ -204,36 +208,46 @@ export default function ExpandedNotePage() {
 
         <div className="flex flex-col xl:flex-row items-top gap-3">
           <Card
-            className="border-l-4 w-full xl:w-4/6 min-h-96"
+            className="border-l-4 w-full xl:w-4/6 min-h-96 flex flex-col"
             style={{ borderLeftColor: note.color }}
           >
-            <div>
-              <CardHeader className="pb-3 flex justify-between items-center flex-row">
-                <CardTitle className="line-clamp-2 text-lg">
-                  {note.title}
-                </CardTitle>
-                <div className="flex items-center gap-3 flex-row">
-                  <Button variant="outline">
-                    <UserRoundPlus size={16} />
-                    Share
-                  </Button>
-                  <Button variant="outline">
-                    <Pencil size={16} />
-                    Edit
-                  </Button>
-                  <Button
-                    variant="destructive"
-                    onClick={() => setIsDeleteDialogOpen(true)}
-                  >
-                    <Trash size={16} />
-                    Delete
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {note.description}
-              </CardContent>
-            </div>
+            <CardHeader className="pb-3 flex justify-between items-center flex-row">
+              <CardTitle className="line-clamp-2 text-lg">
+                {note.title}
+              </CardTitle>
+              <div className="flex items-center gap-3 flex-row">
+                <Button
+                  variant="outline"
+                  onClick={() => setIsShareDialogOpen(true)}
+                >
+                  <UserRoundPlus size={16} />
+                  Share
+                </Button>
+                <Button variant="outline">
+                  <Pencil size={16} />
+                  Edit
+                </Button>
+                <Button
+                  variant="destructive"
+                  onClick={() => setIsDeleteDialogOpen(true)}
+                >
+                  <Trash size={16} />
+                  Delete
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">{note.description}</CardContent>
+            {note.shares && note.shares.length > 0 && (
+              <CardFooter className="mt-auto flex gap-1">
+                <Users className="w-3 h-3 text-muted-foreground" />
+                <p className="text-muted-foreground text-xs">Sharing with </p>
+                <p className="text-xs">
+                  {note.shares
+                    .map((share) => share.person.displayName)
+                    .join(", ")}
+                </p>
+              </CardFooter>
+            )}
           </Card>
 
           <Card className="w-full xl:w-2/6 h-96 flex flex-col">
@@ -284,6 +298,13 @@ export default function ExpandedNotePage() {
         open={isDeleteDialogOpen}
         onClose={() => setIsDeleteDialogOpen(false)}
         onDelete={() => navigate(-1)}
+      />
+
+      <ShareNoteDialog
+        id={note.id}
+        shares={note.shares}
+        open={isShareDialogOpen}
+        onClose={() => setIsShareDialogOpen(false)}
       />
     </>
   );
