@@ -16,7 +16,7 @@ COPY ../../packages ./packages
 COPY package.json ./backend/
 
 # Install dependencies
-RUN yarn install --frozen-lockfile
+RUN yarn install
 
 # Copy backend source
 COPY . ./backend
