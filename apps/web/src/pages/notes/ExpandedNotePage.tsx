@@ -19,7 +19,7 @@ import NoteComment from "@/components/notes/NoteComment";
 import GET_NOTE_BY_ID_QUERY from "@/graphql/notes/getNoteByIdQuery";
 import GET_NOTE_COMMENTS_QUERY from "@/graphql/notes/getNoteCommentsQuery";
 import CREATE_NOTE_COMMENT_MUTATION from "@/graphql/notes/createNoteCommentMutation";
-import { NoteType } from "@/types/NoteType";
+import { NoteType } from "@/types/notes/NoteType";
 import {
   Card,
   CardContent,
@@ -40,7 +40,7 @@ import {
 } from "ui";
 import DeleteNoteDialog from "@/components/notes/DeleteNoteDialog";
 import ShareNoteDialog from "@/components/notes/ShareNoteDialog";
-import { NoteCommentType } from "@/types/NoteCommentType";
+import { NoteCommentType } from "@/types/notes/NoteCommentType";
 import EditNoteDialog from "@/components/notes/EditNoteDialog";
 
 interface GetNoteData {

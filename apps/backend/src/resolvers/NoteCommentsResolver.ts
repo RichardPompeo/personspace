@@ -32,7 +32,10 @@ export class NoteCommentsResolver {
       where: { noteId: note.id },
     });
 
-    if (!noteShares.some((share) => share.personId === user.id)) {
+    if (
+      note.authorId !== user.id ||
+      !noteShares.some((share) => share.personId === user.id)
+    ) {
       throw new Error("Unauthorized");
     }
 
