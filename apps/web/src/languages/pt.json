@@ -1,6 +1,9 @@
 {
   "pt": {
     "translation": {
+      "general": {
+        "back": "Voltar"
+      },
       "navbar": {
         "personspace": "Personspace",
         "pages": "Páginas",
@@ -179,6 +182,22 @@
           "shareRemoved": "Compartilhamento removido com sucesso!",
           "error": "Ocorreu um erro. Por favor, tente novamente."
         }
+      },
+      "date": {
+        "justNow": "agora mesmo",
+        "minuteAgo": "1 minuto atrás",
+        "minutesAgo": "{{count}} minutos atrás",
+        "hourAgo": "1 hora atrás",
+        "hoursAgo": "{{count}} horas atrás",
+        "yesterday": "ontem",
+        "dayAgo": "1 dia atrás",
+        "daysAgo": "{{count}} dias atrás",
+        "weekAgo": "1 semana atrás",
+        "weeksAgo": "{{count}} semanas atrás",
+        "monthAgo": "1 mês atrás",
+        "monthsAgo": "{{count}} meses atrás",
+        "yearAgo": "1 ano atrás",
+        "yearsAgo": "{{count}} anos atrás"
       }
     }
   }

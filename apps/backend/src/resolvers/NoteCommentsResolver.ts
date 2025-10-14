@@ -1,4 +1,4 @@
-import { Arg, Authorized, Ctx, Mutation, Resolver } from "type-graphql";
+import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import { randomUUID } from "node:crypto";
 
 import { NoteCommentModel } from "../dtos/models/notes/NoteCommentModel";
@@ -36,5 +36,19 @@ export class NoteCommentsResolver {
     });
 
     return data;
+  }
+
+  @Authorized()
+  @Query(() => [NoteCommentModel])
+  async getNoteComments(@Arg("noteId", () => String) noteId: string) {
+    const comments = await prisma.noteComment.findMany({
+      where: { noteId },
+      include: {
+        author: true,
+      },
+      orderBy: { createdAt: "asc" },
+    });
+
+    return comments;
   }
 }

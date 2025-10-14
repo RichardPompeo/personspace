@@ -94,7 +94,7 @@ export default function CreateNoteCard({ onNoteCreated }: CreateNoteCardProps) {
         className="flex min-h-[200px] w-full cursor-pointer flex-col items-center justify-center border-2 border-dashed transition-all hover:border-primary bg-accent/5"
       >
         <CardContent className="flex flex-col items-center justify-center gap-3 p-6">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-black">
             <Plus className="h-6 w-6" />
           </div>
           <span className="text-sm font-medium">
@@ -165,7 +165,7 @@ export default function CreateNoteCard({ onNoteCreated }: CreateNoteCardProps) {
             <Button
               type="submit"
               disabled={loading || !title.trim() || !description.trim()}
-              className="w-full"
+              className="w-full text-black"
             >
               {loading
                 ? t("notes.createNote.creating", "Creating...")

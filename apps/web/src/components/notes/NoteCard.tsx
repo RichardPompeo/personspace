@@ -6,8 +6,9 @@ import {
   CardContent,
   CardFooter,
 } from "ui";
-import { MessageCircle } from "lucide-react";
+import { Calendar, MessageCircle, PencilLine } from "lucide-react";
 import { NoteType } from "../../types/NoteType";
+import DateDisplay from "../DateDisplay";
 
 interface NoteCardProps {
   note: NoteType;
@@ -15,15 +16,6 @@ interface NoteCardProps {
 }
 
 export default function NoteCard({ note, onClick }: NoteCardProps) {
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString(undefined, {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  };
-
   return (
     <Card
       onClick={onClick}
@@ -42,7 +34,20 @@ export default function NoteCard({ note, onClick }: NoteCardProps) {
       </div>
       <CardFooter>
         <div className="flex items-center gap-3 justify-between text-xs text-muted-foreground pt-2">
-          <span>{formatDate(note.createdAt)}</span>
+          <span className="flex items-center gap-1.5">
+            {Math.abs(
+              new Date(note.createdAt).getTime() -
+                new Date(note.updatedAt).getTime(),
+            ) > 1000 && (
+              <>
+                <PencilLine className="h-3 w-3" />
+                <DateDisplay date={note.updatedAt} />
+              </>
+            )}
+            <Calendar className="h-3 w-3" />
+            <DateDisplay date={note.createdAt} />
+          </span>
+
           {note.comments && note.comments.length > 0 && (
             <span className="flex items-center gap-1.5">
               <MessageCircle className="h-3 w-3" />

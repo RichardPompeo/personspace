@@ -2,10 +2,12 @@ import { createBrowserRouter, redirect, RouterProvider } from "react-router";
 
 import RootLayout from "@/layout/RootLayout";
 import HomePage from "@/pages/HomePage";
-import LoginPage from "@/pages/LoginPage";
-import RegisterPage from "@/pages/RegisterPage";
-import ProfilePage from "@/pages/ProfilePage";
-import NotesPage from "@/pages/NotesPage";
+import LoginPage from "@/pages/account/LoginPage";
+import RegisterPage from "@/pages/account/RegisterPage";
+import ProfilePage from "@/pages/account/ProfilePage";
+import NotesPage from "@/pages/notes/NotesPage";
+import ExpandedNotePage from "@/pages/notes/ExpandedNotePage";
+
 import ProtectedRoute from "@/components/ProtectedRoute";
 
 const router = createBrowserRouter([
@@ -38,6 +40,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <NotesPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/notes/:id",
+        element: (
+          <ProtectedRoute>
+            <ExpandedNotePage />
           </ProtectedRoute>
         ),
       },

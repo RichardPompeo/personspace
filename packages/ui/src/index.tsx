@@ -41,4 +41,21 @@ export type {
   NavItem,
 } from "./components/ui/sidebar-nav";
 export { UtilityBar } from "./components/ui/utility-bar";
+export {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./components/ui/tooltip";
+export { ScrollArea } from "./components/ui/scroll-area";
+export { Kbd } from "./components/ui/kbd";
+export {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupText,
+  InputGroupTextarea,
+  InputGroupInput,
+} from "./components/ui/input-group";
+
 export type { UtilityBarProps } from "./components/ui/utility-bar";

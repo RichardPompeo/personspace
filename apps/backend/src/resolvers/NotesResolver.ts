@@ -116,12 +116,14 @@ export class NotesResolver {
 
     const notes = await prisma.note.findMany({
       where: { authorId: user.id },
+      orderBy: { createdAt: "desc" },
       include: {
         author: true,
         comments: {
           include: {
             author: true,
           },
+          orderBy: { createdAt: "desc" },
         },
         shares: {
           include: {
@@ -174,5 +176,32 @@ export class NotesResolver {
     });
 
     return notes;
+  }
+
+  @Authorized()
+  @Query(() => NoteModel)
+  async getNoteById(@Arg("id", () => String) id: string) {
+    const note = await prisma.note.findUnique({
+      where: { id },
+      include: {
+        author: true,
+        comments: {
+          include: {
+            author: true,
+          },
+        },
+        shares: {
+          include: {
+            person: true,
+          },
+        },
+      },
+    });
+
+    if (!note) {
+      throw new Error("Note not found");
+    }
+
+    return note;
   }
 }

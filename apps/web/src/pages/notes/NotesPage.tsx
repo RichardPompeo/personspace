@@ -1,19 +1,17 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FileText, RefreshCw } from "lucide-react";
 import { useNavigate } from "react-router";
 import { useQuery } from "@apollo/client/react";
 
-import { AuthContext } from "../contexts/AuthProvider";
-import { NoteType } from "../types/NoteType";
-import { NoteShareType } from "../types/NoteShareType";
-import LoadingSpinner from "../components/LoadingSpinner";
-import CreateNoteCard from "../components/notes/CreateNoteCard";
-import NoteCard from "../components/notes/NoteCard";
-import ExpandedNoteModal from "../components/notes/ExpandedNoteModal";
+import { NoteType } from "../../types/NoteType";
+import { NoteShareType } from "../../types/NoteShareType";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import CreateNoteCard from "../../components/notes/CreateNoteCard";
+import NoteCard from "../../components/notes/NoteCard";
 
-import GET_NOTES_QUERY from "../graphql/notes/getNotesQuery";
-import GET_SHARED_NOTES_QUERY from "../graphql/notes/getSharedNotes";
+import GET_NOTES_QUERY from "../../graphql/notes/getNotesQuery";
+import GET_SHARED_NOTES_QUERY from "../../graphql/notes/getSharedNotes";
 
 interface GetNotesData {
   getNotes: NoteType[];
@@ -28,10 +26,8 @@ export default function NotesPage() {
   const [sharedNotes, setSharedNotes] = useState<NoteShareType[]>([]);
   const [type, setType] = useState<"your" | "shared">("your");
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [selectedNote, setSelectedNote] = useState<NoteType | null>(null);
 
   const navigate = useNavigate();
-  const { isLogged, loading: authLoading, user } = useContext(AuthContext);
   const { t } = useTranslation();
 
   const token = localStorage.getItem("idToken");
@@ -43,6 +39,7 @@ export default function NotesPage() {
       },
     },
     skip: !token,
+    notifyOnNetworkStatusChange: true,
   });
 
   const {
@@ -59,12 +56,6 @@ export default function NotesPage() {
   });
 
   useEffect(() => {
-    if (!authLoading && !isLogged) {
-      navigate("/login");
-    }
-  }, [isLogged, authLoading, navigate]);
-
-  useEffect(() => {
     if (data?.getNotes) {
       setNotes(data.getNotes);
     }
@@ -78,6 +69,7 @@ export default function NotesPage() {
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
+
     try {
       if (type === "your") {
         await refetch();
@@ -90,14 +82,6 @@ export default function NotesPage() {
       setTimeout(() => setIsRefreshing(false), 1000);
     }
   };
-
-  if (authLoading) {
-    return (
-      <div className="flex h-full w-full items-center justify-center p-8">
-        <LoadingSpinner size="lg" />
-      </div>
-    );
-  }
 
   const isLoading = loading || sharedNotesLoading;
   const displayNotes = type === "your" ? notes : sharedNotes;
@@ -113,7 +97,7 @@ export default function NotesPage() {
           <button
             onClick={handleRefresh}
             disabled={isRefreshing}
-            className="flex items-center gap-2 rounded-lg border-none bg-primary text-primary-foreground px-4 py-2 text-sm transition-all hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
+            className="flex items-center gap-2 rounded-lg border-none bg-primary text-black px-4 py-2 text-sm transition-all hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
           >
             <RefreshCw
               size={"16px"}
@@ -130,7 +114,7 @@ export default function NotesPage() {
           <button
             className={`cursor-pointer whitespace-nowrap border-none px-4 py-2 text-sm transition-all hover:opacity-80 ${
               type === "your"
-                ? "bg-primary text-primary-foreground"
+                ? "bg-primary text-black"
                 : "bg-transparent text-foreground"
             }`}
             onClick={() => setType("your")}
@@ -140,7 +124,7 @@ export default function NotesPage() {
           <button
             className={`cursor-pointer whitespace-nowrap border-none px-4 py-2 text-sm transition-all hover:opacity-80 ${
               type === "shared"
-                ? "bg-primary text-primary-foreground"
+                ? "bg-primary text-black"
                 : "bg-transparent text-foreground"
             }`}
             onClick={() => setType("shared")}
@@ -182,7 +166,7 @@ export default function NotesPage() {
                     </div>
                     <NoteCard
                       note={sharedNote.note}
-                      onClick={() => setSelectedNote(sharedNote.note)}
+                      onClick={() => navigate(`/notes/${sharedNote.note.id}`)}
                     />
                   </div>
                 ))
@@ -190,23 +174,12 @@ export default function NotesPage() {
                   <NoteCard
                     key={note.id}
                     note={note}
-                    onClick={() => setSelectedNote(note)}
+                    onClick={() => navigate(`/notes/${note.id}`)}
                   />
                 ))}
           </>
         )}
       </div>
-
-      {/* Expanded Note Modal */}
-      {selectedNote && (
-        <ExpandedNoteModal
-          note={selectedNote}
-          open={!!selectedNote}
-          onClose={() => setSelectedNote(null)}
-          onNoteUpdated={handleRefresh}
-          isOwner={selectedNote.authorId === user?.id}
-        />
-      )}
     </div>
   );
 }

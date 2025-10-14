@@ -116,6 +116,8 @@ type NoteShareResponseModel {
 }
 
 type Query {
+  getNoteById(id: String!): NoteModel!
+  getNoteComments(noteId: String!): [NoteCommentModel!]!
   getNotes: [NoteModel!]!
   getSharedNotes: [NoteShareModel!]!
   getUser: UserModel!
