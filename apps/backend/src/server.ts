@@ -56,7 +56,7 @@ const bootstrap = async () => {
         "http://localhost:4173",
         "https://personspace.vercel.app",
         "https://personspace.com.br",
-        "https:://www.personspace.com.br",
+        "https://www.personspace.com.br",
       ],
       credentials: true,
     }),
