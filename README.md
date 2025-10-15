@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="apps/web/public/logo.png" width="100" alt="Personspace Logo" />
+
 # 🚀 Personspace
 
 **Your personal space, organized and accessible**
@@ -387,13 +389,22 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 👨‍💻 Author
+## 👨‍💻 Authors
+
+<img src="https://contrib.rocks/image?repo=RichardPompeo/personspace" alt="image of authors"/> 
 
 **Richard Pompeo**
 
-- LinkedIn: [Your LinkedIn](https://www.linkedin.com/in/yourprofile)
-- GitHub: [@yourhandle](https://github.com/yourhandle)
-- Portfolio: [yourwebsite.com](https://yourwebsite.com)
+- LinkedIn: [linkedin.com/in/richardpompeoquintanavalenca](https://www.linkedin.com/in/richardpompeoquintanavalenca/)
+- GitHub: [github.com/richardpompeo](https://github.com/RichardPompeo/)
+- Portfolio: [richardpompeo.com.br](https://richardpompeo.com.br/)
+
+**Mauricio Felipe**
+
+- LinkedIn: [linkedin.com/in/mfelipesilva](https://www.linkedin.com/in/mfelipesilva/)
+- GitHub: [github.com/mutadofs](https://github.com/mutadofs/)
+- Portfolio: [mfelipesilva-v2.com.br](https://mfelipesilva-v2.vercel.app/)
+
 
 ---
 
