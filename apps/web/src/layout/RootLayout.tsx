@@ -82,16 +82,16 @@ const RootLayout = () => {
             to: "#calendar",
           },
           {
-            id: "contacts",
-            label: t("navbar.contacts"),
-            icon: <BookOpen size={18} />,
-            to: "#contacts",
-          },
-          {
             id: "schedule",
             label: t("navbar.schedule"),
             icon: <LayoutGrid size={18} />,
             to: "#schedule",
+          },
+          {
+            id: "contacts",
+            label: t("navbar.contacts"),
+            icon: <BookOpen size={18} />,
+            to: "#contacts",
           },
         ],
       },
@@ -169,7 +169,10 @@ const RootLayout = () => {
           isMenuOpen ? "md:pl-72" : "md:pl-0",
         )}
       >
-        <div className="sticky top-0 z-30 flex items-center justify-between bg-background border-b border-border px-4 py-3 md:px-8">
+        <div
+          className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 md:px-8 border-b border-border bg-background
+"
+        >
           <Button
             variant="ghost"
             size="icon"
