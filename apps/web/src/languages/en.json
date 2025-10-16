@@ -83,12 +83,21 @@
         "signIn": "Sign in",
         "signUp": "Sign up",
         "email": "Email",
+        "emailPlaceholder": "your.email@example.com",
         "password": "Password",
+        "passwordPlaceholder": "Enter your password",
+        "passwordRequirement": "Must be at least 6 characters",
         "displayName": "Display Name",
+        "displayNamePlaceholder": "Your full name",
         "confirmPassword": "Confirm Password",
+        "confirmPasswordPlaceholder": "Re-enter your password",
         "forgotPassword": "Forgot your password?",
         "dontHaveAccount": "Don't have an account?",
         "alreadyHaveAccount": "Already have an account?",
+        "alreadySignedIn": "Already signed in",
+        "continue": "Continue",
+        "welcomeBack": "Welcome back",
+        "createAccount": "Create your account",
         "signingIn": "Signing in...",
         "creatingAccount": "Creating account...",
         "bySigningUp": "By signing up, you agree to our",
@@ -235,6 +244,72 @@
         "monthsAgo": "{{count}} months ago",
         "yearAgo": "1 year ago",
         "yearsAgo": "{{count}} years ago"
+      },
+      "landing": {
+        "tagline": "Your personal space, organized",
+        "hero": {
+          "title": "Have your own <0>personal space</0>, organized the way you want",
+          "subtitle": "Store your notes, manage your calendar, organize contacts, and keep everything in sync. All in one beautiful, secure place.",
+          "cta": "Get Started"
+        },
+        "features": {
+          "title": "Everything you need, beautifully organized",
+          "subtitle": "Personspace brings together all your personal information management needs in one cohesive, elegant platform.",
+          "notes": {
+            "title": "Smart Notes",
+            "description": "Create, organize, and share notes with powerful features. Color-code your thoughts and collaborate with others."
+          },
+          "calendar": {
+            "title": "Calendar & Events",
+            "description": "Keep track of important dates, events, and appointments. Never miss what matters most."
+          },
+          "contacts": {
+            "title": "Contact Management",
+            "description": "Store and organize all your contacts in one place. Access them whenever you need them."
+          },
+          "schedule": {
+            "title": "Smart Scheduling",
+            "description": "Plan your day, week, and month with intelligent scheduling tools that work for you."
+          },
+          "sharing": {
+            "title": "Easy Sharing",
+            "description": "Share notes and collaborate with friends, family, or colleagues. Work together seamlessly."
+          },
+          "security": {
+            "title": "Secure & Private",
+            "description": "Your data is encrypted and secure. We take your privacy seriously and never share your information."
+          }
+        },
+        "benefits": {
+          "organized": "Stay organized and productive",
+          "accessible": "Access anywhere, anytime",
+          "secure": "Secure and private by default",
+          "collaborative": "Share and collaborate easily"
+        },
+        "cta": {
+          "title": "Ready to get organized?",
+          "subtitle": "Join thousands of users who have already organized their personal space. Start today.",
+          "button": "Create Account",
+          "note": "No credit card required"
+        },
+        "about": {
+          "title": "About Personspace",
+          "description1": "Personspace is your all-in-one personal organization platform. We believe everyone deserves a beautiful, secure place to store their important information.",
+          "description2": "Whether you're taking notes, managing your calendar, organizing contacts, or planning your schedule, Personspace makes it simple and elegant.",
+          "description3": "Built with modern web technologies and designed with privacy in mind, Personspace gives you complete control over your personal data.",
+          "cta": "Start Your Journey"
+        },
+        "footer": {
+          "tagline": "Your personal space, organized the way you want.",
+          "product": "Product",
+          "features": "Features",
+          "about": "About",
+          "getStarted": "Get Started",
+          "company": "Company",
+          "aboutUs": "About Us",
+          "legal": "Legal",
+          "rights": "All rights reserved."
+        }
       },
       "editNoteDialog": {
         "title": "Edit Note",

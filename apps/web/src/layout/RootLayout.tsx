@@ -44,7 +44,7 @@ const RootLayout = () => {
             id: "home",
             label: t("navbar.home"),
             icon: <Home size={18} />,
-            to: "/",
+            to: "/dashboard",
           },
           {
             id: "about",

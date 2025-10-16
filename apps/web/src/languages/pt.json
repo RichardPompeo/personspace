@@ -83,12 +83,21 @@
         "signIn": "Entrar",
         "signUp": "Criar conta",
         "email": "Email",
+        "emailPlaceholder": "seu.email@exemplo.com",
         "password": "Senha",
+        "passwordPlaceholder": "Digite sua senha",
+        "passwordRequirement": "Deve ter pelo menos 6 caracteres",
         "displayName": "Nome de exibição",
+        "displayNamePlaceholder": "Seu nome completo",
         "confirmPassword": "Confirmar senha",
+        "confirmPasswordPlaceholder": "Digite sua senha novamente",
         "forgotPassword": "Esqueceu sua senha?",
         "dontHaveAccount": "Não tem uma conta?",
         "alreadyHaveAccount": "Já tem uma conta?",
+        "alreadySignedIn": "Já está conectado",
+        "continue": "Continuar",
+        "welcomeBack": "Bem-vindo de volta",
+        "createAccount": "Crie sua conta",
         "signingIn": "Entrando...",
         "creatingAccount": "Criando conta...",
         "bySigningUp": "Ao se inscrever, você concorda com nossos",
@@ -235,6 +244,72 @@
         "monthsAgo": "{{count}} meses atrás",
         "yearAgo": "1 ano atrás",
         "yearsAgo": "{{count}} anos atrás"
+      },
+      "landing": {
+        "tagline": "Seu espaço pessoal, organizado",
+        "hero": {
+          "title": "Tenha seu próprio <0>espaço pessoal</0>, organizado do seu jeito",
+          "subtitle": "Armazene suas anotações, gerencie seu calendário, organize contatos e mantenha tudo sincronizado. Tudo em um lugar bonito e seguro.",
+          "cta": "Comece Agora"
+        },
+        "features": {
+          "title": "Tudo que você precisa, lindamente organizado",
+          "subtitle": "Personspace reúne todas as suas necessidades de gerenciamento de informações pessoais em uma plataforma coesa e elegante.",
+          "notes": {
+            "title": "Anotações Inteligentes",
+            "description": "Crie, organize e compartilhe anotações com recursos poderosos. Codifique seus pensamentos por cores e colabore com outros."
+          },
+          "calendar": {
+            "title": "Calendário & Eventos",
+            "description": "Acompanhe datas importantes, eventos e compromissos. Nunca perca o que é mais importante."
+          },
+          "contacts": {
+            "title": "Gestão de Contatos",
+            "description": "Armazene e organize todos os seus contatos em um só lugar. Acesse-os sempre que precisar."
+          },
+          "schedule": {
+            "title": "Agendamento Inteligente",
+            "description": "Planeje seu dia, semana e mês com ferramentas de agendamento inteligentes que trabalham para você."
+          },
+          "sharing": {
+            "title": "Compartilhamento Fácil",
+            "description": "Compartilhe anotações e colabore com amigos, família ou colegas. Trabalhe junto sem dificuldades."
+          },
+          "security": {
+            "title": "Seguro & Privado",
+            "description": "Seus dados são criptografados e seguros. Levamos sua privacidade a sério e nunca compartilhamos suas informações."
+          }
+        },
+        "benefits": {
+          "organized": "Mantenha-se organizado e produtivo",
+          "accessible": "Acesse de qualquer lugar, a qualquer hora",
+          "secure": "Seguro e privado por padrão",
+          "collaborative": "Compartilhe e colabore facilmente"
+        },
+        "cta": {
+          "title": "Pronto para se organizar?",
+          "subtitle": "Junte-se a milhares de usuários que já organizaram seu espaço pessoal. Comece hoje.",
+          "button": "Criar Conta",
+          "note": "Sem cartão de crédito"
+        },
+        "about": {
+          "title": "Sobre o Personspace",
+          "description1": "Personspace é sua plataforma completa de organização pessoal. Acreditamos que todos merecem um lugar bonito e seguro para armazenar suas informações importantes.",
+          "description2": "Seja fazendo anotações, gerenciando seu calendário, organizando contatos ou planejando sua agenda, o Personspace torna tudo simples e elegante.",
+          "description3": "Construído com tecnologias web modernas e projetado com privacidade em mente, o Personspace te dá controle completo sobre seus dados pessoais.",
+          "cta": "Comece Sua Jornada"
+        },
+        "footer": {
+          "tagline": "Seu espaço pessoal, organizado do seu jeito.",
+          "product": "Produto",
+          "features": "Recursos",
+          "about": "Sobre",
+          "getStarted": "Começar",
+          "company": "Empresa",
+          "aboutUs": "Sobre Nós",
+          "legal": "Legal",
+          "rights": "Todos os direitos reservados."
+        }
       },
       "editNoteDialog": {
         "title": "Editar Anotação",
