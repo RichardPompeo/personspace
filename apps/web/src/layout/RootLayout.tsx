@@ -3,7 +3,6 @@ import clsx from "clsx";
 import { Outlet, useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import {
-  Lightbulb,
   Calendar,
   X,
   HelpCircle,
@@ -13,6 +12,7 @@ import {
   Menu,
   Languages,
   FileText,
+  User,
 } from "lucide-react";
 
 import { SidebarNav, UtilityBar, Button, type NavSection } from "ui";
@@ -47,10 +47,10 @@ const RootLayout = () => {
             to: "/dashboard",
           },
           {
-            id: "about",
-            label: t("navbar.about"),
-            icon: <Lightbulb size={18} />,
-            to: "#about",
+            id: "profile",
+            label: t("navbar.profile"),
+            icon: <User size={18} />,
+            to: "/profile",
           },
         ],
       },
