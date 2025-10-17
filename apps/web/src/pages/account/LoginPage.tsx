@@ -3,15 +3,24 @@ import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useLocation } from "react-router";
 import { FirebaseError } from "firebase/app";
 
-import { Button, Input, Label, Alert, AlertDescription } from "ui";
+import {
+  Button,
+  Input,
+  Label,
+  Alert,
+  AlertDescription,
+  Card,
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
+} from "ui";
 import { useAuth } from "@/hooks/useAuth";
-import LoadingSpinner from "@/components/LoadingSpinner";
 
 const LoginPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
-  const { signIn, loading, isLogged } = useAuth();
+  const { signIn, isLogged, loading, user } = useAuth();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -37,8 +46,8 @@ const LoginPage = () => {
     try {
       await signIn(formData.email, formData.password);
 
-      // Redirect to the page user was trying to access, or home
-      const from = location.state?.from?.pathname || "/";
+      // Redirect to the page user was trying to access, or notes
+      const from = location.state?.from?.pathname || "/notes";
       navigate(from, { replace: true });
     } catch (error) {
       console.error("Login error:", error);
@@ -68,109 +77,109 @@ const LoginPage = () => {
       setIsSubmitting(false);
     }
   };
-
-  // If already logged in, redirect to home or intended page
-  if (isLogged) {
-    const from = location.state?.from?.pathname || "/";
-    navigate(from, { replace: true });
-    return null;
-  }
-
-  if (loading) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <LoadingSpinner size="lg" />
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-foreground">
-            {t("auth.signIn")}
-          </h2>
-          <p className="mt-2 text-center text-sm text-muted-foreground">
-            {t("auth.dontHaveAccount")}{" "}
-            <Link
-              to="/register"
-              className="font-medium text-primary hover:text-primary/80"
-            >
-              {t("auth.signUp")}
-            </Link>
-          </p>
+    <div className="w-full max-w-md space-y-8">
+      <div className="text-center">
+        <h2 className="text-3xl font-bold tracking-tight text-foreground">
+          {t("auth.welcomeBack")}
+        </h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          {t("auth.dontHaveAccount")}{" "}
+          <Link
+            to="/register"
+            className="font-medium text-primary transition-colors hover:text-primary/80"
+          >
+            {t("auth.signUp")}
+          </Link>
+        </p>
+      </div>
+
+      <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="email">{t("auth.email")}</Label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              required
+              placeholder={t("auth.emailPlaceholder")}
+              value={formData.email}
+              onChange={handleInputChange}
+              disabled={isSubmitting}
+              className="h-11"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="password">{t("auth.password")}</Label>
+              <Link
+                to="/forgot-password"
+                className="text-sm text-primary transition-colors hover:text-primary/80"
+              >
+                {t("auth.forgotPassword")}
+              </Link>
+            </div>
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              autoComplete="current-password"
+              required
+              placeholder={t("auth.passwordPlaceholder")}
+              value={formData.password}
+              onChange={handleInputChange}
+              disabled={isSubmitting}
+              className="h-11"
+            />
+          </div>
         </div>
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="email" className="sr-only">
-                {t("auth.email")}
-              </Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                placeholder={t("auth.email")}
-                value={formData.email}
-                onChange={handleInputChange}
-                disabled={isSubmitting}
-              />
-            </div>
-            <div>
-              <Label htmlFor="password" className="sr-only">
-                {t("auth.password")}
-              </Label>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                placeholder={t("auth.password")}
-                value={formData.password}
-                onChange={handleInputChange}
-                disabled={isSubmitting}
-              />
-            </div>
-          </div>
+        {error && (
+          <Alert variant="destructive">
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
 
-          {error && (
-            <Alert variant="destructive">
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
+        <Button
+          type="submit"
+          className="w-full"
+          size="lg"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? (
+            <>
+              <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+              {t("auth.signingIn")}
+            </>
+          ) : (
+            t("auth.signIn")
           )}
+        </Button>
+      </form>
 
-          <div>
-            <Button
-              type="submit"
-              className="group relative flex w-full justify-center rounded-lg py-3 px-4 text-sm font-semibold"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? (
-                <>
-                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent mr-2"></div>
-                  {t("auth.signingIn")}
-                </>
-              ) : (
-                t("auth.signIn")
-              )}
+      {!loading && user && isLogged && (
+        <div className="gap-3 flex flex-col">
+          <p className="text-foreground">{t("auth.alreadySignedIn")}</p>
+          <Card className="p-4 flex gap-3 items-center justify-betweeen">
+            <div className="flex gap-3 w-full items-center">
+              <Avatar>
+                <AvatarImage
+                  src={user.avatarUrl || undefined}
+                  alt={user.displayName}
+                />
+                <AvatarFallback>{user.displayName[0]}</AvatarFallback>
+              </Avatar>
+              <p className="text-foreground">{user.displayName}</p>
+            </div>
+            <Button onClick={() => navigate("/dashboard")} variant="outline">
+              {t("auth.continue")}
             </Button>
-          </div>
-
-          <div className="text-center">
-            <Link
-              to="/forgot-password"
-              className="text-sm text-primary hover:text-primary/80"
-            >
-              {t("auth.forgotPassword")}
-            </Link>
-          </div>
-        </form>
-      </div>
+          </Card>
+        </div>
+      )}
     </div>
   );
 };

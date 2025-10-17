@@ -3,7 +3,6 @@ import clsx from "clsx";
 import { Outlet, useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import {
-  Lightbulb,
   Calendar,
   X,
   HelpCircle,
@@ -13,6 +12,7 @@ import {
   Menu,
   Languages,
   FileText,
+  User,
 } from "lucide-react";
 
 import { SidebarNav, UtilityBar, Button, type NavSection } from "ui";
@@ -44,13 +44,13 @@ const RootLayout = () => {
             id: "home",
             label: t("navbar.home"),
             icon: <Home size={18} />,
-            to: "/",
+            to: "/dashboard",
           },
           {
-            id: "about",
-            label: t("navbar.about"),
-            icon: <Lightbulb size={18} />,
-            to: "#about",
+            id: "profile",
+            label: t("navbar.profile"),
+            icon: <User size={18} />,
+            to: "/profile",
           },
         ],
       },
@@ -82,16 +82,16 @@ const RootLayout = () => {
             to: "#calendar",
           },
           {
-            id: "contacts",
-            label: t("navbar.contacts"),
-            icon: <BookOpen size={18} />,
-            to: "#contacts",
-          },
-          {
             id: "schedule",
             label: t("navbar.schedule"),
             icon: <LayoutGrid size={18} />,
             to: "#schedule",
+          },
+          {
+            id: "contacts",
+            label: t("navbar.contacts"),
+            icon: <BookOpen size={18} />,
+            to: "#contacts",
           },
         ],
       },
@@ -169,7 +169,10 @@ const RootLayout = () => {
           isMenuOpen ? "md:pl-72" : "md:pl-0",
         )}
       >
-        <div className="sticky top-0 z-30 flex items-center justify-between bg-background border-b border-border px-4 py-3 md:px-8">
+        <div
+          className="sticky top-0 z-30 flex items-center justify-between h-16 px-4 md:px-8 border-b border-border bg-background
+"
+        >
           <Button
             variant="ghost"
             size="icon"

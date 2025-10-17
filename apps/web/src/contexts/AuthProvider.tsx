@@ -16,7 +16,6 @@ import {
   type UserCredential,
 } from "firebase/auth";
 import { useLazyQuery, useMutation } from "@apollo/client/react";
-
 import { auth } from "@/config/firebase";
 import GET_USER_QUERY from "@/graphql/users/getUserQuery";
 import CREATE_USER_MUTATION from "@/graphql/users/createUser";
@@ -64,27 +63,71 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [firebaseUser, setFirebaseUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const [getUser, { loading: getUserLoading }] =
-    useLazyQuery<GetUserData>(GET_USER_QUERY);
+  const [getUser, { loading: getUserLoading }] = useLazyQuery<GetUserData>(
+    GET_USER_QUERY,
+    { fetchPolicy: "network-only" },
+  );
 
   const [createUserMutation] = useMutation<CreateUserData, CreateUserVariables>(
     CREATE_USER_MUTATION,
   );
 
-  const signIn = useCallback(async (email: string, password: string) => {
-    return await signInWithEmailAndPassword(auth, email, password);
-  }, []);
+  const fetchUserProfile = useCallback(
+    async (firebaseUser: User) => {
+      try {
+        const idToken = await firebaseUser.getIdToken(true);
+        localStorage.setItem("idToken", idToken);
+        const { data, error } = await getUser({
+          context: {
+            headers: {
+              Authorization: `Bearer ${idToken}`,
+            },
+          },
+        });
+        if (error || !data?.getUser) {
+          setUser(null);
+          return;
+        }
+        setUser(data.getUser);
+        setIsLogged(true);
+      } catch {
+        setUser(null);
+        setIsLogged(false);
+      }
+    },
+    [getUser],
+  );
+
+  const refresh = useCallback(async () => {
+    if (firebaseUser) await fetchUserProfile(firebaseUser);
+    else setUser(null);
+  }, [firebaseUser, fetchUserProfile]);
+
+  const signIn = useCallback(
+    async (email: string, password: string) => {
+      setLoading(true);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+      setFirebaseUser(userCredential.user);
+      await fetchUserProfile(userCredential.user);
+      setLoading(false);
+      return userCredential;
+    },
+    [fetchUserProfile],
+  );
 
   const signUp = useCallback(
     async (email: string, password: string, displayName: string) => {
-      // Create user in Firebase
+      setLoading(true);
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password,
       );
-
-      // Create user profile in backend database
+      setFirebaseUser(userCredential.user);
       try {
         await createUserMutation({
           variables: {
@@ -95,79 +138,38 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
             },
           },
         });
-        console.log("User profile created successfully in database");
-      } catch (error) {
-        console.error("Failed to create user profile in backend:", error);
-        // Note: Firebase user was already created, but backend profile creation failed
-        // The user can still sign in, but may need to complete profile setup later
+        await fetchUserProfile(userCredential.user);
+      } catch {
+        await fetchUserProfile(userCredential.user);
       }
-
+      setLoading(false);
       return userCredential;
     },
-    [createUserMutation],
+    [createUserMutation, fetchUserProfile],
   );
 
   const logout = useCallback(async () => {
+    setLoading(true);
     await signOut(auth);
     setIsLogged(false);
     setUser(null);
     setFirebaseUser(null);
     localStorage.removeItem("idToken");
+    setLoading(false);
   }, []);
 
-  const fetchUserProfile = useCallback(
-    async (firebaseUser: User) => {
-      try {
-        const idToken = await firebaseUser.getIdToken();
-        localStorage.setItem("idToken", idToken);
-
-        const { data, error } = await getUser({
-          context: {
-            headers: {
-              Authorization: `Bearer ${idToken}`,
-            },
-          },
-        });
-
-        if (error || !data?.getUser) {
-          console.warn("Failed to fetch user profile:", error);
-          setUser(null);
-          return;
-        }
-
-        setUser(data.getUser);
-      } catch (error) {
-        console.error("Failed to fetch user profile:", error);
-        setUser(null);
-      }
-    },
-    [getUser],
-  );
-
-  const refresh = useCallback(async () => {
-    if (firebaseUser) {
-      await fetchUserProfile(firebaseUser);
-    }
-  }, [firebaseUser, fetchUserProfile]);
-
-  // Firebase auth state listener
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setFirebaseUser(user);
-      setLoading(true);
-
       if (user) {
-        setIsLogged(true);
         await fetchUserProfile(user);
       } else {
         setIsLogged(false);
         setUser(null);
         localStorage.removeItem("idToken");
       }
-
       setLoading(false);
     });
-
     return () => unsubscribe();
   }, [fetchUserProfile]);
 
