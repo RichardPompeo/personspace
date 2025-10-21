@@ -97,6 +97,7 @@ export default function SharedNotesPage() {
           <>
             {sharedNotes.map((sharedNote) => (
               <NoteShareCard
+                onRefetch={() => sharedNotesRefetch()}
                 key={sharedNote.id}
                 sharedNote={sharedNote}
                 onClick={() => navigate(`/shared-notes/${sharedNote.note.id}`)}

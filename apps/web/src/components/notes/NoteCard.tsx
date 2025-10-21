@@ -21,7 +21,7 @@ import {
   ContextMenuItem,
   ContextMenuSeparator,
 } from "ui";
-import { NoteType } from "../../types/NoteType";
+import { NoteType } from "../../types/notes/NoteType";
 import DateDisplay from "../DateDisplay";
 import EditNoteDialog from "./EditNoteDialog";
 import ShareNoteDialog from "./ShareNoteDialog";

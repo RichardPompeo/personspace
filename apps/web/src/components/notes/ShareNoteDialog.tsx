@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/client/react";
 import { useTranslation } from "react-i18next";
-import { Search, Forward } from "lucide-react";
+import { Search, Forward, Trash } from "lucide-react";
 import { toast } from "sonner";
 import {
   Dialog,
@@ -24,6 +24,7 @@ import CREATE_NOTE_SHARE_MUTATION from "@/graphql/notes/createNoteShareMutation"
 import { UserType } from "@/types/UserType";
 import { useAuth } from "@/hooks/useAuth";
 import { NoteShareType } from "@/types/notes/NoteShareType";
+import RemoveNoteShareDialog from "./RemoveNoteShareDialog";
 
 interface ShareNoteDialogProps {
   id: string;
@@ -34,7 +35,7 @@ interface ShareNoteDialogProps {
 }
 
 interface GetUserByEmail {
-  sucess: boolean;
+  success: boolean;
   error: string | null;
   user: UserType | null;
 }
@@ -51,6 +52,8 @@ export default function ShareNoteDialog({
   onShare,
 }: ShareNoteDialogProps) {
   const [user, setUser] = useState<UserType | null>(null);
+  const [selectedShareId, setSelectedShareId] = useState<string | null>(null);
+  const [isRemoveDialogOpen, setIsRemoveDialogOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -162,57 +165,109 @@ export default function ShareNoteDialog({
   }, [handleSearchUser]);
 
   return (
-    <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{t("notes.shareDialog.title")}</DialogTitle>
-        </DialogHeader>
-        <Label htmlFor="email">{t("notes.shareDialog.email")}</Label>
-        <InputGroup>
-          <InputGroupAddon>
-            <Search />
-          </InputGroupAddon>
-          <InputGroupInput
-            disabled={loading}
-            id="email"
-            ref={inputRef}
-            placeholder={t("notes.shareDialog.emailPlaceholder")}
-          />
-          <InputGroupAddon align="inline-end">
-            <Kbd>
-              <Forward />
-              Enter
-            </Kbd>
-          </InputGroupAddon>
-        </InputGroup>
-        {error && <p className="text-red-500">{error}</p>}
-        {user && (
-          <Card className="p-4 flex gap-3 items-center justify-betweeen">
-            <div className="flex gap-3 w-full">
-              <Avatar>
-                <AvatarImage
-                  src={user.avatarUrl || undefined}
-                  alt={user.displayName}
-                />
-                <AvatarFallback>{user.displayName[0]}</AvatarFallback>
-              </Avatar>
-              <div>
-                <p>{user.displayName}</p>
-                <p className="text-muted-foreground">{user.email}</p>
+    <>
+      <Dialog open={open} onOpenChange={onClose}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t("notes.shareDialog.title")}</DialogTitle>
+          </DialogHeader>
+          <Label htmlFor="email">{t("notes.shareDialog.email")}</Label>
+          <InputGroup>
+            <InputGroupAddon>
+              <Search />
+            </InputGroupAddon>
+            <InputGroupInput
+              disabled={loading}
+              id="email"
+              ref={inputRef}
+              placeholder={t("notes.shareDialog.emailPlaceholder")}
+            />
+            <InputGroupAddon align="inline-end">
+              <Kbd>
+                <Forward />
+                Enter
+              </Kbd>
+            </InputGroupAddon>
+          </InputGroup>
+          {error && <p className="text-red-500">{error}</p>}
+          {user && (
+            <Card className="p-4 flex gap-3 items-center justify-betweeen">
+              <div className="flex gap-3 w-full">
+                <Avatar>
+                  <AvatarImage
+                    src={user.avatarUrl || undefined}
+                    alt={user.displayName}
+                  />
+                  <AvatarFallback>{user.displayName[0]}</AvatarFallback>
+                </Avatar>
+                <div>
+                  <p>{user.displayName}</p>
+                  <p className="text-muted-foreground">{user.email}</p>
+                </div>
               </div>
+              <Button
+                onClick={handleShareNote}
+                disabled={shareLoading}
+                variant="outline"
+              >
+                {shareLoading
+                  ? t("notes.shareDialog.inviting")
+                  : t("notes.shareDialog.invite")}
+              </Button>
+            </Card>
+          )}
+          {shares.length > 0 && (
+            <div className="space-y-2 mt-4">
+              <Label>{t("notes.expandedNote.sharedWith")}</Label>
+              {shares.map((share) => (
+                <Card
+                  key={share.id}
+                  className="p-4 flex gap-3 items-center justify-between"
+                >
+                  <div className="flex gap-3 w-full">
+                    <Avatar>
+                      <AvatarImage
+                        src={share.person.avatarUrl || undefined}
+                        alt={share.person.displayName}
+                      />
+                      <AvatarFallback>
+                        {share.person.displayName[0]}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <p>{share.person.displayName}</p>
+                      <p className="text-muted-foreground">
+                        {share.person.email}
+                      </p>
+                    </div>
+                  </div>
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => {
+                      setSelectedShareId(share.id);
+                      setIsRemoveDialogOpen(true);
+                    }}
+                  >
+                    <Trash size={16} className="mr-1" />
+                    {t("notes.expandedNote.removeShare")}
+                  </Button>
+                </Card>
+              ))}
             </div>
-            <Button
-              onClick={handleShareNote}
-              disabled={shareLoading}
-              variant="outline"
-            >
-              {shareLoading
-                ? t("notes.shareDialog.inviting")
-                : t("notes.shareDialog.invite")}
-            </Button>
-          </Card>
-        )}
-      </DialogContent>
-    </Dialog>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      <RemoveNoteShareDialog
+        id={selectedShareId || ""}
+        open={isRemoveDialogOpen}
+        onClose={() => {
+          setIsRemoveDialogOpen(false);
+          setSelectedShareId(null);
+        }}
+        onRemove={onShare}
+      />
+    </>
   );
 }

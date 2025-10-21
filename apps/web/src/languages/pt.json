@@ -227,6 +227,18 @@
           "error": "Ocorreu um erro ao compartilhar a anotação",
           "cannotShareWithSelf": "Você não pode compartilhar uma anotação consigo mesmo",
           "alreadyShared": "Você já compartilhou esta anotação com este usuário"
+        },
+        "removeShareDialog": {
+          "title": "Remover Acesso à Nota Compartilhada",
+          "description": "Tem certeza que deseja remover seu acesso a esta nota compartilhada? Você não poderá mais visualizá-la.",
+          "remove": "Remover Acesso",
+          "removing": "Removendo...",
+          "cancel": "Cancelar",
+          "success": "Acesso removido com sucesso!",
+          "error": "Erro ao remover acesso."
+        },
+        "sharedNote": {
+          "removeAccess": "Remover Acesso"
         }
       },
       "date": {

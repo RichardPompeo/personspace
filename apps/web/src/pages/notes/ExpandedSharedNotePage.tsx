@@ -1,7 +1,7 @@
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect, useCallback, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useQuery, useMutation } from "@apollo/client/react";
-import { ArrowLeft, Forward, Share2 } from "lucide-react";
+import { ArrowLeft, Forward, Share2, Trash } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
@@ -24,10 +24,16 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
+  Menubar,
+  MenubarMenu,
+  MenubarTrigger,
+  MenubarContent,
+  MenubarItem,
 } from "ui";
 import { NoteCommentType } from "@/types/notes/NoteCommentType";
 import GET_SHARED_NOTE_BY_ID_QUERY from "@/graphql/notes/getSharedNoteByIdQuery";
 import { NoteShareType } from "@/types/notes/NoteShareType";
+import RemoveNoteShareDialog from "@/components/notes/RemoveNoteShareDialog";
 
 interface GetSharedNoteData {
   getSharedNoteById: NoteShareType;
@@ -45,6 +51,8 @@ export default function ExpandedSharedNotePage() {
   const params = useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+  const [isRemoveDialogOpen, setIsRemoveDialogOpen] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollAnchorRef = useRef<HTMLDivElement>(null);
@@ -198,6 +206,22 @@ export default function ExpandedSharedNotePage() {
               <CardTitle className="line-clamp-2 text-lg">
                 {note.title}
               </CardTitle>
+              <Menubar>
+                <MenubarMenu>
+                  <MenubarTrigger>
+                    {t("notes.expandedNote.actions")}
+                  </MenubarTrigger>
+                  <MenubarContent align="end">
+                    <MenubarItem
+                      className="text-destructive"
+                      onClick={() => setIsRemoveDialogOpen(true)}
+                    >
+                      <Trash className="text-destructive" size={16} />{" "}
+                      {t("notes.sharedNote.removeAccess")}
+                    </MenubarItem>
+                  </MenubarContent>
+                </MenubarMenu>
+              </Menubar>
             </CardHeader>
             <CardContent className="space-y-4">{note.description}</CardContent>
             <CardFooter className="mt-auto flex gap-1">
@@ -261,6 +285,13 @@ export default function ExpandedSharedNotePage() {
           </Card>
         </div>
       </div>
+
+      <RemoveNoteShareDialog
+        id={data.getSharedNoteById.id}
+        open={isRemoveDialogOpen}
+        onClose={() => setIsRemoveDialogOpen(false)}
+        onRemove={() => navigate(-1)}
+      />
     </>
   );
 }

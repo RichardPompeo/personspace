@@ -2,11 +2,11 @@ import { Frown } from "lucide-react";
 import { useNavigate } from "react-router";
 import { Button } from "ui";
 
-interface ErrorProps {
+interface ErrorComponentProps {
   errorMessage: string;
 }
 
-export default function ErrorComponent({ errorMessage }: ErrorProps) {
+export default function ErrorComponent({ errorMessage }: ErrorComponentProps) {
   const navigate = useNavigate();
 
   console.log(errorMessage);
