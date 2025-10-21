@@ -227,6 +227,18 @@
           "error": "An error occurred while sharing the note",
           "cannotShareWithSelf": "You cannot share a note with yourself",
           "alreadyShared": "You have already shared this note with this user"
+        },
+        "removeShareDialog": {
+          "title": "Remove Access to Shared Note",
+          "description": "Are you sure you want to remove your access to this shared note? You will no longer be able to view it.",
+          "remove": "Remove Access",
+          "removing": "Removing...",
+          "cancel": "Cancel",
+          "success": "Access removed successfully!",
+          "error": "Error removing access."
+        },
+        "sharedNote": {
+          "removeAccess": "Remove Access"
         }
       },
       "date": {

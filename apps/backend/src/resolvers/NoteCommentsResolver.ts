@@ -36,7 +36,6 @@ export class NoteCommentsResolver {
       note.authorId !== user.id &&
       !noteShares.some((share) => share.personId === user.id)
     ) {
-      console.log("aaaa");
       throw new Error("Unauthorized");
     }
 

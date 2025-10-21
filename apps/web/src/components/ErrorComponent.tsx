@@ -2,14 +2,8 @@ import { Frown } from "lucide-react";
 import { useNavigate } from "react-router";
 import { Button } from "ui";
 
-interface ErrorProps {
-  errorMessage: string;
-}
-
-export default function ErrorComponent({ errorMessage }: ErrorProps) {
+export default function ErrorComponent() {
   const navigate = useNavigate();
-
-  console.log(errorMessage);
 
   return (
     <div className="flex items-center justify-center h-full flex-col gap-3">
